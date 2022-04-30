@@ -1,5 +1,7 @@
 package de.hse.gruppe8.orm.model;
 
+import io.quarkus.arc.config.ConfigIgnore;
+import io.quarkus.runtime.annotations.IgnoreProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,5 +51,7 @@ public class User implements Serializable {
 
     @Column(name = "active")
     private Boolean active = true;
+
+    private String jwt;
 
 }

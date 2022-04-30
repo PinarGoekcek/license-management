@@ -15,6 +15,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-jacoco'
     implementation 'io.quarkus:quarkus-jackson'
     implementation 'io.quarkus:quarkus-resteasy'
+    implementation 'io.quarkus:quarkus-resteasy-jsonb'
 
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'

@@ -1,5 +1,4 @@
--- This file allow to write SQL commands that will be emitted in test and dev.
--- The commands are commented as their support depends of the database
--- insert into myentity (id, field) values(nextval('hibernate_sequence'), 'field-1');
--- insert into myentity (id, field) values(nextval('hibernate_sequence'), 'field-2');
--- insert into myentity (id, field) values(nextval('hibernate_sequence'), 'field-3');
+-- Some initial data
+-- Users
+INSERT INTO Users (id, username, password, is_admin, first_name, last_name, email, phone, mobile, active) VALUES
+                  ('1', 'admin', 'admin', true, 'Admin', 'Administrator', 'ich@admin.de', '', '', true);
