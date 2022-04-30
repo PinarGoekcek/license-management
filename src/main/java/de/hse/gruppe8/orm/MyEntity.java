@@ -1,4 +1,4 @@
-package de.hse.gruppe8;
+package de.hse.gruppe8.orm;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
