@@ -2,10 +2,7 @@ package de.hse.gruppe8.orm.model;
 
 import io.quarkus.arc.config.ConfigIgnore;
 import io.quarkus.runtime.annotations.IgnoreProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,6 +19,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private Long id;
 
@@ -46,7 +44,7 @@ public class User implements Serializable {
     @Column(name = "phone", length=50)
     private String phone;
 
-    @Column(name = "mobile", length=50)
+    @Column(name = "mobile", length = 50)
     private String mobile;
 
     @Column(name = "active")
@@ -54,4 +52,6 @@ public class User implements Serializable {
 
     private String jwt;
 
+    @ManyToOne
+    private Company company;
 }
