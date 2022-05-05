@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContractToUser implements Serializable {
+public class ContractToUserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,9 +24,9 @@ public class ContractToUser implements Serializable {
     private Long id;
 
     @ManyToOne
-    private Contract contract;
+    private ContractEntity contract;
 
     @ManyToOne
-    private User user;
-    
+    private UserEntity user;
+
 }

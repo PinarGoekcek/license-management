@@ -7,9 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "Contracts")
@@ -17,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Contract implements Serializable {
+public class ContractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,6 +40,6 @@ public class Contract implements Serializable {
     private Boolean active = true;
 
     @ManyToOne
-    private Company company;
+    private CompanyEntity company;
 
 }

@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Feature implements Serializable {
+public class FeatureEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,5 +27,5 @@ public class Feature implements Serializable {
     private int value;
 
     @ManyToOne
-    private Contract contract;
+    private ContractEntity contract;
 }

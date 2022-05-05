@@ -1,12 +1,9 @@
 package de.hse.gruppe8.orm.model;
 
-import io.quarkus.arc.config.ConfigIgnore;
-import io.quarkus.runtime.annotations.IgnoreProperty;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Users")
@@ -14,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
+public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -50,8 +47,6 @@ public class User implements Serializable {
     @Column(name = "active")
     private Boolean active = true;
 
-    private String jwt;
-
     @ManyToOne
-    private Company company;
+    private CompanyEntity company;
 }

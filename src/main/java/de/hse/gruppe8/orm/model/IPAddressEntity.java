@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class IPAddress implements Serializable {
+public class IPAddressEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,6 +27,6 @@ public class IPAddress implements Serializable {
     private String value;
 
     @ManyToOne
-    private Contract contract;
+    private ContractEntity contract;
 
 }
