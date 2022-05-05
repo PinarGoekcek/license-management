@@ -1,4 +1,4 @@
-package de.hse.gruppe8.util;
+package de.hse.gruppe8.util.mapper;
 
 
 import org.mapstruct.MapperConfig;

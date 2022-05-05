@@ -5,7 +5,7 @@ import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.orm.dao.UserDao;
 import de.hse.gruppe8.orm.model.UserEntity;
 import de.hse.gruppe8.util.JwtToken;
-import de.hse.gruppe8.util.UserMapper;
+import de.hse.gruppe8.util.mapper.UserMapper;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

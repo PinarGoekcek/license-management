@@ -1,4 +1,4 @@
-package de.hse.gruppe8.util;
+package de.hse.gruppe8.util.mapper;
 
 import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.orm.model.UserEntity;
