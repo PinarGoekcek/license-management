@@ -1,6 +1,6 @@
 package de.hse.gruppe8.orm.dao;
 
-import de.hse.gruppe8.orm.model.Contract;
+import de.hse.gruppe8.orm.model.ContractEntity;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,20 +15,20 @@ public class ContractDao {
     @Inject
     EntityManager entityManager;
 
-    private static final Logger LOGGER = Logger.getLogger(UserDao.class);
+    private static final Logger LOGGER = Logger.getLogger(ContractDao.class);
 
 
-    public Contract getContract(Long id) {
-        return entityManager.find(Contract.class, id);
+    public ContractEntity getContract(Long id) {
+        return entityManager.find(ContractEntity.class, id);
     }
 
-    public List<Contract> getContracts () {
-        Query q = entityManager.createQuery("select companies from Contract companies where Contract.active");
+    public List<ContractEntity> getContracts () {
+        Query q = entityManager.createQuery("select companies from ContractEntity companies where ContractEntity.active");
         return q.getResultList();
     }
 
     @Transactional
-    public Contract save(Contract contract) {
+    public ContractEntity save(ContractEntity contract) {
         if (contract.getId() != null) {
             contract = entityManager.merge(contract);
         } else {
@@ -37,7 +37,7 @@ public class ContractDao {
         return contract;
     }
     @Transactional
-    public void delete(Contract contract) {
+    public void delete(ContractEntity contract) {
         if (contract != null) {
             contract.setActive(false);
             entityManager.persist(contract);
