@@ -23,7 +23,7 @@ public class ContractDao {
     }
 
     public List<ContractEntity> getContracts () {
-        Query q = entityManager.createQuery("select companies from ContractEntity companies where ContractEntity.active");
+        Query q = entityManager.createQuery("select contracts from ContractEntity contracts where ContractEntity.active");
         return q.getResultList();
     }
 
