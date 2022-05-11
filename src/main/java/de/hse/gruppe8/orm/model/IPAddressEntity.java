@@ -14,15 +14,19 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class IPAddress implements Serializable {
+public class IPAddressEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private Long id;
 
     @Column(name = "value", length=16)
     private String value;
+
+    @ManyToOne
+    private ContractEntity contract;
 
 }

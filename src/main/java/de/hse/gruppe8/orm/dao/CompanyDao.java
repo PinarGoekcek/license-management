@@ -1,13 +1,11 @@
 package de.hse.gruppe8.orm.dao;
 
-import de.hse.gruppe8.exception.NoUserFoundException;
-import de.hse.gruppe8.orm.model.Company;
+import de.hse.gruppe8.orm.model.CompanyEntity;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
@@ -20,17 +18,17 @@ public class CompanyDao {
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
 
 
-    public Company getCompany (Long id) {
-        return entityManager.find(Company.class, id);
+    public CompanyEntity getCompany (Long id) {
+        return entityManager.find(CompanyEntity.class, id);
     }
 
-    public List<Company> getCompanies () {
-        Query q = entityManager.createQuery("select companies from Company companies where Company.active");
+    public List<CompanyEntity> getCompanies () {
+        Query q = entityManager.createQuery("select companies from CompanyEntity companies where CompanyEntity.active");
         return q.getResultList();
     }
 
     @Transactional
-    public Company save(Company company) {
+    public CompanyEntity save(CompanyEntity company) {
         if (company.getId() != null) {
             company = entityManager.merge(company);
         } else {
@@ -39,7 +37,7 @@ public class CompanyDao {
         return company;
     }
     @Transactional
-    public void delete(Company company) {
+    public void delete(CompanyEntity company) {
         if (company != null) {
             company.setActive(false);
             entityManager.persist(company);

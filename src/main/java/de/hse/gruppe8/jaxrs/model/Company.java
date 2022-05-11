@@ -1,28 +1,26 @@
-package de.hse.gruppe8.orm.model;
+package de.hse.gruppe8.jaxrs.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "Features")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Feature implements Serializable {
+
+public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "value")
-    private int value;
-
+    private String name;
+    private String department;
+    private String street;
+    private String zipCode;
+    private String city;
+    private String country;
 }

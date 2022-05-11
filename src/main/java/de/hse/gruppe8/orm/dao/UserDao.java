@@ -1,7 +1,7 @@
 package de.hse.gruppe8.orm.dao;
 
 import de.hse.gruppe8.exception.NoUserFoundException;
-import de.hse.gruppe8.orm.model.User;
+import de.hse.gruppe8.orm.model.UserEntity;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -20,14 +20,14 @@ public class UserDao {
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
 
 
-    public User getUser(Long id) {
-        return entityManager.find(User.class, id);
+    public UserEntity getUser(Long id) {
+        return entityManager.find(UserEntity.class, id);
     }
 
-    public User login(String username, String password) {
+    public UserEntity login(String username, String password) {
         try {
             LOGGER.debug("Checking for user name and password");
-            return (User) entityManager.createQuery("SELECT user FROM User user " +
+            return (UserEntity) entityManager.createQuery("SELECT user FROM UserEntity user " +
                             "WHERE user.username=:username " +
                             "AND user.password=:password " +
                             "AND user.active=true")
@@ -39,14 +39,14 @@ public class UserDao {
         }
     }
 
-    public List<User> getUsers() {
-        Query q = entityManager.createQuery("select users from User users where users.active");
-        List<User> users = q.getResultList();
+    public List<UserEntity> getUsers() {
+        Query q = entityManager.createQuery("select users from UserEntity users where users.active");
+        List<UserEntity> users = q.getResultList();
         return users;
     }
 
     @Transactional
-    public User save(User user) {
+    public UserEntity save(UserEntity user) {
         if (user.getId() != null) {
             user = entityManager.merge(user);
         } else {
@@ -55,7 +55,7 @@ public class UserDao {
         return user;
     }
     @Transactional
-    public void delete(User user) {
+    public void delete(UserEntity user) {
         if (user != null) {
             user.setActive(false);
             entityManager.persist(user);

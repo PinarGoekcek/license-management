@@ -9,17 +9,23 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "ContractsToUsers")
+@Table(name = "Features")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContractToUser implements Serializable {
+public class FeatureEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "value")
+    private int value;
+
+    @ManyToOne
+    private ContractEntity contract;
 }
