@@ -15,7 +15,7 @@ public class CompanyDao {
     @Inject
     EntityManager entityManager;
 
-    private static final Logger LOGGER = Logger.getLogger(UserDao.class);
+    private static final Logger LOGGER = Logger.getLogger(CompanyDao.class);
 
 
     public CompanyEntity getCompany (Long id) {
