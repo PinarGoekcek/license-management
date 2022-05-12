@@ -68,7 +68,6 @@ public class UserDao {
 
     @Transactional
     public void addUser(UserEntity userEntity){
-        User user = userMapper.toUser(userEntity);
-        entityManager.persist(user);
+        entityManager.persist(userEntity);
     }
 }
