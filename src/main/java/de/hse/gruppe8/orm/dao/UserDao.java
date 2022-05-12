@@ -70,4 +70,9 @@ public class UserDao {
     public void addUser(UserEntity userEntity){
         entityManager.persist(userEntity);
     }
+
+    @Transactional
+    public void updateUser(UserEntity userEntity){
+        entityManager.merge(userEntity);
+    }
 }
