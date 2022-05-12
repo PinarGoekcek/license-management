@@ -1,7 +1,9 @@
 package de.hse.gruppe8.orm.dao;
 
 import de.hse.gruppe8.exception.NoUserFoundException;
+import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.orm.model.UserEntity;
+import de.hse.gruppe8.util.mapper.UserMapper;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -17,6 +19,8 @@ public class UserDao {
     @Inject
     EntityManager entityManager;
 
+    @Inject
+    UserMapper userMapper;
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
 
 
@@ -60,5 +64,11 @@ public class UserDao {
             user.setActive(false);
             entityManager.persist(user);
         }
+    }
+
+    @Transactional
+    public void addUser(UserEntity userEntity){
+        User user = userMapper.toUser(userEntity);
+        entityManager.persist(user);
     }
 }
