@@ -4,20 +4,20 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/customer")
+@Path("/company")
 public class CompanyResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createCustomer () {
+    public Response createCompany () {
 
         return null;
     }
 
     @GET
     // retreive
-    public Response getCustomer ()
+    public Response getCompany ()
     {
 
         return null;
@@ -25,7 +25,7 @@ public class CompanyResource {
 
     @PUT
     // Update
-    public Response updateCustomer ()
+    public Response updateCompany ()
     {
 
         return null;
@@ -33,7 +33,7 @@ public class CompanyResource {
 
     @DELETE
     // Delete
-    public Response deleteCustomer ()
+    public Response deleteCompany ()
     {
 
         return null;
