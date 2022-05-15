@@ -19,6 +19,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
+    implementation("io.quarkus:quarkus-smallrye-openapi")
 
     // JWT-TOken Lib (https://github.com/fusionauth/fusionauth-jwt)
     implementation 'io.fusionauth:fusionauth-jwt:5.1.2'
