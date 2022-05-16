@@ -65,6 +65,19 @@ public class UserDaoTest {
         assertEquals(0, userDao.getUsers().size());
     }
 
+
+    @Test
+    void checkDeleteUserWithNoneUser() {
+        //Given
+        UserEntity userEntity = new UserEntity(null, "username", "passord", false, "firstname", "lastName", "email@admin.de", null, null, true, null);
+        userDao.save(userEntity);
+        //When
+        userDao.delete(null);
+
+        //Then
+        assertEquals(1, userDao.getUsers().size());
+    }
+
     @Test
     void checkLoginWithUser() {
         //Given
