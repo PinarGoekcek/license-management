@@ -35,4 +35,15 @@ public class CompanyService {
         Company company = companyMapper.toCompany(companyEntity);
         return company;
     }
+
+    public Company saveCompany(Company company){
+        CompanyEntity companyEntity = companyMapper.toCompanyEntity(company);
+        companyEntity = companyDao.save(companyEntity);
+        return companyMapper.toCompany(companyEntity);
+    }
+    public void deleteCompany(Company company){
+        CompanyEntity companyEntity = companyMapper.toCompanyEntity(company);
+        companyDao.delete(companyEntity);
+    }
+
 }
