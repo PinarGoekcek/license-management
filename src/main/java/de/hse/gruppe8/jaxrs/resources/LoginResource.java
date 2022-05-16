@@ -5,11 +5,13 @@ import de.hse.gruppe8.exception.NoUserFoundException;
 import de.hse.gruppe8.jaxrs.model.Authentication;
 import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.jaxrs.services.LoginService;
-import de.hse.gruppe8.orm.model.UserEntity;
 
 import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -23,7 +25,7 @@ public class LoginResource {
     LoginService loginService;
 
     @POST
-    public Response login (Authentication authentication) {
+    public Response login(Authentication authentication) {
         try {
             User currentUser = loginService.login(authentication);
             return Response.status(200).entity(currentUser).build();

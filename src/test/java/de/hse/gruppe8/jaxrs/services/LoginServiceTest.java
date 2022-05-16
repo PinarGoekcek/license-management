@@ -29,7 +29,7 @@ public class LoginServiceTest {
 
 
     @Test
-    void true_is_true() {
+    void checkLoginService() {
         //given
         final String username = "username";
         final String password = "password";
