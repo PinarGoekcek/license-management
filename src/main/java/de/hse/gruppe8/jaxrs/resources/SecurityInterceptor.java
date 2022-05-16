@@ -21,9 +21,10 @@ public class SecurityInterceptor implements ContainerRequestFilter {
     // JAX-RS Security Context
     @Override
     public void filter(ContainerRequestContext context) {
-        if(!context.getUriInfo().getPath().startsWith("/login")) {
+        if (!context.getUriInfo().getPath().startsWith("/login")) {
             String token = context.getHeaderString("Authorization");
             try {
+                token = token.substring("Bearer ".length());
                 Long userid = jwtToken.verifyUserToken(token);
                 context.setSecurityContext(new SecurityContext() {
                     @Override

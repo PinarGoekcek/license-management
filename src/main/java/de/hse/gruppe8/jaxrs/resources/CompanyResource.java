@@ -1,40 +1,52 @@
 package de.hse.gruppe8.jaxrs.resources;
 
+import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
+import org.eclipse.microprofile.openapi.annotations.security.SecuritySchemes;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/company")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+@SecuritySchemes(value = {
+        @SecurityScheme(securitySchemeName = "apiKey",
+                type = SecuritySchemeType.HTTP,
+                scheme = "Bearer")}
+)
+@SecurityRequirement(name = "apiKey")
+@Path("/companies")
 public class CompanyResource {
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createCompany () {
+    public Response createCompany() {
 
         return null;
     }
 
     @GET
-    // retreive
-    public Response getCompany ()
-    {
+    public Response getCompanies() {
+        return null;
+    }
 
+    @GET
+    @Path("/{id}")
+    public Response getCompanyById(@PathParam("id") Long id) {
         return null;
     }
 
     @PUT
-    // Update
-    public Response updateCompany ()
-    {
+    @Path("/{id}")
+    public Response updateCompany(@PathParam("id") Long id) {
 
         return null;
     }
 
     @DELETE
-    // Delete
-    public Response deleteCompany ()
-    {
+    @Path("/{id}")
+    public Response deleteCompany(@PathParam("id") Long id) {
 
         return null;
     }
