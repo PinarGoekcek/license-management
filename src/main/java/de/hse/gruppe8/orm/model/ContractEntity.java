@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -15,10 +14,8 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContractEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class ContractEntity {
+    
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -30,10 +27,10 @@ public class ContractEntity implements Serializable {
     @Column(name = "date_stop")
     private Date dateStop;
 
-    @Column(name = "version", length=50)
+    @Column(name = "version", length = 50)
     private String version;
 
-    @Column(name = "license_key", length=50)
+    @Column(name = "license_key", length = 50)
     private String licenseKey;
 
     @Column(name = "active")

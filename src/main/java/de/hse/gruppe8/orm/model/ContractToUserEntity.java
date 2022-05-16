@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "ContractsToUsers")
@@ -14,9 +13,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContractToUserEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ContractToUserEntity {
 
     @Id
     @GeneratedValue

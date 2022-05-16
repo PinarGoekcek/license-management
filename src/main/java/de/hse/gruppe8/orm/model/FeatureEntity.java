@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "Features")
@@ -14,9 +13,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FeatureEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class FeatureEntity {
 
     @Id
     @GeneratedValue
