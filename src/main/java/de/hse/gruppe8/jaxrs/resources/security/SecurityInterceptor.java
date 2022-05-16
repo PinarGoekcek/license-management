@@ -1,4 +1,4 @@
-package de.hse.gruppe8.jaxrs.resources;
+package de.hse.gruppe8.jaxrs.resources.security;
 
 import de.hse.gruppe8.util.JwtToken;
 
@@ -7,9 +7,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
-import java.security.Principal;
 
 
 @Provider
@@ -26,30 +24,12 @@ public class SecurityInterceptor implements ContainerRequestFilter {
             try {
                 token = token.substring("Bearer ".length());
                 Long userid = jwtToken.verifyUserToken(token);
-                context.setSecurityContext(new SecurityContext() {
-                    @Override
-                    public Principal getUserPrincipal() {
-                        return userid::toString;
-                    }
-
-                    @Override
-                    public boolean isUserInRole(String role) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean isSecure() {
-                        return false;
-                    }
-
-                    @Override
-                    public String getAuthenticationScheme() {
-                        return "basic";
-                    }
-                });
+                context.setSecurityContext(new UserSecurityContext(userid));
             } catch (Exception e) {
                 context.abortWith(Response.status(401).build());
             }
         }
     }
 }
+
+

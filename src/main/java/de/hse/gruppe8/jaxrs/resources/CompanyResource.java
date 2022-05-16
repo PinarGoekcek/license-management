@@ -8,6 +8,7 @@ import org.eclipse.microprofile.openapi.annotations.security.SecuritySchemes;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,7 +29,7 @@ public class CompanyResource {
 
     @GET
     public Response getCompanies() {
-        return null;
+        return Response.ok().entity(new ArrayList<>()).build();
     }
 
     @GET
