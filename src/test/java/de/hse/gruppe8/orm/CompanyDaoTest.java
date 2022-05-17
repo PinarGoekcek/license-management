@@ -36,8 +36,8 @@ public class CompanyDaoTest {
     @Test
     void checkUpdateCompany() {
         //Given
-        CompanyEntity userEntity = new CompanyEntity(null, "Test Corp.", "Development", "Peace street 9", "73728", "Esslingen", "Germany", true);
-        companyDao.save(userEntity);
+        CompanyEntity companyEntity = new CompanyEntity(null, "Test Corp.", "Development", "Peace street 9", "73728", "Esslingen", "Germany", true);
+        companyDao.save(companyEntity);
         CompanyEntity company = companyDao.getCompanies().get(0);
         final String newName = "Other Inc.";
         //When
