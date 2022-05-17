@@ -26,8 +26,8 @@ public class ContractDaoTest {
 
     @BeforeEach
     void clearAllFromDatabase() {
-        // companyDao.removeAll();
         contractDao.removeAll();
+        companyDao.removeAll();
     }
 
 
