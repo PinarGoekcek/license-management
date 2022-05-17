@@ -1,6 +1,7 @@
 package de.hse.gruppe8.orm.dao;
 
 import de.hse.gruppe8.orm.model.CompanyEntity;
+import de.hse.gruppe8.util.mapper.CompanyMapper;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,6 +15,9 @@ import java.util.List;
 public class CompanyDao {
     @Inject
     EntityManager entityManager;
+
+    @Inject
+    CompanyMapper companyMapper;
 
     private static final Logger LOGGER = Logger.getLogger(CompanyDao.class);
 
@@ -42,5 +46,11 @@ public class CompanyDao {
             company.setActive(false);
             entityManager.persist(company);
         }
+    }
+
+    @Transactional
+    public void removeAll() {
+        Query del = entityManager.createQuery("DELETE FROM CompanyEntity WHERE id >= 0");
+        del.executeUpdate();
     }
 }
