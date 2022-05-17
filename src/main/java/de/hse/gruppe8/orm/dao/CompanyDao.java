@@ -1,7 +1,6 @@
 package de.hse.gruppe8.orm.dao;
 
 import de.hse.gruppe8.orm.model.CompanyEntity;
-import de.hse.gruppe8.orm.model.UserEntity;
 import de.hse.gruppe8.util.mapper.CompanyMapper;
 import org.jboss.logging.Logger;
 
