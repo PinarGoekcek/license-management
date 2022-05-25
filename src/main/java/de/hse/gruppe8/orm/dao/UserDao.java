@@ -1,7 +1,6 @@
 package de.hse.gruppe8.orm.dao;
 
 import de.hse.gruppe8.exception.NoUserFoundException;
-import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.orm.model.UserEntity;
 import de.hse.gruppe8.util.mapper.UserMapper;
 import org.jboss.logging.Logger;
@@ -38,14 +37,14 @@ public class UserDao {
                     .setParameter("username", username)
                     .setParameter("password", password).getSingleResult();
 
-        } catch(NoResultException e) {
+        } catch (NoResultException e) {
             throw new NoUserFoundException(username);
         }
     }
 
     public List<UserEntity> getUsers() {
-        Query q = entityManager.createQuery("select users from UserEntity users where users.active");
-        List<UserEntity> users = q.getResultList();
+        Query q = entityManager.createQuery("select users from UserEntity users where users.active = TRUE");
+        List<UserEntity> users = (List<UserEntity>) q.getResultList();
         return users;
     }
 
@@ -58,21 +57,18 @@ public class UserDao {
         }
         return user;
     }
+
     @Transactional
     public void delete(UserEntity user) {
         if (user != null) {
             user.setActive(false);
-            entityManager.persist(user);
+            save(user);
         }
     }
 
     @Transactional
-    public void addUser(UserEntity userEntity){
-        entityManager.persist(userEntity);
-    }
-
-    @Transactional
-    public void updateUser(UserEntity userEntity){
-        entityManager.merge(userEntity);
+    public void removeAll() {
+        Query del = entityManager.createQuery("DELETE FROM UserEntity WHERE id >= 0");
+        del.executeUpdate();
     }
 }

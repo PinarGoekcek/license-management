@@ -23,8 +23,9 @@ public class ContractDao {
     }
 
     public List<ContractEntity> getContracts () {
-        Query q = entityManager.createQuery("select contracts from ContractEntity contracts where ContractEntity.active");
-        return q.getResultList();
+        Query q = entityManager.createQuery("select contracts from ContractEntity contracts where contracts.active = TRUE");
+        List<ContractEntity> contracts = (List<ContractEntity>) q.getResultList();
+        return contracts;
     }
 
     @Transactional
@@ -40,7 +41,13 @@ public class ContractDao {
     public void delete(ContractEntity contract) {
         if (contract != null) {
             contract.setActive(false);
-            entityManager.persist(contract);
+            save(contract);
         }
+    }
+
+        @Transactional
+        public void removeAll() {
+            Query del = entityManager.createQuery("DELETE FROM ContractEntity WHERE id >= 0");
+            del.executeUpdate();
     }
 }

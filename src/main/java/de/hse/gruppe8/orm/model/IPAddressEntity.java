@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "IPAddresses")
@@ -14,16 +13,14 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class IPAddressEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class IPAddressEntity {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "value", length=16)
+    @Column(name = "value", length = 16)
     private String value;
 
     @ManyToOne
