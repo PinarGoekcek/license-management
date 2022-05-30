@@ -8,22 +8,28 @@ const Header = ({ title, bgClass }) => {
       <h1>{title}</h1>
       <div className='container flex flex-row p-2'>
         <h2>Customers</h2>
-        <NavButton
-          name={'Add'}
-          linkTo={''}
-          icon={<FiPlusSquare size={iconSize} />}
-        />
+        <span className='onHoverChangeCol'>
+          <NavButton
+            name={'Add'}
+            linkTo={''}
+            icon={<FiPlusSquare size={iconSize} />}
+          />
+        </span>
         <input type='text' placeholder='Filter' />
-        <NavButton
-          name={'Profile'}
-          linkTo={''}
-          icon={<FiUser size={iconSize} />}
-        />
-        <NavButton
-          name={'Logout'}
-          linkTo={''}
-          icon={<FiLogOut size={iconSize} />}
-        />
+        <span className='onHoverChangeCol'>
+          <NavButton
+            name={'Profile'}
+            linkTo={''}
+            icon={<FiUser size={iconSize} />}
+          />
+        </span>
+        <span className='onHoverChangeCol'>
+          <NavButton
+            name={'Logout'}
+            linkTo={''}
+            icon={<FiLogOut size={iconSize} />}
+          />
+        </span>
       </div>
     </header>
   );
