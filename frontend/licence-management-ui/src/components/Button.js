@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Button = ({ name, linkTo, icon, onClick }) => {
+const Button = ({ name, icon, onClick }) => {
   return <button onClick={onClick}>{icon}</button>;
 };
 

@@ -14,7 +14,6 @@ const Header = ({ title, bgClass }) => {
         <span className='onHoverChangeCol'>
           <Button
             name={'Add'}
-            linkTo={''}
             icon={<FiPlusSquare size={iconSize} />}
             onClick={onClick}
           />
@@ -23,7 +22,6 @@ const Header = ({ title, bgClass }) => {
         <span className='onHoverChangeCol'>
           <Button
             name={'Profile'}
-            linkTo={''}
             icon={<FiUser size={iconSize} />}
             onClick={onClick}
           />
@@ -31,7 +29,6 @@ const Header = ({ title, bgClass }) => {
         <span className='onHoverChangeCol'>
           <Button
             name={'Logout'}
-            linkTo={''}
             icon={<FiLogOut size={iconSize} />}
             onClick={onClick}
           />
