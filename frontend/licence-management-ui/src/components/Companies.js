@@ -1,9 +1,22 @@
+import Company from "./Company";
 
 const Companies = ({companies}) => {
   return (
       <>
+          <table>
+              <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Department</th>
+                  <th>Street</th>
+                  <th>ZIP</th>
+                  <th>City</th>
+                  <th>Country</th>
+              </tr>
+              </thead>
+          </table>
         {companies.map((company) => (
-            <h3 key={company.id}>{company.name}</h3>
+            <Company key={company.id} company={company} />
         ))}
       </>
   )
