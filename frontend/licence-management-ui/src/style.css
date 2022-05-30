@@ -40,3 +40,14 @@
 .clearfix{
     clear: both;
 }
+
+.tbl-head{
+    flex: 1;
+    font-size: 16px;
+    font-weight: bold;   
+}
+
+.tbl-content{
+    flex: 1;
+    font-size: 16px;
+}
