@@ -9,30 +9,40 @@ const Header = ({ title, bgClass }) => {
   return (
     <header className={bgClass}>
       <h1>License Management</h1>
-      <div className='container flex flex-row p-2'>
-        <h2>{title}</h2>
-        <span className='onHoverChangeCol'>
-          <Button
-            name={'Add'}
-            icon={<FiPlusSquare size={iconSize} />}
-            onClick={onClick}
-          />
-        </span>
-        <input type='text' placeholder='Filter' />
-        <span className='onHoverChangeCol'>
-          <Button
-            name={'Profile'}
-            icon={<FiUser size={iconSize} />}
-            onClick={onClick}
-          />
-        </span>
-        <span className='onHoverChangeCol'>
-          <Button
-            name={'Logout'}
-            icon={<FiLogOut size={iconSize} />}
-            onClick={onClick}
-          />
-        </span>
+
+      <div className='header-container py-2'>
+        <div className='group'>
+          <span className='item text'>{title}</span>
+          <span className='item icon onHoverChangeCol'>
+            <Button
+              name={'Add'}
+              icon={<FiPlusSquare size={iconSize} />}
+              onClick={onClick}
+            />
+          </span>
+        </div>
+
+        <div className='clearfix'></div>
+
+        <div className='group'>
+          <span className='item'>
+            <input type='text' placeholder='Filter' />
+          </span>
+          <span className='item icon onHoverChangeCol'>
+            <Button
+              name={'Profile'}
+              icon={<FiUser size={iconSize} />}
+              onClick={onClick}
+            />
+          </span>
+          <span className='item icon onHoverChangeCol'>
+            <Button
+              name={'Logout'}
+              icon={<FiLogOut size={iconSize} />}
+              onClick={onClick}
+            />
+          </span>
+        </div>
       </div>
     </header>
   );
