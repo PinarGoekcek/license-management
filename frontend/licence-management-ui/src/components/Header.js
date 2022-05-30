@@ -1,5 +1,5 @@
 import { FiPlusSquare, FiUser, FiLogOut } from 'react-icons/fi';
-import NavButton from './NavButton';
+import Button from './Button';
 
 const Header = ({ title, bgClass }) => {
   const iconSize = 30;
@@ -12,7 +12,7 @@ const Header = ({ title, bgClass }) => {
       <div className='container flex flex-row p-2'>
         <h2>{title}</h2>
         <span className='onHoverChangeCol'>
-          <NavButton
+          <Button
             name={'Add'}
             linkTo={''}
             icon={<FiPlusSquare size={iconSize} />}
@@ -21,7 +21,7 @@ const Header = ({ title, bgClass }) => {
         </span>
         <input type='text' placeholder='Filter' />
         <span className='onHoverChangeCol'>
-          <NavButton
+          <Button
             name={'Profile'}
             linkTo={''}
             icon={<FiUser size={iconSize} />}
@@ -29,7 +29,7 @@ const Header = ({ title, bgClass }) => {
           />
         </span>
         <span className='onHoverChangeCol'>
-          <NavButton
+          <Button
             name={'Logout'}
             linkTo={''}
             icon={<FiLogOut size={iconSize} />}
