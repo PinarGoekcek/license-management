@@ -8,7 +8,7 @@ const Header = ({ title, bgClass }) => {
   };
   return (
     <header className={bgClass}>
-      <h1>License Management</h1>
+      <h1 className='px-2 font-bold text-white mb-4'>License Management</h1>
 
       <div className='header-container py-2'>
         <div className='group'>

@@ -4,6 +4,15 @@
 
 @tailwind utilities;
 
+@layer base {
+    h1 {
+      @apply text-2xl;
+    }
+    h2 {
+      @apply text-xl;
+    }
+  }
+
 .onHoverChangeCol{
     color: black;
 }
@@ -19,7 +28,7 @@
 }
 
 .item{
-    line-height: 40px;
+    height: 60px;
     padding: 0 10px;
 }
 
