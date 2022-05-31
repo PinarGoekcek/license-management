@@ -83,12 +83,15 @@ margin: auto;
 }
 
 .btnTxt{
-    background-color: cornflowerblue;
-    flex-basis: 4rem;
+    background-color:darkgray;
+    flex-basis: 5rem;
+    margin-left: 0.5rem;
+    text-align: center;
+    border-radius: 0.2em;
     }
 
 .headTxt{
-    flex-basis: 4rem;
+    flex-basis: 5rem;
 }
 
 .navbar a{
