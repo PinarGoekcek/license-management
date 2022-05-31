@@ -9,11 +9,14 @@
         font-family: 'Cairo', sans-serif;
       }
     h1 {
-      @apply text-2xl;
+      @apply text-3xl;
     }
     h2 {
-      @apply text-xl;
+      @apply text-2xl;
     }
+    h3 {
+        @apply text-xl;
+      }
   }
 
 .onHoverChangeCol{
@@ -25,18 +28,19 @@
 }
 
 .header-container{
+    height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.item{
-    height: 60px;
+.hItem{
+    height: 100%;
     padding: 0 10px;
 }
 
-.text{
-    font-size: 20px;
+.hText{
+    font-size: 1.3rem;
     font-weight: bold;
 }
 
@@ -55,11 +59,32 @@
 
 .tbl-head{
     flex: 1;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;   
 }
 
 .tbl-content{
     flex: 1;
-    font-size: 16px;
+    font-size: 1rem;
 }
+
+.navbar a{
+    color: darkblue;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.navbar a:hover{
+color:cornflowerblue;
+}
+.navbar .nav{
+    justify-content: flex-end;
+}
+
+.navbar ul{
+display: flex;
+}
+
+.navbar li{
+    margin-right: 1.3rem;
+    }

@@ -12,8 +12,8 @@ const Header = ({ title }) => {
 
       <div className='header-container py-2'>
         <div className='group'>
-          <span className='item text'>{title}</span>
-          <span className='item icon onHoverChangeCol'>
+          <span className='hItem hText'>{title}</span>
+          <span className='hItem icon onHoverChangeCol'>
             <Button
               name={'Add'}
               icon={<FiPlusSquare size={iconSize} />}
@@ -25,17 +25,17 @@ const Header = ({ title }) => {
         <div className='clearfix'></div>
 
         <div className='group'>
-          <span className='item'>
-            <input type='text' placeholder='Filter' />
+          <span className='hItem'>
+            <input type='hText' placeholder='Filter' />
           </span>
-          <span className='item icon onHoverChangeCol'>
+          <span className='hItem icon onHoverChangeCol'>
             <Button
               name={'Profile'}
               icon={<FiUser size={iconSize} />}
               onClick={onClick}
             />
           </span>
-          <span className='item icon onHoverChangeCol'>
+          <span className='hItem icon onHoverChangeCol'>
             <Button
               name={'Logout'}
               icon={<FiLogOut size={iconSize} />}
