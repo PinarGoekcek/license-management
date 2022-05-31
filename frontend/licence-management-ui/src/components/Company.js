@@ -8,6 +8,10 @@ const Company = ({ company }) => {
         <span className='tbl-content'>{company.zip_code}</span>
         <span className='tbl-content'>{company.city}</span>
         <span className='tbl-content'>{company.country}</span>
+        <span className='tbl-content'>Edit</span>
+        <span className='tbl-content'>Delete</span>
+        <span className='tbl-content'>Contracts</span>
+        <span className='tbl-content'>Users</span>
       </div>
     </>
   );

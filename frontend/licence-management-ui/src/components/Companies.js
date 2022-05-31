@@ -10,6 +10,10 @@ const Companies = ({ companies }) => {
         <span className='tbl-head'>ZIP</span>
         <span className='tbl-head'>City</span>
         <span className='tbl-head'>Country</span>
+        <span className='tbl-head'></span>
+        <span className='tbl-head'></span>
+        <span className='tbl-head'></span>
+        <span className='tbl-head'></span>
         <span className='clearfix'></span>
       </div>
       {companies.map((company) => (
