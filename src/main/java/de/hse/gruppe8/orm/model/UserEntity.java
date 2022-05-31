@@ -1,9 +1,11 @@
 package de.hse.gruppe8.orm.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "Users")
@@ -11,34 +13,32 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class UserEntity {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username", length=50, unique = true)
+    @Column(name = "username", length = 50, unique = true)
     private String username;
 
-    @Column(name = "password", length=50)
+    @Column(name = "password", length = 50)
     private String password;
 
     @Column(name = "is_admin")
     private Boolean isAdmin = false;
 
-    @Column(name = "first_name", length=50)
+    @Column(name = "first_name", length = 50)
     private String firstName;
 
-    @Column(name = "last_name", length=50)
+    @Column(name = "last_name", length = 50)
     private String lastName;
 
-    @Column(name = "email", length=50)
+    @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "phone", length=50)
+    @Column(name = "phone", length = 50)
     private String phone;
 
     @Column(name = "mobile", length = 50)

@@ -1,6 +1,5 @@
 package de.hse.gruppe8.jaxrs.model;
 
-import de.hse.gruppe8.orm.model.CompanyEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +25,5 @@ public class User implements Serializable {
     private String phone;
     private String mobile;
     private String jwt;
-    private CompanyEntity company;
+    private Company company;
 }

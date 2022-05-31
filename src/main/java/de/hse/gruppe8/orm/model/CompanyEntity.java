@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "Companies")
@@ -14,31 +13,28 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompanyEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class CompanyEntity {
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", length=50)
+    @Column(name = "name", length = 50)
     private String name;
 
-    @Column(name = "department", length=50)
+    @Column(name = "department", length = 50)
     private String department;
 
-    @Column(name = "street", length=50)
+    @Column(name = "street", length = 50)
     private String street;
 
-    @Column(name = "zip_code", length=50)
+    @Column(name = "zip_code", length = 50)
     private String zipCode;
 
-    @Column(name = "city", length=50)
+    @Column(name = "city", length = 50)
     private String city;
 
-    @Column(name = "country", length=50)
+    @Column(name = "country", length = 50)
     private String country;
 
     @Column(name = "active")
