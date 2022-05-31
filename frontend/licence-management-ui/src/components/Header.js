@@ -1,13 +1,13 @@
 import { FiPlusSquare, FiUser, FiLogOut } from 'react-icons/fi';
 import Button from './Button';
 
-const Header = ({ title, bgClass }) => {
+const Header = ({ title }) => {
   const iconSize = 30;
   const onClick = () => {
     console.log('click');
   };
   return (
-    <header className={bgClass}>
+    <header className='bg-blue-500'>
       <h1 className='px-2 font-bold text-white mb-4'>License Management</h1>
 
       <div className='header-container py-2'>
