@@ -1,9 +1,15 @@
 package de.hse.gruppe8.jaxrs.resources.security;
 
 
+import de.hse.gruppe8.orm.dao.UserDao;
+import de.hse.gruppe8.orm.model.UserEntity;
+import de.hse.gruppe8.util.JwtToken;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.inject.Inject;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,6 +17,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @QuarkusTest
 public class SecurityInterceptorTest {
+
+
+    @Inject
+    UserDao userDao;
+
+    @Inject
+    JwtToken jwtToken;
+
+    @BeforeEach
+    void clearAllFromDatabase() {
+        userDao.removeAll();
+    }
 
     @Test
     void requestWithNoJWTToken() {
@@ -23,8 +41,10 @@ public class SecurityInterceptorTest {
 
     @Test
     void requestWithJWTToken() {
-        //Token expirat at 31.12.2040
-        final String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjIyNDA2MDc2MDAsImlhdCI6MTY1MjczMjc4MCwiaXNzIjoibGljZW5zZS1tYW5hZ2VtZW50Iiwic3ViIjoidXNlcnRva2VuIiwidWlkIjoxfQ.7cgC15qQ1lI9MJGXx6UyLtD6PkJHJkQ_18dBgIUAF1U";
+        UserEntity userEntity = new UserEntity(1L, "username", "password", false, "firstname", "lastName", "email@admin.de", null, null, true, null);
+        userEntity = userDao.save(userEntity);
+        final String token = jwtToken.createUserToken(userEntity.getId());
+        
         given().contentType(ContentType.JSON)
                 .when()
                 .header("Authorization", "Bearer " + token)
@@ -32,7 +52,6 @@ public class SecurityInterceptorTest {
                 .then()
                 .statusCode(200);
     }
-
 
     @Test
     void testUserSecurityContext() {

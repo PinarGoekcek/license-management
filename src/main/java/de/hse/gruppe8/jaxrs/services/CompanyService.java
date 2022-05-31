@@ -1,6 +1,7 @@
 package de.hse.gruppe8.jaxrs.services;
 
 import de.hse.gruppe8.jaxrs.model.Company;
+import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.orm.dao.CompanyDao;
 import de.hse.gruppe8.orm.model.CompanyEntity;
 import de.hse.gruppe8.util.mapper.CompanyMapper;
@@ -19,31 +20,55 @@ public class CompanyService {
     @Inject
     CompanyMapper companyMapper;
 
-    public List<Company> getCompanies(){
-        List<CompanyEntity> companyEntities = companyDao.getCompanies();
+    public List<Company> getCompanies(User currentUser) {
         List<Company> companies = new ArrayList<Company>();
-
-        for (int i = 0; i < companyEntities.size(); i++) {
-            companies.add(companyMapper.toCompany(companyEntities.get(i)));
+        if (currentUser.getIsAdmin()) {
+            List<CompanyEntity> companyEntities = companyDao.getCompanies();
+            for (CompanyEntity companyEntity : companyEntities) {
+                companies.add(companyMapper.toCompany(companyEntity));
+            }
+        } else {
+            companies.add(currentUser.getCompany());
         }
-
         return companies;
     }
 
-    public Company getCompany(Long id){
-        CompanyEntity companyEntity = companyDao.getCompany(id);
-        Company company = companyMapper.toCompany(companyEntity);
+    public Company getCompany(User currentUser, Long id) {
+        Company company = null;
+        if (currentUser.getIsAdmin()) {
+            CompanyEntity companyEntity = companyDao.getCompany(id);
+            company = companyMapper.toCompany(companyEntity);
+        } else if (id.equals(currentUser.getCompany().getId())) {
+            company = currentUser.getCompany();
+        }
         return company;
     }
 
-    public Company saveCompany(Company company){
-        CompanyEntity companyEntity = companyMapper.toCompanyEntity(company);
-        companyEntity = companyDao.save(companyEntity);
-        return companyMapper.toCompany(companyEntity);
-    }
-    public void deleteCompany(Company company){
-        CompanyEntity companyEntity = companyMapper.toCompanyEntity(company);
-        companyDao.delete(companyEntity);
+    public Company createCompany(User currentUser, Company company) {
+        if (currentUser.getIsAdmin()) {
+            CompanyEntity companyEntity = companyMapper.toCompanyEntity(company);
+            companyEntity = companyDao.save(companyEntity);
+            return companyMapper.toCompany(companyEntity);
+        }
+        return null;
     }
 
+    public boolean deleteCompany(User currentUser, Long id) {
+        if (currentUser.getIsAdmin()) {
+            companyDao.delete(companyDao.getCompany(id));
+            return true;
+        }
+        return false;
+    }
+
+    public Company updateCompany(User currentUser, Company company) {
+        if (currentUser.getIsAdmin()) {
+            CompanyEntity companyEntity = companyDao.getCompany(company.getId());
+            companyEntity = companyMapper.mapCompanyEntityWithCompany(companyEntity, company);
+            companyEntity = companyDao.save(companyEntity);
+            return companyMapper.toCompany(companyEntity);
+        } else {
+            return null;
+        }
+    }
 }

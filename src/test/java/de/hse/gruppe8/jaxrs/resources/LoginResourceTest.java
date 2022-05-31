@@ -62,7 +62,7 @@ public class LoginResourceTest {
                 .post("/login")
                 .then()
                 .statusCode(403)
-                .body(is("Login incorrect. No user with username \"admin\" found or password incorrect."));
+                .body(is("{\"errorMessage\":\"Login incorrect. No user with username \\\"admin\\\" found or password incorrect.\"}"));
     }
 
     @Test
@@ -74,6 +74,6 @@ public class LoginResourceTest {
                 .post("/login")
                 .then()
                 .statusCode(403)
-                .body(is("Login incorrect. No user with username \"admin\" found or password incorrect."));
+                .body(is("{\"errorMessage\":\"Login incorrect. No user with username \\\"admin\\\" found or password incorrect.\"}"));
     }
 }
