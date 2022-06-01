@@ -53,4 +53,31 @@ public class ContractService {
         return contract;
     }
 
+
+    public Contract createContract(User currentUser, Contract contract) {
+        if (currentUser.getIsAdmin()) {
+            ContractEntity contractEntity = contractDao.save(contractMapper.toContractEntity(contract));
+            return contractMapper.toContract(contractEntity);
+        }
+        return null;
+    }
+
+    public boolean deleteContract(User currentUser, Long id) {
+        if (currentUser.getIsAdmin()) {
+            contractDao.delete(contractDao.getContract(id));
+            return true;
+        }
+        return false;
+    }
+
+    public Contract updateContract(User currentUser, Contract contract) {
+        if (currentUser.getIsAdmin()) {
+            ContractEntity contractEntity = contractDao.getContract(contract.getId());
+            contractEntity = contractMapper.mapContractEntityWithContract(contractEntity, contract);
+            contractEntity = contractDao.save(contractEntity);
+            return contractMapper.toContract(contractEntity);
+        } else {
+            return null;
+        }
+    }
 }
