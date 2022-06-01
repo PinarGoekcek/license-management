@@ -8,6 +8,7 @@ import org.jboss.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -52,5 +53,11 @@ public class ContractToUserDao {
             entityManager.persist(contractToUser);
         }
         return contractToUser;
+    }
+
+    @Transactional
+    public void removeAll() {
+        Query del = entityManager.createQuery("DELETE FROM ContractToUserEntity WHERE id >= 0");
+        del.executeUpdate();
     }
 }
