@@ -1,18 +1,29 @@
 import axios from "axios";
 import {APP_API_ENDPOINT_URL, routes} from "../config";
 import {useHistory} from "react-router-dom";
+import {useState} from "react";
 
 const Login = () => {
-
     const history = useHistory();
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
 
-    const onClick = () => {
+    const userInput = (e) => {
+        setUsername(e.target.value);
+    }
 
-        const json = JSON.stringify({
-            username: 'admin',
-            password: 'admin'
+    const pwInput = (e) => {
+        setPassword(e.target.value);
+    }
+
+    const btnLogin = () => {
+
+        const credentials = JSON.stringify({
+            username: username,
+            password: password
         });
-        axios.post(`${APP_API_ENDPOINT_URL}/login`, json, {
+
+        axios.post(`${APP_API_ENDPOINT_URL}/login`, credentials, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -28,9 +39,9 @@ const Login = () => {
     return (
     <div>
       <h1>Login</h1>
-      <input type='text' placeholder='User' />
-      <input type='text' placeholder='Password' />
-      <button type='button' onClick={onClick}>Login</button>
+      <input type='text' placeholder='User' value={username} onChange={userInput} />
+      <input type='text' placeholder='Password' value={password} onChange={pwInput} />
+      <button type='button' onClick={btnLogin}>Login</button>
     </div>
   );
 };
