@@ -7,6 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper(config = MappingConfig.class)
 public interface UserMapper {
 
-    // UserEntity toUserEntity(User user);
+    UserEntity toUserEntity(User user);
     User toUser(UserEntity userEntity);
 }
