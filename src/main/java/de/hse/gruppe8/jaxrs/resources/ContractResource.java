@@ -52,7 +52,7 @@ public class ContractResource {
         if (contract != null) {
             return Response.ok().entity(contract).build();
         } else {
-            return Response.status(401).entity(new ErrorResponse("Can`t create new Contract")).build();
+            return Response.status(401).entity(new ErrorResponse("Can`t create new contract")).build();
         }
     }
 
@@ -68,23 +68,56 @@ public class ContractResource {
     }
 
     @GET
+    @APIResponses({
+            @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = Contract.class))),
+            @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
     @Path("/{id}")
-    public Response getContractById(@PathParam("id") Long id) {
-        return null;
+    public Response getContractById(@Context SecurityContext securityContext, @PathParam("id") Long id) {
+        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
+        User currentUser = userService.getUser(user_id);
+        Contract contract = contractService.getContract(currentUser, id);
+        if (contract != null) {
+            return Response.ok().entity(contract).build();
+        } else {
+            return Response.status(401).entity(new ErrorResponse(String.format("Can't update contract with id %d", id))).build();
+        }
     }
 
     @PUT
+    @APIResponses({
+            @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = Contract.class))),
+            @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
     @Path("/{id}")
-    public Response updateContract(@PathParam("id") Long id) {
-
-        return null;
+    public Response updateContract(@Context SecurityContext securityContext, @PathParam("id") Long id, Contract contract) {
+        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
+        User currentUser = userService.getUser(user_id);
+        contract.setId(id);
+        Contract newContract = contractService.updateContract(currentUser, contract);
+        if (newContract != null) {
+            return Response.ok().entity(newContract).build();
+        } else {
+            return Response.status(401).entity(new ErrorResponse(String.format("Can't update contract with id %d", id))).build();
+        }
     }
 
     @DELETE
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200"),
+            @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
     @Path("/{id}")
-    public Response deleteContract(@PathParam("id") Long id) {
+    public Response deleteContract(@Context SecurityContext securityContext, @PathParam("id") Long id) {
+        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
+        User currentUser = userService.getUser(user_id);
 
-        return null;
+        boolean isSuccess = contractService.deleteContract(currentUser, id);
+
+        if (isSuccess) {
+            return Response.ok().build();
+        }
+        return Response.status(403).entity(new ErrorResponse(String.format("Attempt to delete contract with id: %d was not successful!", id))).build();
     }
 
 }
