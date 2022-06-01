@@ -44,4 +44,13 @@ public class ContractService {
         return contracts;
     }
 
+
+    public Contract getContract(User currentUser, Long id) {
+        Contract contract = null;
+        if (currentUser.getIsAdmin() || id.equals(currentUser.getCompany().getId())) {
+            contract = contractMapper.toContract(contractDao.getContract(id));
+        }
+        return contract;
+    }
+
 }
