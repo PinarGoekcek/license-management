@@ -38,6 +38,8 @@ public class ContractToUserDaoTest {
     void clearAllFromDatabase() {
         contractDao.removeAll();
         companyDao.removeAll();
+        userDao.removeAll();
+        contractToUserDao.removeAll();
     }
 
 
@@ -67,7 +69,6 @@ public class ContractToUserDaoTest {
         //Then
         List<ContractEntity> contractsList = contractToUserDao.getContractsForUser(userEntity);
         assertEquals(1, contractsList.size());
-        // assertEquals(contractEntity, contractsList.get(0));
     }
 
 }
