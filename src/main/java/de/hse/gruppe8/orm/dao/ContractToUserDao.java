@@ -1,5 +1,6 @@
 package de.hse.gruppe8.orm.dao;
 
+import de.hse.gruppe8.orm.model.CompanyEntity;
 import de.hse.gruppe8.orm.model.ContractEntity;
 import de.hse.gruppe8.orm.model.ContractToUserEntity;
 import de.hse.gruppe8.orm.model.UserEntity;
@@ -20,6 +21,10 @@ public class ContractToUserDao {
     EntityManager entityManager;
 
     private static final Logger LOGGER = Logger.getLogger(ContractToUserDao.class);
+
+    public ContractToUserEntity getContractToUser (Long id) {
+        return entityManager.find(ContractToUserEntity.class, id);
+    }
 
     public List<ContractEntity> getContractsForUser (UserEntity userEntity) {
         TypedQuery<ContractToUserEntity> q = entityManager.createQuery("select entities from ContractToUserEntity entities where entities.user.id = :USER", ContractToUserEntity.class);
@@ -53,6 +58,14 @@ public class ContractToUserDao {
             entityManager.persist(contractToUser);
         }
         return contractToUser;
+    }
+
+    public void delete(ContractToUserEntity contractToUser) {
+        if (contractToUser != null) {
+            TypedQuery<ContractToUserEntity> del = entityManager.createQuery("select entities from ContractToUserEntity entities where entities.contract.id = :CONTRACTTOUSER", ContractToUserEntity.class);
+            del.setParameter("CONTRACTTOUSER", contractToUser.getId());
+            del.executeUpdate();
+        }
     }
 
     @Transactional
