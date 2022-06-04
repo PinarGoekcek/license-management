@@ -1,6 +1,5 @@
 package de.hse.gruppe8.jaxrs.resources;
 
-import de.hse.gruppe8.jaxrs.model.Company;
 import de.hse.gruppe8.jaxrs.model.Contract;
 import de.hse.gruppe8.jaxrs.model.ErrorResponse;
 import de.hse.gruppe8.jaxrs.model.User;
