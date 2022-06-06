@@ -55,7 +55,7 @@ public class ContractToUserDaoTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", true, companyEntity);
+        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null, true, companyEntity);
         contractDao.save(contractEntity);
 
         UserEntity userEntity = new UserEntity(null, "username", "passord", false, "firstname", "lastName", "email@admin.de", null, null, true, null);

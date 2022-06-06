@@ -55,9 +55,9 @@ public class ContractServiceTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity1 = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", true, companyEntity1);
+        ContractEntity contractEntity1 = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null,true, companyEntity1);
         contractDao.save(contractEntity1);
-        ContractEntity contractEntity2 = new ContractEntity(null, dateBegin, dateEnd, "02", "654321", true, companyEntity2);
+        ContractEntity contractEntity2 = new ContractEntity(null, dateBegin, dateEnd, "02", "654321", 1,2,3, null, null, null,true, companyEntity2);
         contractDao.save(contractEntity2);
 
         Company company = new Company(2L, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany");

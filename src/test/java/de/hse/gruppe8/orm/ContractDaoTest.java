@@ -43,7 +43,7 @@ public class ContractDaoTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", true, companyEntity);
+        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null,true, companyEntity);
 
         //When
         contractDao.save(contractEntity);
@@ -64,7 +64,7 @@ public class ContractDaoTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", true, companyEntity);
+        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3,null, null, null, true, companyEntity);
         contractDao.save(contractEntity);
 
         ContractEntity contract = contractDao.getContracts().get(0);
@@ -91,7 +91,7 @@ public class ContractDaoTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", true, companyEntity);
+        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null, true, companyEntity);
         contractDao.save(contractEntity);
 
         ContractEntity contract = contractDao.getContracts().get(0);
@@ -115,7 +115,7 @@ public class ContractDaoTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", true, companyEntity);
+        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null, true, companyEntity);
         contractDao.save(contractEntity);
 
         //When
