@@ -29,7 +29,7 @@ public class ContractService {
     UserMapper userMapper;
 
     public List<Contract> getContracts(User currentUser) {
-        List<Contract> contracts = new ArrayList<Contract>();
+        List<Contract> contracts = new ArrayList<>();
         if (currentUser.getIsAdmin()) {
             List<ContractEntity> contractEntities = contractDao.getContracts();
             for (ContractEntity contractEntity : contractEntities) {
@@ -54,7 +54,7 @@ public class ContractService {
     }
 
 
-    public Contract createContract(User currentUser, Contract contract) {
+        public Contract createContract(User currentUser, Contract contract) {
         if (currentUser.getIsAdmin()) {
             ContractEntity contractEntity = contractDao.save(contractMapper.toContractEntity(contract));
             return contractMapper.toContract(contractEntity);
