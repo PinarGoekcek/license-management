@@ -46,8 +46,10 @@ public class ContractToUserDaoTest {
     @Test
     void checkGetContractsForUser() throws ParseException {
         //Given
-        CompanyEntity companyEntity = new CompanyEntity(null, "Test Corp.", "Development", "Peace street 9", "73728", "Esslingen", "Germany", true);
-        companyDao.save(companyEntity);
+        CompanyEntity companyEntity1 = new CompanyEntity(null, "Test Corp.", "Development", "Peace street 9", "73728", "Esslingen", "Germany", true);
+        companyDao.save(companyEntity1);
+        CompanyEntity companyEntity2 = new CompanyEntity(null, "Evil Corp.", "Development", "Another street 9", "75431", "Chicago", "US", true);
+        companyDao.save(companyEntity2);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String begin = "2021-10-20";
@@ -55,20 +57,23 @@ public class ContractToUserDaoTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null, true, companyEntity);
-        contractDao.save(contractEntity);
+        ContractEntity contractEntity1 = new ContractEntity(null, dateBegin, dateEnd, "01", "555555", 1,2,3, null, null, null, true, companyEntity1);
+        contractDao.save(contractEntity1);
+        ContractEntity contractEntity2 = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null, true, companyEntity2);
+        contractDao.save(contractEntity2);
 
-        UserEntity userEntity = new UserEntity(null, "username", "passord", false, "firstname", "lastName", "email@admin.de", null, null, true, null);
+        UserEntity userEntity = new UserEntity(null, "username", "passord", false, "firstname", "lastName", "email@admin.de", null, null, true, companyEntity1);
         userDao.save(userEntity);
 
-        ContractToUserEntity contractToUserEntity = new ContractToUserEntity(null, contractEntity, userEntity);
-
-        //When
+        ContractToUserEntity contractToUserEntity = new ContractToUserEntity(null, contractEntity1, userEntity);
         contractToUserDao.save(contractToUserEntity);
 
-        //Then
+        //When
         List<ContractEntity> contractsList = contractToUserDao.getContractsForUser(userEntity);
+
+        //Then
         assertEquals(1, contractsList.size());
+        assertEquals("555555", contractEntity1.getLicenseKey());
     }
 
 }
