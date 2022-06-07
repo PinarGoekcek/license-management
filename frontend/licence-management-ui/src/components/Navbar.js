@@ -7,7 +7,7 @@ const Navbar = () => {
             <a href='#'>Customers</a>
           </li>
           <li>
-            <a href='#'>Contracts</a>
+            <a href={routes.contracts}>Contracts</a>
           </li>
           <li>
             <a href='#'>Users</a>
