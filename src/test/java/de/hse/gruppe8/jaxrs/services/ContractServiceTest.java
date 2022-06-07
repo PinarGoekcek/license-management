@@ -44,13 +44,16 @@ public class ContractServiceTest {
         contractDao.removeAll();
     }
 
+    // checkGetContractsForUser -> find in class ContractToUserDaoTest
+
     @Test
     void checkGetContractsAsAdmin() throws ParseException {
         //Given
         CompanyEntity companyEntity1 = new CompanyEntity(1L, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true);
-        CompanyEntity companyEntity2 = new CompanyEntity(2L, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany", true);
         companyDao.save(companyEntity1);
+        CompanyEntity companyEntity2 = new CompanyEntity(2L, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany", true);
         companyDao.save(companyEntity2);
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String begin = "2021-10-20";
         Date dateBegin = formatter.parse(begin);
