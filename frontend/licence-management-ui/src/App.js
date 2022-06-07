@@ -7,6 +7,8 @@ import Login from './components/Login';
 
 import axios from "axios";
 import {routes} from "./config";
+import Users from "./components/Users";
+import Contracts from "./components/Contracts";
 
 function App() {
   const history = useHistory();
@@ -32,8 +34,8 @@ function App() {
 
       <Switch>
         <Route path={routes.companies} exact component={() => <Companies />} />
-        <Route path={routes.contracts} exact component={() => <Companies />} />
-        <Route path={routes.users} exact component={() => <Companies />} />
+        <Route path={routes.contracts} exact component={() => <Contracts />} />
+        <Route path={routes.users} exact component={() => <Users />} />
         <Route path={routes.login} exact component={() => <Login />} />
 
         <Redirect to={routes.companies} />
