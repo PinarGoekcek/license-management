@@ -1,7 +1,7 @@
 import { FiPlusSquare, FiUser, FiLogOut } from 'react-icons/fi';
-import Button from './Button';
-import {useHistory} from "react-router-dom";
-import {routes} from "../config";
+import ButtonIco from './ButtonIco';
+import { useHistory } from 'react-router-dom';
+import { routes } from '../config';
 
 const Header = ({ title }) => {
   const history = useHistory();
@@ -9,8 +9,8 @@ const Header = ({ title }) => {
   const iconSize = 30;
   const onClickLogout = () => {
     localStorage.removeItem('user');
-    history.push(routes.login)
-  }
+    history.push(routes.login);
+  };
   const onClick = () => {
     console.log('click');
   };
@@ -22,7 +22,7 @@ const Header = ({ title }) => {
         <div className='group'>
           <span className='hItem hText'>{title}</span>
           <span className='hItem icon onHoverChangeCol'>
-            <Button
+            <ButtonIco
               name={'Add'}
               icon={<FiPlusSquare size={iconSize} />}
               onClick={onClick}
@@ -37,14 +37,14 @@ const Header = ({ title }) => {
             <input type='text' placeholder='Filter' />
           </span>
           <span className='hItem icon onHoverChangeCol'>
-            <Button
+            <ButtonIco
               name={'Profile'}
               icon={<FiUser size={iconSize} />}
               onClick={onClick}
             />
           </span>
           <span className='hItem icon onHoverChangeCol'>
-            <Button
+            <ButtonIco
               name={'Logout'}
               icon={<FiLogOut size={iconSize} />}
               onClick={onClickLogout}

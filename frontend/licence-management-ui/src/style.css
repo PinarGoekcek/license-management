@@ -19,6 +19,11 @@
       }
   }
 
+.my-container{
+padding: 0 1rem;
+margin: auto;
+}
+
 .onHoverChangeCol{
     color: black;
 }
@@ -57,15 +62,36 @@
     clear: both;
 }
 
-.tbl-head{
-    flex: 1;
+.company{
+    display: flex;
+    justify-content: start;
+    padding: 0.2rem 0;
+}
+
+.tbl-row{
+    flex-basis: 8rem;
     font-size: 1rem;
+    padding-right: 0.1rem;
+}
+
+.tbl-head{
     font-weight: bold;   
 }
 
 .tbl-content{
-    flex: 1;
     font-size: 1rem;
+}
+
+.btnTxt{
+    background-color:darkgray;
+    flex-basis: 5rem;
+    margin-left: 0.5rem;
+    text-align: center;
+    border-radius: 0.2em;
+    }
+
+.headTxt{
+    flex-basis: 5rem;
 }
 
 .navbar a{
@@ -77,14 +103,15 @@
 .navbar a:hover{
 color:cornflowerblue;
 }
+
 .navbar .nav{
     justify-content: flex-end;
 }
 
 .navbar ul{
-display: flex;
+    display: flex;
 }
 
 .navbar li{
-    margin-right: 1.3rem;
+    margin-left: 1.5rem;
     }
