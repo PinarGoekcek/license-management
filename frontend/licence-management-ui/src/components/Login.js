@@ -38,7 +38,7 @@ const Login = () => {
 
     return (
     <div>
-      <h1>Login</h1>
+      <h1 class="bg-slate-700 h-24 flex flex-col">Login</h1>
       <input type='text' placeholder='User' value={username} onChange={userInput} />
       <input type='text' placeholder='Password' value={password} onChange={pwInput} />
       <button type='button' onClick={btnLogin}>Login</button>
