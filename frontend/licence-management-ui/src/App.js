@@ -1,9 +1,10 @@
-import {useState} from 'react';
+
 import {Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Companies from './components/Companies';
 import Login from './components/Login';
+
 import axios from "axios";
 import {routes} from "./config";
 
