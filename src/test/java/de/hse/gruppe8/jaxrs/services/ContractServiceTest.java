@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @QuarkusTest
 public class ContractServiceTest {
 
+
     @Inject
     ContractService contractService;
 
@@ -39,6 +40,7 @@ public class ContractServiceTest {
     @BeforeEach
     void InitDatabase() {
         userDao.removeAll();
+        companyDao.removeAll();
         contractDao.removeAll();
     }
 
