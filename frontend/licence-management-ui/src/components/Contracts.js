@@ -28,13 +28,11 @@ const Contracts = () => {
 
   return (
       <>
-        <div className='company flex flex-row justify-between pr-4 py-2 border-b-2'>
-          <span className='tbl-head'>Name</span>
-          <span className='tbl-head'>Department</span>
-          <span className='tbl-head'>Street</span>
-          <span className='tbl-head'>ZIP</span>
-          <span className='tbl-head'>City</span>
-          <span className='tbl-head'>Country</span>
+        <div className='contract flex flex-row justify-between pr-4 py-2 border-b-2'>
+          <span className='tbl-head'>Company</span>
+          <span className='tbl-head'>Date start</span>
+          <span className='tbl-head'>Date end</span>
+          <span className='tbl-head'>Version</span>
           <span className='tbl-head'></span>
           <span className='tbl-head'></span>
           <span className='tbl-head'></span>
