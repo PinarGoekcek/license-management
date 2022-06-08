@@ -15,7 +15,7 @@ const Contracts = () => {
       return
     }
     let  jwt = user.jwt || ""
-    axios.get(`${APP_API_ENDPOINT_URL}/companies`, {
+    axios.get(`${APP_API_ENDPOINT_URL}/contracts`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -39,9 +39,12 @@ const Contracts = () => {
           <span className='tbl-head'></span>
           <span className='clearfix'></span>
         </div>
-        {contracts.map((contract) => (
-            <Contract key={contract.id} company={contract} />
-        ))}
+        {contracts ?
+        contracts.map((contract) => (
+            <Contract key={contract.id} contract={contract} />
+        ))
+        : console.log("No contracts in list")
+        }
       </>
   );
 };
