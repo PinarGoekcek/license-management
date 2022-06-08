@@ -55,7 +55,7 @@ public class CompanyResource {
         if (company != null) {
             return Response.ok().entity(company).build();
         } else {
-            return Response.status(401).entity(new ErrorResponse("Can`t create new Company")).build();
+            return Response.status(401).entity(new ErrorResponse("Can`t create new company")).build();
         }
     }
 
@@ -83,7 +83,7 @@ public class CompanyResource {
         if (company != null) {
             return Response.ok().entity(company).build();
         } else {
-            return Response.status(401).entity(new ErrorResponse(String.format("Company with id %d can't updated", id))).build();
+            return Response.status(401).entity(new ErrorResponse(String.format("Company with id %d not found", id))).build();
         }
     }
 
@@ -101,7 +101,7 @@ public class CompanyResource {
         if (newCompany != null) {
             return Response.ok().entity(newCompany).build();
         } else {
-            return Response.status(401).entity(new ErrorResponse(String.format("Company with id %d can't updated", id))).build();
+            return Response.status(401).entity(new ErrorResponse(String.format("Can't update company with id %d", id))).build();
         }
     }
 
@@ -120,7 +120,7 @@ public class CompanyResource {
         if (isSuccess) {
             return Response.ok().build();
         }
-        return Response.status(403).entity(new ErrorResponse(String.format("Delete was not successful for id: %d", id))).build();
+        return Response.status(403).entity(new ErrorResponse(String.format("Attempt to delete company with id: %d was not successful!", id))).build();
     }
 
 }
