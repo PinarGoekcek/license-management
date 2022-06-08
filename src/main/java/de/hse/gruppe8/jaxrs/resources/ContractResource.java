@@ -79,7 +79,7 @@ public class ContractResource {
         if (contract != null) {
             return Response.ok().entity(contract).build();
         } else {
-            return Response.status(401).entity(new ErrorResponse(String.format("Can't update contract with id %d", id))).build();
+            return Response.status(401).entity(new ErrorResponse(String.format("Can't get contract with id %d", id))).build();
         }
     }
 
