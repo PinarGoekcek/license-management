@@ -6,8 +6,10 @@ import Contracts from "./components/Contracts";
 import Users from "./components/Users";
 import Login from './components/Login';
 
+
 import axios from "axios";
 import {routes} from "./config";
+import Bottombar from "./components/Bottombar";
 
 function App() {
     const history = useHistory();
@@ -40,7 +42,9 @@ function App() {
 
                 <Redirect to={routes.companies}/>
             </Switch>
+            <Bottombar/>
         </div>
+
     );
 }
 
