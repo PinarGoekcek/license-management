@@ -4,7 +4,9 @@ import {useState, useEffect} from 'react';
 import {APP_API_ENDPOINT_URL, routes} from '../config';
 import {useHistory} from 'react-router-dom';
 
-const Companies = () => {
+const Companies = (props) => {
+    props.func('Companies');
+
     const history = useHistory();
     const [companies, setCompanies] = useState([]);
 
