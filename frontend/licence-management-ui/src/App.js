@@ -10,9 +10,11 @@ import Login from './components/Login';
 import axios from "axios";
 import {routes} from "./config";
 import Bottombar from "./components/Bottombar";
+import {useState} from "react";
 
 function App() {
     const history = useHistory();
+    const [headTitle, setHeadTitle] = useState([]);
 
     axios.interceptors.response.use(
         (response) => {
@@ -29,16 +31,20 @@ function App() {
     );
     axios.defaults.withCredentials = true;
 
+    const getHeadTitle = (text) => {
+        setHeadTitle(text);
+    }
+
     return (
         <div className='my-container'>
-            <Header title={'Customers'}/>
+            <Header title={headTitle}/>
             <Navbar/>
 
             <Switch>
-                <Route path={routes.companies} exact component={() => <Companies/>}/>
-                <Route path={routes.contracts} exact component={() => <Contracts/>}/>
-                <Route path={routes.users} exact component={() => <Users/>}/>
-                <Route path={routes.login} exact component={() => <Login/>}/>
+                <Route path={routes.companies} exact component={() => <Companies func={getHeadTitle}/>}/>
+                <Route path={routes.contracts} exact component={() => <Contracts func={getHeadTitle}/>}/>
+                <Route path={routes.users} exact component={() => <Users func={getHeadTitle}/>}/>
+                <Route path={routes.login} exact component={() => <Login func={getHeadTitle}/>}/>
 
                 <Redirect to={routes.companies}/>
             </Switch>

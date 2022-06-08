@@ -3,7 +3,9 @@ import {APP_API_ENDPOINT_URL, routes} from "../config";
 import {useHistory} from "react-router-dom";
 import {useState} from "react";
 
-const Login = () => {
+const Login = (props) => {
+    props.func('Login');
+
     const history = useHistory();
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
