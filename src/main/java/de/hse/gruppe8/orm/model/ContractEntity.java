@@ -33,6 +33,24 @@ public class ContractEntity {
     @Column(name = "license_key", length = 50)
     private String licenseKey;
 
+    @Column(name = "feature_1")
+    private int feature1;
+
+    @Column(name = "feature_2")
+    private int feature2;
+
+    @Column(name = "feature_3")
+    private int feature3;
+
+    @Column(name = "ip_1", length = 16)
+    private String ipaddress1;
+
+    @Column(name = "ip_2", length = 16)
+    private String ipaddress2;
+
+    @Column(name = "ip_3", length = 16)
+    private String ipaddress3;
+
     @Column(name = "active")
     private Boolean active = true;
 

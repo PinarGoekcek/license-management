@@ -1,6 +1,7 @@
 package de.hse.gruppe8.orm;
 
 import de.hse.gruppe8.exception.NoUserFoundException;
+import de.hse.gruppe8.orm.dao.ContractToUserDao;
 import de.hse.gruppe8.orm.dao.UserDao;
 import de.hse.gruppe8.orm.model.UserEntity;
 import io.quarkus.test.junit.QuarkusTest;
@@ -18,8 +19,12 @@ public class UserDaoTest {
     @Inject
     UserDao userDao;
 
+    @Inject
+    ContractToUserDao contractToUserDao;
+
     @BeforeEach
     void clearAllFromDatabase() {
+        contractToUserDao.removeAll();
         userDao.removeAll();
     }
 
