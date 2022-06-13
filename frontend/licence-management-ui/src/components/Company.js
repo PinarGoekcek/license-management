@@ -1,8 +1,17 @@
 import ButtonTxt from './ButtonTxt';
 
 const Company = ({company}) => {
-    const onClick = () => {
-        console.log('click');
+    const onDelete = () => {
+        console.log('delete');
+    };
+    const onEdit = () => {
+        console.log('edit');
+    };
+    const onUsers = () => {
+        console.log('users');
+    };
+    const onContracts = () => {
+        console.log('contracts');
     };
 
     return (
@@ -15,16 +24,16 @@ const Company = ({company}) => {
                 <span className='tbl-row tbl-content'>{company.city}</span>
                 <span className='tbl-row tbl-content'>{company.country}</span>
                 <span className='tbl-row tbl-content btnTxt onHoverChangeCol'>
-          <ButtonTxt name={'Edit'} onClick={onClick}/>
+          <ButtonTxt name={'Edit'} onClick={onEdit}/>
         </span>
                 <span className='tbl-row tbl-content btnTxt onHoverChangeCol'>
-          <ButtonTxt name={'Delete'} onClick={onClick}/>
+          <ButtonTxt name={'Delete'} onClick={onDelete}/>
         </span>
                 <span className='tbl-row tbl-content btnTxt onHoverChangeCol'>
-          <ButtonTxt name={'Contracts'} onClick={onClick}/>
+          <ButtonTxt name={'Contracts'} onClick={onContracts}/>
         </span>
                 <span className='tbl-row tbl-content btnTxt onHoverChangeCol'>
-          <ButtonTxt name={'Users'} onClick={onClick}/>
+          <ButtonTxt name={'Users'} onClick={onUsers}/>
         </span>
             </div>
         </>
