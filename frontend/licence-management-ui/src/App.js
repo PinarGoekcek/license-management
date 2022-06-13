@@ -11,6 +11,7 @@ import axios from "axios";
 import {routes} from "./config";
 import Bottombar from "./components/Bottombar";
 import {useState} from "react";
+import EditUser from "./components/EditUser";
 
 function App() {
     const history = useHistory();
@@ -45,6 +46,7 @@ function App() {
                 <Route path={routes.contracts} exact component={() => <Contracts func={getHeadTitle}/>}/>
                 <Route path={routes.users} exact component={() => <Users func={getHeadTitle}/>}/>
                 <Route path={routes.login} exact component={() => <Login func={getHeadTitle}/>}/>
+                <Route path={routes.edituser} exact component={() => <EditUser func={getHeadTitle}/>}/>
 
                 <Redirect to={routes.companies}/>
             </Switch>

@@ -1,8 +1,16 @@
 import ButtonTxt from "./ButtonTxt";
+import {routes} from "../config";
+import {useHistory} from "react-router-dom";
 
 const User = ({user}) => {
+
+    const history = useHistory();
+
     const onClick = () => {
         console.log('click');
+    };
+    const onEdit = () => {
+        history.push(routes.edituser);
     };
     return (
         <>
@@ -15,7 +23,7 @@ const User = ({user}) => {
                 <span className='tbl-row tbl-content'>{user.phone}</span>
                 <span className='tbl-row tbl-content'>{user.mobile}</span>
                 <span className='tbl-row tbl-content btnTxt onHoverChangeCol'>
-                <ButtonTxt name={'Edit'} onClick={onClick}/>
+                <ButtonTxt name={'Edit'} onClick={onEdit}/>
                 </span>
                 <span className='tbl-row tbl-content btnTxt onHoverChangeCol'>
                 <ButtonTxt name={'Delete'} onClick={onClick}/>
