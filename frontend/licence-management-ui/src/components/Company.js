@@ -1,8 +1,36 @@
 import ButtonTxt from './ButtonTxt';
+import axios from "axios";
+import {APP_API_ENDPOINT_URL, routes} from "../config";
+import {useHistory} from 'react-router-dom';
 
-const Company = ({company}) => {
+
+const Company = ({company, reloadCallback}) => {
+    const history = useHistory();
+
+    // Do something when API calls return ERROR
+    const handleError = () => {
+        console.log("something went wrong");
+    }
+
     const onDelete = () => {
-        console.log('delete');
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (user === null) {
+            history.push(routes.login);
+            return;
+        }
+        let jwt = user.jwt || '';
+        axios.delete(`${APP_API_ENDPOINT_URL}/companies/${company.id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${jwt}`,
+            },
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    reloadCallback();
+                } else if (response.status === 401) handleError();
+            })
     };
     const onEdit = () => {
         console.log('edit');
