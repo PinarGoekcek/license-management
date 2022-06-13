@@ -30,7 +30,7 @@ const Contracts = (props) => {
 
     return (
         <>
-            <div className='contract flex flex-row justify-between pr-4 py-2 border-b-2'>
+            <div className='contract flex justify-items-start py-2 border-b-2'>
                 <span className='tbl-row tbl-head'>Company</span>
                 <span className='tbl-row tbl-head'>Date start</span>
                 <span className='tbl-row tbl-head'>Date end</span>
