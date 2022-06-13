@@ -58,7 +58,7 @@ public class UserResource {
     public Response getUsers(@Context SecurityContext securityContext) {
         Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
         User currentUser = userService.getUser(user_id);
-        return Response.ok(userService.getUsers(currentUser)).build();
+        return Response.ok().entity(userService.getUsers(currentUser)).build();
     }
 
     @GET

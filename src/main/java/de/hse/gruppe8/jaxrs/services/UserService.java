@@ -26,6 +26,8 @@ public class UserService {
             for (UserEntity userEntity : userEntities) {
                 users.add(userMapper.toUser(userEntity));
             }
+        } else {
+            users.add(currentUser);
         }
         return users;
     }
