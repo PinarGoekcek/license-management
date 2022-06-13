@@ -1,11 +1,12 @@
 
 const Bottombar = () => {
     return (
-        <footer className='bottombar absolute bottom-0 w-full py-2 bg-blue-500'>
+        <div className="flex flex-col ">
+        <footer className='bottombar fixed inset-x-0 bottom-0 bg-blue-500 py-2'>
             <div className="text-center">
             <p>Copyright &copy; 2022</p>
                 </div>
-        </footer>
+        </footer></div>
     );
 };
 

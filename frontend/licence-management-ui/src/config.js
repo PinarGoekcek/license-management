@@ -1,8 +1,9 @@
-
 export const protectedRoutes = {
     'companies': '/companies',
     'contracts': '/contracts',
     'users': '/users',
+    'edituser': '/edituser',
+    'details': '/details'
 }
 
 

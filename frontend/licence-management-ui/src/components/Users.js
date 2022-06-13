@@ -30,16 +30,16 @@ const Users = (props) => {
 
     return (
         <>
-            <div className='user flex flex-row justify-between pr-4 py-2 border-b-2'>
-                <span className='tbl-head'>Company</span>
-                <span className='tbl-head'>Username</span>
-                <span className='tbl-head'>First name</span>
-                <span className='tbl-head'>Last name</span>
-                <span className='tbl-head'>Email</span>
-                <span className='tbl-head'>Phone</span>
-                <span className='tbl-head'>Mobile</span>
-                <span className='tbl-head'></span>
-                <span className='tbl-head'></span>
+            <div className='user flex justify-items-start py-2 border-b-2'>
+                <span className='tbl-row tbl-head'>Company</span>
+                <span className='tbl-row tbl-head'>Username</span>
+                <span className='tbl-row tbl-head'>First name</span>
+                <span className='tbl-row tbl-head'>Last name</span>
+                <span className='tbl-row tbl-head'>Email</span>
+                <span className='tbl-row tbl-head'>Phone</span>
+                <span className='tbl-row tbl-head'>Mobile</span>
+                <span className='tbl-row tbl-head headTxt'></span>
+                <span className='tbl-row tbl-head headTxt'></span>
                 <span className='clearfix'></span>
             </div>
             {users ?

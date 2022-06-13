@@ -6,11 +6,9 @@ import {useHistory} from 'react-router-dom';
 
 const Companies = (props) => {
     props.func('Companies');
-
     const history = useHistory();
     const [companies, setCompanies] = useState([]);
-
-    useEffect(() => {
+    const reloadCallback = () => {
         let user = JSON.parse(localStorage.getItem('user'));
         if (user === null) {
             history.push(routes.login);
@@ -27,6 +25,10 @@ const Companies = (props) => {
             .then((response) => {
                 setCompanies(response.data);
             });
+    }
+
+    useEffect(() => {
+        reloadCallback();
     }, []);
 
     return (
@@ -46,7 +48,7 @@ const Companies = (props) => {
             </div>
             {companies ?
                 companies.map((company) => (
-                    <Company key={company.id} company={company}/>
+                    <Company key={company.id} company={company} reloadCallback={reloadCallback}/>
                 ))
                 : console.log("No companies in list")
             }
