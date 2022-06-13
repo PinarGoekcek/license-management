@@ -20,8 +20,8 @@ const Contracts = (props) => {
         axios.get(`${APP_API_ENDPOINT_URL}/contracts`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${jwt}`
+                Accept: 'application/json',
+                Authorization: `Bearer ${jwt}`
             },
         }).then((response) => {
             setContracts(response.data);
@@ -31,14 +31,13 @@ const Contracts = (props) => {
     return (
         <>
             <div className='contract flex flex-row justify-between pr-4 py-2 border-b-2'>
-                <span className='tbl-head'>Company</span>
-                <span className='tbl-head'>Date start</span>
-                <span className='tbl-head'>Date end</span>
-                <span className='tbl-head'>Version</span>
-                <span className='tbl-head'></span>
-                <span className='tbl-head'></span>
-                <span className='tbl-head'></span>
-                <span className='tbl-head'></span>
+                <span className='tbl-row tbl-head'>Company</span>
+                <span className='tbl-row tbl-head'>Date start</span>
+                <span className='tbl-row tbl-head'>Date end</span>
+                <span className='tbl-row tbl-head'>Version</span>
+                <span className='tbl-row tbl-head headTxt'></span>
+                <span className='tbl-row tbl-head headTxt'></span>
+                <span className='tbl-row tbl-head headTxt'></span>
                 <span className='clearfix'></span>
             </div>
             {contracts ?
