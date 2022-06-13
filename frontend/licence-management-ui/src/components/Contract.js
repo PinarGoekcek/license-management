@@ -8,8 +8,8 @@ const Contract = ({contract}) => {
         <>
             <div className='contract flex justify-items-start py-2 border-b-2'>
                 <span className='tbl-row tbl-content'>{contract.company.name}</span>
-                <span className='tbl-row tbl-content'>{contract.dateStart}</span>
-                <span className='tbl-row tbl-content'>{contract.dateStop}</span>
+                <span className='tbl-row tbl-content'>{contract.dateStart.toString().substring(0, 10)}</span>
+                <span className='tbl-row tbl-content'>{contract.dateStop.toString().substring(0, 10)}</span>
                 <span className='tbl-row tbl-content'>{contract.version}</span>
                 <span className='tbl-row tbl-content btnTxt onHoverChangeCol'>
         <ButtonTxt name={'Edit'} onClick={onClick}/>
