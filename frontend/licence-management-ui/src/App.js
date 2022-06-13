@@ -12,6 +12,7 @@ import {routes} from "./config";
 import Bottombar from "./components/Bottombar";
 import {useState} from "react";
 import EditUser from "./components/EditUser";
+import Details from "./components/Details";
 
 function App() {
     const history = useHistory();
@@ -40,13 +41,13 @@ function App() {
         <div className='my-container'>
             <Header title={headTitle}/>
             <Navbar/>
-
             <Switch>
                 <Route path={routes.companies} exact component={() => <Companies func={getHeadTitle}/>}/>
                 <Route path={routes.contracts} exact component={() => <Contracts func={getHeadTitle}/>}/>
                 <Route path={routes.users} exact component={() => <Users func={getHeadTitle}/>}/>
                 <Route path={routes.login} exact component={() => <Login func={getHeadTitle}/>}/>
                 <Route path={routes.edituser} exact component={() => <EditUser func={getHeadTitle}/>}/>
+                <Route path={routes.details} exact component={() => <Details func={getHeadTitle}/>}/>
 
                 <Redirect to={routes.companies}/>
             </Switch>
