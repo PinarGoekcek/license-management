@@ -10,22 +10,27 @@ const Contracts = (props) => {
     const history = useHistory();
     const [contracts, setContracts] = useState([]);
 
-    useEffect(() => {
-        let user = JSON.parse(localStorage.getItem("user"))
+    const reloadCallback = () => {
+        let user = JSON.parse(localStorage.getItem('user'));
         if (user === null) {
-            history.push(routes.login)
-            return
+            history.push(routes.login);
+            return;
         }
-        let jwt = user.jwt || ""
+        let jwt = user.jwt || '';
         axios.get(`${APP_API_ENDPOINT_URL}/contracts`, {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
-                Authorization: `Bearer ${jwt}`
+                Authorization: `Bearer ${jwt}`,
             },
-        }).then((response) => {
-            setContracts(response.data);
         })
+            .then((response) => {
+                setContracts(response.data);
+            });
+    }
+
+    useEffect(() => {
+        reloadCallback();
     }, []);
 
     return (
@@ -42,7 +47,7 @@ const Contracts = (props) => {
             </div>
             {contracts ?
                 contracts.map((contract) => (
-                    <Contract key={contract.id} contract={contract}/>
+                    <Contract key={contract.id} contract={contract} reloadCallback={reloadCallback}/>
                 ))
                 : console.log("No contracts in list")
             }
