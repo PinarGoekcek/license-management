@@ -18,12 +18,12 @@ const User = ({user, reloadCallback}) => {
 
 
     const onDelete = () => {
-        let user = JSON.parse(localStorage.getItem('user'));
-        if (user === null) {
+        let actualuser = JSON.parse(localStorage.getItem('user'));
+        if (actualuser === null) {
             history.push(routes.login);
             return;
         }
-        let jwt = user.jwt || '';
+        let jwt = actualuser.jwt || '';
         axios.delete(`${APP_API_ENDPOINT_URL}/users/${user.id}`, {
             headers: {
                 'Content-Type': 'application/json',
