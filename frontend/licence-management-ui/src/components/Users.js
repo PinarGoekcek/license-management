@@ -10,7 +10,7 @@ const Users = (props) => {
     const history = useHistory();
     const [users, setUsers] = useState([]);
 
-    useEffect(() => {
+    const reloadCallback = () => {
         let user = JSON.parse(localStorage.getItem('user'));
         if (user === null) {
             history.push(routes.login);
@@ -23,10 +23,16 @@ const Users = (props) => {
                 Accept: 'application/json',
                 Authorization: `Bearer ${jwt}`,
             },
-        }).then((response) => {
-            setUsers(response.data);
-        });
+        })
+            .then((response) => {
+                setUsers(response.data);
+            });
+    }
+
+    useEffect(() => {
+        reloadCallback();
     }, []);
+
 
     return (
         <>
@@ -44,7 +50,7 @@ const Users = (props) => {
             </div>
             {users ?
                 users.map((user) => (
-                    <User key={user.id} user={user}/>
+                    <User key={user.id} user={user} reloadCallback={reloadCallback}/>
                 ))
                 : console.log("No users in list")
             }

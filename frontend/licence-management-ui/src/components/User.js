@@ -1,17 +1,44 @@
 import ButtonTxt from "./ButtonTxt";
-import {routes} from "../config";
+import {APP_API_ENDPOINT_URL, routes} from "../config";
 import {useHistory} from "react-router-dom";
+import axios from "axios";
 
-const User = ({user}) => {
+const User = ({user, reloadCallback}) => {
 
     const history = useHistory();
 
-    const onClick = () => {
-        console.log('click');
-    };
+    // Do something when API calls return ERROR
+    const handleError = () => {
+        console.log("something went wrong");
+    }
+
     const onEdit = () => {
         history.push(routes.edituser);
     };
+
+
+    const onDelete = () => {
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (user === null) {
+            history.push(routes.login);
+            return;
+        }
+        let jwt = user.jwt || '';
+        axios.delete(`${APP_API_ENDPOINT_URL}/users/${user.id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${jwt}`,
+            },
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    reloadCallback();
+                } else if (response.status === 401) handleError();
+            })
+    };
+
+
     return (
         <>
             <div className='user flex justify-items-start py-2 border-b-2'>
@@ -26,7 +53,7 @@ const User = ({user}) => {
                 <ButtonTxt name={'Edit'} onClick={onEdit}/>
                 </span>
                 <span className='tbl-row tbl-content btnTxt onHoverChangeCol'>
-                <ButtonTxt name={'Delete'} onClick={onClick}/>
+                <ButtonTxt name={'Delete'} onClick={onDelete}/>
                 </span>
             </div>
         </>
