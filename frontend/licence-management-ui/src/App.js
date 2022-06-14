@@ -2,6 +2,7 @@ import {Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Companies from './components/Companies';
+import AddCompany from './components/AddCompany';
 import Contracts from "./components/Contracts";
 import Users from "./components/Users";
 import Login from './components/Login';
@@ -37,9 +38,18 @@ function App() {
         setHeadTitle(text);
     }
 
+    const onClickAdd = () => {
+        console.log(headTitle);
+        switch (headTitle) {
+            case 'Companies':
+                history.push(routes.addcompany);
+                break;
+        }
+    }
+
     return (
         <div className='my-container'>
-            <Header title={headTitle}/>
+            <Header title={headTitle} onClickAdd={onClickAdd}/>
             <Navbar/>
             <Switch>
                 <Route path={routes.companies} exact component={() => <Companies func={getHeadTitle}/>}/>
@@ -48,6 +58,7 @@ function App() {
                 <Route path={routes.login} exact component={() => <Login func={getHeadTitle}/>}/>
                 <Route path={routes.edituser} exact component={() => <EditUser func={getHeadTitle}/>}/>
                 <Route path={routes.details} exact component={() => <Details func={getHeadTitle}/>}/>
+                <Route path={routes.addcompany} exact component={() => <AddCompany func={getHeadTitle}/>}/>
 
                 <Redirect to={routes.companies}/>
             </Switch>
