@@ -1,5 +1,5 @@
 const Details = (props) => {
-    props.func('Details');
+    props.func('Contract details');
 
 
 
