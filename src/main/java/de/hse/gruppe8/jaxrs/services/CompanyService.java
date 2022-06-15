@@ -71,4 +71,8 @@ public class CompanyService {
             return null;
         }
     }
+
+    public List<User> getUsersFromCompany(User currentUser, Long id) {
+        return null;
+    }
 }
