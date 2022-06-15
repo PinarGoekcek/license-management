@@ -50,4 +50,8 @@ public class ContractDao {
             Query del = entityManager.createQuery("DELETE FROM ContractEntity WHERE id >= 0");
             del.executeUpdate();
     }
+
+    public List<ContractEntity> getContractsFromCompany(Long id) {
+        return null;
+    }
 }
