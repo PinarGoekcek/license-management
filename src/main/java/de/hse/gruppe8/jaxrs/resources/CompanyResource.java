@@ -134,5 +134,11 @@ public class CompanyResource {
         User currentUser = userService.getUser(user_id);
         return Response.ok().entity(companyService.getUsersFromCompany(currentUser, id)).build();
     }
+    @Path("/{id}/contracts")
+    public Response getContractsFromCompany(@Context SecurityContext securityContext, @PathParam("id") Long id) {
+        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
+        User currentUser = userService.getUser(user_id);
+        return Response.ok().entity(companyService.getContractsFromCompany(currentUser, id)).build();
+    }
 
 }

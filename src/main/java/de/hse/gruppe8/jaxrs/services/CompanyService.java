@@ -75,4 +75,8 @@ public class CompanyService {
     public List<User> getUsersFromCompany(User currentUser, Long id) {
         return null;
     }
+
+    public List<User> getContractsFromCompany(User currentUser, Long id) {
+        return null;
+    }
 }
