@@ -52,6 +52,9 @@ public class ContractDao {
     }
 
     public List<ContractEntity> getContractsFromCompany(Long id) {
-        return null;
+        Query q = entityManager.createQuery("select contracts from ContractEntity contracts where contracts.active = TRUE AND contracts.company.id =:id");
+        q.setParameter("id", id);
+        List<ContractEntity> contracts = (List<ContractEntity>) q.getResultList();
+        return contracts;
     }
 }
