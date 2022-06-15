@@ -18,8 +18,6 @@ public class UserDao {
     @Inject
     EntityManager entityManager;
 
-    @Inject
-    UserMapper userMapper;
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
 
 
