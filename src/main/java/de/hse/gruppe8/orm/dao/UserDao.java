@@ -71,4 +71,8 @@ public class UserDao {
         Query del = entityManager.createQuery("DELETE FROM UserEntity WHERE id >= 0");
         del.executeUpdate();
     }
+
+    public List<UserEntity> getUsersFromCompany(Long id) {
+        return null;
+    }
 }

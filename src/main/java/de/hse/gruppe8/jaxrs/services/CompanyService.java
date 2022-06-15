@@ -3,8 +3,11 @@ package de.hse.gruppe8.jaxrs.services;
 import de.hse.gruppe8.jaxrs.model.Company;
 import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.orm.dao.CompanyDao;
+import de.hse.gruppe8.orm.dao.UserDao;
 import de.hse.gruppe8.orm.model.CompanyEntity;
+import de.hse.gruppe8.orm.model.UserEntity;
 import de.hse.gruppe8.util.mapper.CompanyMapper;
+import de.hse.gruppe8.util.mapper.UserMapper;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -19,6 +22,12 @@ public class CompanyService {
 
     @Inject
     CompanyMapper companyMapper;
+
+    @Inject
+    UserDao userDao;
+
+    @Inject
+    UserMapper userMapper;
 
     public List<Company> getCompanies(User currentUser) {
         List<Company> companies = new ArrayList<Company>();
@@ -73,7 +82,14 @@ public class CompanyService {
     }
 
     public List<User> getUsersFromCompany(User currentUser, Long id) {
-        return null;
+        List<User> users = new ArrayList<>();
+        if (currentUser.getIsAdmin() || currentUser.getCompany().getId().equals(id)) {
+            List<UserEntity> userEntities = userDao.getUsersFromCompany(id);
+            for (UserEntity userEntity : userEntities) {
+                users.add(userMapper.toUser(userEntity));
+            }
+        }
+        return users;
     }
 
     public List<User> getContractsFromCompany(User currentUser, Long id) {
