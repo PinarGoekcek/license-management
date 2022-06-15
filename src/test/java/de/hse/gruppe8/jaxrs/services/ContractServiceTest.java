@@ -10,6 +10,7 @@ import de.hse.gruppe8.orm.dao.UserDao;
 import de.hse.gruppe8.orm.model.CompanyEntity;
 import de.hse.gruppe8.orm.model.ContractEntity;
 import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,10 +39,11 @@ public class ContractServiceTest {
     CompanyDao companyDao;
 
     @BeforeEach
+    @AfterEach
     void InitDatabase() {
-        userDao.removeAll();
-        companyDao.removeAll();
         contractDao.removeAll();
+        companyDao.removeAll();
+        userDao.removeAll();
     }
 
     // checkGetContractsForUser -> find in class ContractToUserDaoTest
@@ -49,16 +51,14 @@ public class ContractServiceTest {
     @Test
     void checkGetContractsAsAdmin() throws ParseException {
         //Given
-        CompanyEntity companyEntity1 = new CompanyEntity(1L, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true);
-        companyDao.save(companyEntity1);
-        CompanyEntity companyEntity2 = new CompanyEntity(2L, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany", true);
-        companyDao.save(companyEntity2);
+        CompanyEntity companyEntity1 = new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true);
+        companyEntity1 = companyDao.save(companyEntity1);
+        CompanyEntity companyEntity2 = new CompanyEntity(null, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany", true);
+        companyEntity2 = companyDao.save(companyEntity2);
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String begin = "2021-10-20";
-        Date dateBegin = formatter.parse(begin);
-        String end = "2021-12-30";
-        Date dateEnd = formatter.parse(end);
+        Date dateBegin = formatter.parse("2021-10-20");
+        Date dateEnd = formatter.parse("2021-12-30");
 
         ContractEntity contractEntity1 = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null,true, companyEntity1);
         contractDao.save(contractEntity1);
