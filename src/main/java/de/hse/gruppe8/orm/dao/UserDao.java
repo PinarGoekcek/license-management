@@ -73,6 +73,9 @@ public class UserDao {
     }
 
     public List<UserEntity> getUsersFromCompany(Long id) {
-        return null;
+        Query q = entityManager.createQuery("select users from UserEntity users where users.active = TRUE AND users.company.id =:id");
+        q.setParameter("id", id);
+        List<UserEntity> users = (List<UserEntity>) q.getResultList();
+        return users;
     }
 }
