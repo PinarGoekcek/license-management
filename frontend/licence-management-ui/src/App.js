@@ -14,6 +14,8 @@ import Bottombar from "./components/Bottombar";
 import {useState} from "react";
 import EditUser from "./components/EditUser";
 import Details from "./components/Details";
+import AddUser from "./components/AddUser";
+import EditCompanies from "./components/EditCompanies";
 
 function App() {
     const history = useHistory();
@@ -39,10 +41,15 @@ function App() {
     }
 
     const onClickAdd = () => {
-        console.log(headTitle);
         switch (headTitle) {
             case 'Companies':
                 history.push(routes.addcompany);
+                break;
+            case 'Users':
+                history.push(routes.adduser);
+                break;
+            case 'Contracts':
+                history.push(routes.addcontracts);
                 break;
         }
     }
@@ -57,8 +64,12 @@ function App() {
                 <Route path={routes.users} exact component={() => <Users func={getHeadTitle}/>}/>
                 <Route path={routes.login} exact component={() => <Login func={getHeadTitle}/>}/>
                 <Route path={routes.edituser} exact component={() => <EditUser func={getHeadTitle}/>}/>
+                <Route path={routes.adduser} exact component={() => <AddUser func={getHeadTitle}/>}/>
                 <Route path={routes.details} exact component={() => <Details func={getHeadTitle}/>}/>
                 <Route path={routes.addcompany} exact component={() => <AddCompany func={getHeadTitle}/>}/>
+                <Route path={routes.editCompanies} exact component={() => <EditCompanies func={getHeadTitle}/>}/>
+
+                <Route path={routes.addcontracts} exact component={() => <AddCompany func={getHeadTitle}/>}/>
 
                 <Redirect to={routes.companies}/>
             </Switch>
