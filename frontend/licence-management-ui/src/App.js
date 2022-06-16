@@ -16,6 +16,7 @@ import EditUser from "./components/EditUser";
 import Details from "./components/Details";
 import AddUser from "./components/AddUser";
 import EditCompanies from "./components/EditCompanies";
+import EditContracts from "./components/EditContracts";
 
 function App() {
     const history = useHistory();
@@ -68,6 +69,7 @@ function App() {
                 <Route path={routes.details} exact component={() => <Details func={getHeadTitle}/>}/>
                 <Route path={routes.addcompany} exact component={() => <AddCompany func={getHeadTitle}/>}/>
                 <Route path={routes.editCompanies} exact component={() => <EditCompanies func={getHeadTitle}/>}/>
+                <Route path={routes.editcontracts} exact component={() => <EditContracts func={getHeadTitle}/>}/>
 
                 <Route path={routes.addcontracts} exact component={() => <AddCompany func={getHeadTitle}/>}/>
 

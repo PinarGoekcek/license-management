@@ -2,6 +2,7 @@ export const protectedRoutes = {
     'companies': '/companies',
     'contracts': '/contracts',
     'addcontracts': '/addcontracts',
+    'editcontracts':'/editcontracts',
     'users': '/users',
     'edituser': '/edituser',
     'adduser': '/adduser',
