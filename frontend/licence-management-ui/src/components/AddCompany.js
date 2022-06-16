@@ -13,7 +13,6 @@ const AddCompany = (props) => {
     }
 
     const onCancel = () => {
-       //console.log('cancel');
         history.push(routes.companies)
     }
 

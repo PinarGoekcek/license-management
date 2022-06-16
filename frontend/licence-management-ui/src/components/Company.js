@@ -33,7 +33,7 @@ const Company = ({company, reloadCallback}) => {
             })
     };
     const onEdit = () => {
-        console.log('edit');
+        history.push(routes.editCompanies);
     };
     const onUsers = () => {
         console.log('users');
