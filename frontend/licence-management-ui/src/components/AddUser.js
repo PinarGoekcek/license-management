@@ -7,6 +7,9 @@ const AddUser = (props) => {
     props.func('Add User');
 
     const history = useHistory();
+    const handleError = () => {
+        console.log("something went wrong");
+    }
 
     const [username, setUsername] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
@@ -16,7 +19,7 @@ const AddUser = (props) => {
     const [phone, setPhone] = useState('');
     const [mobile, setMobile] = useState('');
 
-    const [listIndex, setListIndex] = useState(1);
+    const [listIndex, setListIndex] = useState(0);
     const [companies, setCompanies] = useState([]);
 
     useEffect(() => {
@@ -77,9 +80,8 @@ const AddUser = (props) => {
         }).then((response) => {
             if (response.status === 200) {
                 history.push(routes.users)
-            } else {
-                //Hier fehlt noch was
-            }
+            } else handleError();
+
         });
 
     }
@@ -129,8 +131,7 @@ const AddUser = (props) => {
 
                 <div>
                     <h3 className="mt-6">Grant admin rights</h3>
-                    {/*Hier fehlt noch was*/}
-                    <input type="checkbox" className="default:ring-2" onChange={e => setIsAdmin(e.target.value)}/>
+                    <input type="checkbox" value={true} className="default:ring-2" onChange={e => setIsAdmin(e.target.value)}/>
                 </div>
 
                 <div className="m-4">
