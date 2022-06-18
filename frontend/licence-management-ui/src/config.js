@@ -1,7 +1,7 @@
 export const protectedRoutes = {
     'companies': '/companies',
     'contracts': '/contracts',
-    'addcontracts': '/addcontracts',
+    'addcontract': '/addcontract',
     'editcontracts':'/editcontracts',
     'users': '/users',
     'edituser': '/edituser',
