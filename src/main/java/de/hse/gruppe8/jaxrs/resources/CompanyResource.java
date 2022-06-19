@@ -123,4 +123,22 @@ public class CompanyResource {
         return Response.status(403).entity(new ErrorResponse(String.format("Attempt to delete company with id: %d was not successful!", id))).build();
     }
 
+    @GET
+    @APIResponses({
+            @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = User[].class))),
+            @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
+    @Path("/{id}/users")
+    public Response getUsersFromCompany(@Context SecurityContext securityContext, @PathParam("id") Long id) {
+        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
+        User currentUser = userService.getUser(user_id);
+        return Response.ok().entity(companyService.getUsersFromCompany(currentUser, id)).build();
+    }
+    @Path("/{id}/contracts")
+    public Response getContractsFromCompany(@Context SecurityContext securityContext, @PathParam("id") Long id) {
+        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
+        User currentUser = userService.getUser(user_id);
+        return Response.ok().entity(companyService.getContractsFromCompany(currentUser, id)).build();
+    }
+
 }

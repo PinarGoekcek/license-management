@@ -18,8 +18,6 @@ public class UserDao {
     @Inject
     EntityManager entityManager;
 
-    @Inject
-    UserMapper userMapper;
     private static final Logger LOGGER = Logger.getLogger(UserDao.class);
 
 
@@ -70,5 +68,12 @@ public class UserDao {
     public void removeAll() {
         Query del = entityManager.createQuery("DELETE FROM UserEntity WHERE id >= 0");
         del.executeUpdate();
+    }
+
+    public List<UserEntity> getUsersFromCompany(Long id) {
+        Query q = entityManager.createQuery("select users from UserEntity users where users.active = TRUE AND users.company.id =:id");
+        q.setParameter("id", id);
+        List<UserEntity> users = (List<UserEntity>) q.getResultList();
+        return users;
     }
 }
