@@ -18,10 +18,12 @@ import Details from "./components/Details";
 import AddUser from "./components/AddUser";
 import EditCompanies from "./components/EditCompanies";
 import EditContracts from "./components/EditContracts";
+import UsersByCompany from "./components/UsersByCompany";
 
 function App() {
     const history = useHistory();
-    const [headTitle, setHeadTitle] = useState([]);
+    const [headTitle, setHeadTitle] = useState('');
+    const [showHeadAddBtn, setShowHeadAddBtn] = useState('');
 
     axios.interceptors.response.use(
         (response) => {
@@ -42,6 +44,10 @@ function App() {
         setHeadTitle(text);
     }
 
+    const showAddInHeader = (visible) => {
+        setShowHeadAddBtn(visible);
+    }
+
     const onClickAdd = () => {
         switch (headTitle) {
             case 'Companies':
@@ -58,15 +64,18 @@ function App() {
 
     return (
         <div className='my-container'>
-            <Header title={headTitle} onClickAdd={onClickAdd}/>
+            <Header title={headTitle} onClickAdd={onClickAdd} showAdd={showHeadAddBtn}/>
             <Navbar/>
             <Switch>
                 <Route path={routes.companies} exact component={() => <Companies func={getHeadTitle}/>}/>
-                <Route path={routes.contracts} exact component={() => <Contracts func={getHeadTitle}/>}/>
+                <Route path={routes.contracts} exact
+                       component={() => <Contracts func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={routes.users} exact component={() => <Users func={getHeadTitle}/>}/>
                 <Route path={routes.login} exact component={() => <Login func={getHeadTitle}/>}/>
                 <Route path={routes.edituser} exact component={() => <EditUser func={getHeadTitle}/>}/>
                 <Route path={routes.adduser} exact component={() => <AddUser func={getHeadTitle}/>}/>
+                <Route path={`${routes.usersbycompany}/:id?`} exact
+                       component={() => <UsersByCompany func={getHeadTitle}/>}/>
                 <Route path={routes.details} exact component={() => <Details func={getHeadTitle}/>}/>
                 <Route path={routes.addcompany} exact component={() => <AddCompany func={getHeadTitle}/>}/>
                 <Route path={routes.editCompanies} exact component={() => <EditCompanies func={getHeadTitle}/>}/>

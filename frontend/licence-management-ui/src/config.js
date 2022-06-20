@@ -2,13 +2,14 @@ export const protectedRoutes = {
     'companies': '/companies',
     'contracts': '/contracts',
     'addcontract': '/addcontract',
-    'editcontracts':'/editcontracts',
+    'editcontracts': '/editcontracts',
     'users': '/users',
     'edituser': '/edituser',
     'adduser': '/adduser',
+    'usersbycompany': '/usersbycompany',
     'details': '/details',
     'addcompany': '/addcompany',
-    'editCompanies':'/editCompanies'
+    'editCompanies': '/editCompanies'
 }
 
 
