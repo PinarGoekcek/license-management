@@ -10,6 +10,7 @@ const Companies = (props) => {
 
     const history = useHistory();
     const [companies, setCompanies] = useState([]);
+    
     const reloadCallback = () => {
         let user = JSON.parse(localStorage.getItem('user'));
         if (user === null) {

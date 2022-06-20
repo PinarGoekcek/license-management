@@ -1,6 +1,7 @@
 package de.hse.gruppe8.jaxrs.resources;
 
 import de.hse.gruppe8.jaxrs.model.Company;
+import de.hse.gruppe8.jaxrs.model.Contract;
 import de.hse.gruppe8.jaxrs.model.ErrorResponse;
 import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.jaxrs.services.CompanyService;
@@ -134,6 +135,12 @@ public class CompanyResource {
         User currentUser = userService.getUser(user_id);
         return Response.ok().entity(companyService.getUsersFromCompany(currentUser, id)).build();
     }
+
+    @GET
+    @APIResponses({
+            @APIResponse(responseCode = "200", content = @Content(schema = @Schema(implementation = Contract[].class))),
+            @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+    })
     @Path("/{id}/contracts")
     public Response getContractsFromCompany(@Context SecurityContext securityContext, @PathParam("id") Long id) {
         Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());

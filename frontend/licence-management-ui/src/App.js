@@ -19,6 +19,7 @@ import AddUser from "./components/AddUser";
 import EditCompanies from "./components/EditCompanies";
 import EditContracts from "./components/EditContracts";
 import UsersByCompany from "./components/UsersByCompany";
+import ContractsByCompany from "./components/ContractsByCompany";
 
 function App() {
     const history = useHistory();
@@ -89,9 +90,10 @@ function App() {
                        component={() => <EditCompanies func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={routes.editcontracts} exact
                        component={() => <EditContracts func={getHeadTitle} showAdd={showAddInHeader}/>}/>
-
                 <Route path={routes.addcontract} exact
                        component={() => <AddContract func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                <Route path={`${routes.contractsbycompany}/:id?`} exact
+                       component={() => <ContractsByCompany func={getHeadTitle} showAdd={showAddInHeader}/>}/>
 
                 <Redirect to={routes.companies}/>
             </Switch>
