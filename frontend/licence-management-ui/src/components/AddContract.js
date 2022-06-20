@@ -5,6 +5,7 @@ import {useHistory} from "react-router-dom";
 
 const AddContract = (props) => {
     props.func('Add Contract');
+    props.showAdd(false);
 
     const history = useHistory();
 
@@ -23,8 +24,9 @@ const AddContract = (props) => {
     const [feature2, setFeature2] = useState('');
     const [feature3, setFeature3] = useState('');
 
-    const [companyListIndex, setCompanyListIndex] = useState(0);
     const [companies, setCompanies] = useState([]);
+    const [companyListIndex, setCompanyListIndex] = useState(0);
+    const [companyID, setCompanyID] = useState(0);
 
     const [users, setUsers] = useState([]);
 
@@ -49,18 +51,27 @@ const AddContract = (props) => {
         })
             .then((response) => {
                 setCompanies(response.data);
+                selectCompany(0);
             });
     }, []);
 
-    const selectCompany = (companyID) => {
-        setCompanyListIndex(companyID);
+    const selectCompany = (e) => {
+        if (companies.length) {
+            console.log(companies[e].id);
+            setCompanyListIndex(e);
+            refreshUsers(companies[e].id);
+        }
+    }
+
+    const refreshUsers = (id) => {
         let user = JSON.parse(localStorage.getItem('user'));
         if (user === null) {
             history.push(routes.login);
             return;
         }
         let jwt = user.jwt || '';
-        axios.get(`${APP_API_ENDPOINT_URL}/companies/${companyID}/users`, {
+        id = 100;
+        axios.get(`${APP_API_ENDPOINT_URL}/companies/${id}/users`, {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -120,6 +131,29 @@ const AddContract = (props) => {
         <>
             <div className="grid grid-cols-2 p-10 m-auto text-enter ">
                 <div className="m-3">
+                    <h3 className="text-center">Company</h3>
+                    <select onChange={e => selectCompany(e.target.value)}>
+                        {companies.map((companyitem, i) => <option
+                            value={i} key={companyitem.id}>{companyitem.name}</option>)}
+                    </select>
+                </div>
+
+                <div className="m-3">
+                    <h3 className="text-center">Responsible person 1</h3>
+                    <select onChange={e => setPersonListIndex1(e.target.value)}>
+                        {users.length && users.map((p1item, i) => <option
+                            value={i} key={p1item.id}>{p1item.name}</option>)}
+                    </select>
+                </div>
+                <div className="m-3">
+                    <h3 className="text-center">Responsible person 2</h3>
+                    <select onChange={e => setPersonListIndex2(e.target.value)}>
+                        {users.length && users.map((p2item, i) => <option
+                            value={i} key={p2item.id}>{p2item.name}</option>)}
+                    </select>
+                </div>
+
+                <div className="m-3">
                     <h3 className="text-center">Date Start</h3>
                     <input className="block border m-auto text-sm text-slate-500
     " type='text' placeholder='' value={dateStart} onChange={e => setDateStart(e.target.value)}/>
@@ -132,27 +166,6 @@ const AddContract = (props) => {
                     <h3 className="text-center">Version</h3>
                     <input className="block border m-auto text-sm text-slate-500
     " type='text' placeholder='' value={version} onChange={e => setVersion(e.target.value)}/></div>
-                <div className="m-3">
-                    <h3 className="text-center">Company</h3>
-                    <select onChange={e => selectCompany(e.target.value)}>
-                        {companies.map((companyitem, i) => <option
-                            value={i} key={companyitem.id}>{companyitem.name}</option>)}
-                    </select>
-                </div>
-                <div className="m-3">
-                    <h3 className="text-center">Responsible person 1</h3>
-                    <select onChange={e => setPersonListIndex1(e.target.value)}>
-                        {users.map((p1item, i) => <option
-                            value={i} key={p1item.id}>{p1item.name}</option>)}
-                    </select>
-                </div>
-                <div className="m-3">
-                    <h3 className="text-center">Responsible person 2</h3>
-                    <select onChange={e => setPersonListIndex2(e.target.value)}>
-                        {users.map((p2item, i) => <option
-                            value={i} key={p2item.id}>{p2item.name}</option>)}
-                    </select>
-                </div>
                 <div className="m-3">
                     <h3 className="text-center">IP number 1</h3>
                     <input className="block border m-auto text-sm text-slate-500

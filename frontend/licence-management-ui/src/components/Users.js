@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom";
 
 const Users = (props) => {
     props.func('Users');
+    props.showAdd(true);
 
     const history = useHistory();
     const [users, setUsers] = useState([]);

@@ -5,6 +5,7 @@ import {useHistory} from "react-router-dom";
 
 const AddUser = (props) => {
     props.func('Add User');
+    props.showAdd(false);
 
     const history = useHistory();
     const handleError = () => {

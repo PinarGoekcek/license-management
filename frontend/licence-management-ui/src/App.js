@@ -67,21 +67,31 @@ function App() {
             <Header title={headTitle} onClickAdd={onClickAdd} showAdd={showHeadAddBtn}/>
             <Navbar/>
             <Switch>
-                <Route path={routes.companies} exact component={() => <Companies func={getHeadTitle}/>}/>
+                <Route path={routes.companies} exact
+                       component={() => <Companies func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={routes.contracts} exact
                        component={() => <Contracts func={getHeadTitle} showAdd={showAddInHeader}/>}/>
-                <Route path={routes.users} exact component={() => <Users func={getHeadTitle}/>}/>
-                <Route path={routes.login} exact component={() => <Login func={getHeadTitle}/>}/>
-                <Route path={routes.edituser} exact component={() => <EditUser func={getHeadTitle}/>}/>
-                <Route path={routes.adduser} exact component={() => <AddUser func={getHeadTitle}/>}/>
+                <Route path={routes.users} exact
+                       component={() => <Users func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                <Route path={routes.login} exact
+                       component={() => <Login func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                <Route path={routes.edituser} exact
+                       component={() => <EditUser func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                <Route path={routes.adduser} exact
+                       component={() => <AddUser func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={`${routes.usersbycompany}/:id?`} exact
-                       component={() => <UsersByCompany func={getHeadTitle}/>}/>
-                <Route path={routes.details} exact component={() => <Details func={getHeadTitle}/>}/>
-                <Route path={routes.addcompany} exact component={() => <AddCompany func={getHeadTitle}/>}/>
-                <Route path={routes.editCompanies} exact component={() => <EditCompanies func={getHeadTitle}/>}/>
-                <Route path={routes.editcontracts} exact component={() => <EditContracts func={getHeadTitle}/>}/>
+                       component={() => <UsersByCompany func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                <Route path={routes.details} exact
+                       component={() => <Details func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                <Route path={routes.addcompany} exact
+                       component={() => <AddCompany func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                <Route path={routes.editCompanies} exact
+                       component={() => <EditCompanies func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                <Route path={routes.editcontracts} exact
+                       component={() => <EditContracts func={getHeadTitle} showAdd={showAddInHeader}/>}/>
 
-                <Route path={routes.addcontract} exact component={() => <AddContract func={getHeadTitle}/>}/>
+                <Route path={routes.addcontract} exact
+                       component={() => <AddContract func={getHeadTitle} showAdd={showAddInHeader}/>}/>
 
                 <Redirect to={routes.companies}/>
             </Switch>

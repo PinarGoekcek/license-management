@@ -6,6 +6,7 @@ import {useHistory, useParams} from "react-router-dom";
 
 const UsersByCompany = (props) => {
     props.func('Users in company');
+    props.showAdd(false);
 
     const {id} = useParams();
 

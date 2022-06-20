@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom";
 
 const Contracts = (props) => {
     props.func('Contracts');
+    props.showAdd(true);
 
     const history = useHistory();
     const [contracts, setContracts] = useState([]);

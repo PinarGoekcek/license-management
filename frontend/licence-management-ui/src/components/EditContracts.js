@@ -4,6 +4,7 @@ import ButtonTxt from "./ButtonTxt";
 
 const EditContracts = (props) => {
     props.func('Edit Contracts');
+    props.showAdd(false);
 
     const history = useHistory();
 
@@ -65,18 +66,18 @@ const EditContracts = (props) => {
             </div>
 
 
-
-                <div className="absolute right-0">
-               <span className='bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+            <div className="absolute right-0">
+               <span
+                   className='bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
                 <ButtonTxt name={'save'} onClick={onSave}/>
                            </span>
 
-                    <span className="bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <span
+                    className="bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <ButtonTxt name={'Cancel'} onClick={onCancel}/>
                     </span>
 
             </div>
-
 
 
         </>
