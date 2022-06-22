@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Companies from './components/Companies';
 import AddCompany from './components/AddCompany';
 import Contracts from "./components/Contracts";
+import AddContract from "./components/AddContract";
 import Users from "./components/Users";
 import Login from './components/Login';
 
@@ -50,7 +51,7 @@ function App() {
                 history.push(routes.adduser);
                 break;
             case 'Contracts':
-                history.push(routes.addcontracts);
+                history.push(routes.addcontract);
                 break;
         }
     }
@@ -71,7 +72,7 @@ function App() {
                 <Route path={routes.editCompanies} exact component={() => <EditCompanies func={getHeadTitle}/>}/>
                 <Route path={routes.editcontracts} exact component={() => <EditContracts func={getHeadTitle}/>}/>
 
-                <Route path={routes.addcontracts} exact component={() => <AddCompany func={getHeadTitle}/>}/>
+                <Route path={routes.addcontract} exact component={() => <AddContract func={getHeadTitle}/>}/>
 
                 <Redirect to={routes.companies}/>
             </Switch>
