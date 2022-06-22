@@ -16,7 +16,7 @@ import {useState} from "react";
 import EditUser from "./components/EditUser";
 import Details from "./components/Details";
 import AddUser from "./components/AddUser";
-import EditCompanies from "./components/EditCompanies";
+import EditCompany from "./components/EditCompany";
 import EditContracts from "./components/EditContracts";
 import UsersByCompany from "./components/UsersByCompany";
 import ContractsByCompany from "./components/ContractsByCompany";
@@ -76,19 +76,19 @@ function App() {
                        component={() => <Users func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={routes.login} exact
                        component={() => <Login func={getHeadTitle} showAdd={showAddInHeader}/>}/>
-                <Route path={routes.edituser} exact
+                <Route path={`${routes.edituser}/:id?`} exact
                        component={() => <EditUser func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={routes.adduser} exact
                        component={() => <AddUser func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={`${routes.usersbycompany}/:id?`} exact
                        component={() => <UsersByCompany func={getHeadTitle} showAdd={showAddInHeader}/>}/>
-                <Route path={routes.details} exact
+                <Route path={`${routes.details}/:id?`} exact
                        component={() => <Details func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={routes.addcompany} exact
                        component={() => <AddCompany func={getHeadTitle} showAdd={showAddInHeader}/>}/>
-                <Route path={routes.editCompanies} exact
-                       component={() => <EditCompanies func={getHeadTitle} showAdd={showAddInHeader}/>}/>
-                <Route path={routes.editcontracts} exact
+                <Route path={`${routes.editcompany}/:id?`} exact
+                       component={() => <EditCompany func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                <Route path={`${routes.editcontract}/:id?`} exact
                        component={() => <EditContracts func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={routes.addcontract} exact
                        component={() => <AddContract func={getHeadTitle} showAdd={showAddInHeader}/>}/>
