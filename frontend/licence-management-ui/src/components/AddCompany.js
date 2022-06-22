@@ -21,11 +21,6 @@ const AddCompany = (props) => {
         <>
             <div className="grid grid-cols-2 p-10 m-auto text-enter ">
                 <div className="m-3">
-                    <h3 className="text-center">ID</h3>
-                    <input className="block border m-auto text-sm text-slate-500
-    " type='text' placeholder=''/>
-                </div>
-                <div className="m-3">
                     <h3 className="text-center">Name</h3>
                     <input className="block border m-auto text-sm text-slate-500
     " type='text' placeholder=''/>
