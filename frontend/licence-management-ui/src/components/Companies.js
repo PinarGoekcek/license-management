@@ -6,8 +6,11 @@ import {useHistory} from 'react-router-dom';
 
 const Companies = (props) => {
     props.func('Companies');
+    props.showAdd(true);
+
     const history = useHistory();
     const [companies, setCompanies] = useState([]);
+    
     const reloadCallback = () => {
         let user = JSON.parse(localStorage.getItem('user'));
         if (user === null) {

@@ -1,24 +1,27 @@
 import axios from "axios";
-import Contract from './Contract';
+import Contract from "./Contract";
 import {useState, useEffect} from "react";
 import {APP_API_ENDPOINT_URL, routes} from "../config";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 
-const Contracts = (props) => {
-    props.func('Contracts');
-    props.showAdd(true);
+const ContractsByCompany = (props) => {
+    props.func('Contracts by company');
+    props.showAdd(false);
+
+    const {id} = useParams()
 
     const history = useHistory();
     const [contracts, setContracts] = useState([]);
 
-    const reloadCallback = () => {
+
+    useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user'));
         if (user === null) {
             history.push(routes.login);
             return;
         }
         let jwt = user.jwt || '';
-        axios.get(`${APP_API_ENDPOINT_URL}/contracts`, {
+        axios.get(`${APP_API_ENDPOINT_URL}/companies/${id}/contracts`, {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -28,11 +31,8 @@ const Contracts = (props) => {
             .then((response) => {
                 setContracts(response.data);
             });
-    }
-
-    useEffect(() => {
-        reloadCallback();
     }, []);
+
 
     return (
         <>
@@ -48,7 +48,7 @@ const Contracts = (props) => {
             </div>
             {contracts ?
                 contracts.map((contract) => (
-                    <Contract key={contract.id} contract={contract} reloadCallback={reloadCallback}/>
+                    <Contract key={contract.id} contract={contract}/>
                 ))
                 : console.log("No contracts in list")
             }
@@ -56,4 +56,4 @@ const Contracts = (props) => {
     );
 };
 
-export default Contracts;
+export default ContractsByCompany;

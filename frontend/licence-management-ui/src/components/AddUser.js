@@ -5,6 +5,7 @@ import {useHistory} from "react-router-dom";
 
 const AddUser = (props) => {
     props.func('Add User');
+    props.showAdd(false);
 
     const history = useHistory();
     const handleError = () => {
@@ -99,7 +100,7 @@ const AddUser = (props) => {
             <div className="m-4">
                 <h3 className="">Username</h3>
                 <input className="block border text-sm text-slate-500
-    " type='text' placeholder='Select a username' onChange={e => setUsername(e.target.value)}/>
+    " type='text' placeholder='Select a username' value={username} onChange={e => setUsername(e.target.value)}/>
             </div>
 
             <div className="grid grid-cols-2 p-2">
@@ -107,37 +108,38 @@ const AddUser = (props) => {
                 <div className="m-4">
                     <h3 className="">First Name</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder='' onChange={e => setFirstName(e.target.value)}/>
+    " type='text' placeholder='' value={firstName} onChange={e => setFirstName(e.target.value)}/>
                 </div>
 
                 <div className="m-4">
                     <h3 className="">Last Name</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder='' onChange={e => setLastName(e.target.value)}/>
+    " type='text' placeholder='' value={lastName} onChange={e => setLastName(e.target.value)}/>
                 </div>
 
                 <div className="m-4">
                     <h3 className="">Email</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder='' onChange={e => setEmail(e.target.value)}/>
+    " type='text' placeholder='' value={email} onChange={e => setEmail(e.target.value)}/>
                 </div>
 
                 <div className="m-4">
                     <h3 className="">Phone</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder='' onChange={e => setPhone(e.target.value)}/>
+    " type='text' placeholder='' value={phone} onChange={e => setPhone(e.target.value)}/>
                 </div>
 
 
                 <div>
                     <h3 className="mt-6">Grant admin rights</h3>
-                    <input type="checkbox" value={true} className="default:ring-2" onChange={e => setIsAdmin(e.target.value)}/>
+                    <input type="checkbox" value={isAdmin} className="default:ring-2"
+                           onChange={e => setIsAdmin(e.currentTarget.checked)}/>
                 </div>
 
                 <div className="m-4">
                     <h3 className="">Mobile</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder='' onChange={e => setMobile(e.target.value)}/>
+    " type='text' placeholder='' value={mobile} onChange={e => setMobile(e.target.value)}/>
                 </div>
             </div>
 

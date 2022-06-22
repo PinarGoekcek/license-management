@@ -36,10 +36,10 @@ const Company = ({company, reloadCallback}) => {
         history.push(routes.editCompanies);
     };
     const onUsers = () => {
-        console.log('users');
+        history.push(`${routes.usersbycompany}/${company.id}`);
     };
     const onContracts = () => {
-        console.log('contracts');
+        history.push(`${routes.contractsbycompany}/${company.id}`);
     };
 
     return (
