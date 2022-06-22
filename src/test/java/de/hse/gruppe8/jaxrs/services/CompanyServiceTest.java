@@ -292,6 +292,48 @@ public class CompanyServiceTest {
         assertEquals(2, users.size());
     }
 
+    @Test
+    void checkGetUsersFromCompanyAsUser() {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+        CompanyEntity companyEntity2 = companyDao.save(new CompanyEntity(null, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany", true));
 
+        UserEntity userEntity1 = userDao.save(new UserEntity(null, "username1", "password", true, "firstname", "lastname", "dd@dd.de", "+4911", "+49222", true, companyEntity1));
+        UserEntity userEntity2 = userDao.save(new UserEntity(null, "username2", "password", true, "firstname", "lastname", "dd@dd.de", "+4911", "+49222", true, companyEntity1));
+        UserEntity userEntity3 = userDao.save(new UserEntity(null, "username3", "password", true, "firstname", "lastname", "dd@dd.de", "+4911", "+49222", true, companyEntity1));
+
+        UserEntity userEntity4 = userDao.save(new UserEntity(null, "username4", "password", true, "firstname", "lastname", "dd@dd.de", "+4911", "+49222", true, companyEntity2));
+        UserEntity userEntity5 = userDao.save(new UserEntity(null, "username5", "password", true, "firstname", "lastname", "dd@dd.de", "+4911", "+49222", true, companyEntity2));
+
+        Company company = new Company(companyEntity1.getId(), "name 2", "department 2", "street 2", "73732", "esslingen", "Germany");
+        User user = new User(1L, "username", false, "firstName", "lastName", "lala@lala.de", null, null, "", company);
+        //When
+        List<User> users = companyService.getUsersFromCompany(user, companyEntity1.getId());
+
+        //Then
+        assertEquals(3, users.size());
+    }
+
+    @Test
+    void checkGetUsersFromCompanyAsUserFromOtherCompany() {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+        CompanyEntity companyEntity2 = companyDao.save(new CompanyEntity(null, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity1 = userDao.save(new UserEntity(null, "username1", "password", true, "firstname", "lastname", "dd@dd.de", "+4911", "+49222", true, companyEntity1));
+        UserEntity userEntity2 = userDao.save(new UserEntity(null, "username2", "password", true, "firstname", "lastname", "dd@dd.de", "+4911", "+49222", true, companyEntity1));
+        UserEntity userEntity3 = userDao.save(new UserEntity(null, "username3", "password", true, "firstname", "lastname", "dd@dd.de", "+4911", "+49222", true, companyEntity1));
+
+        UserEntity userEntity4 = userDao.save(new UserEntity(null, "username4", "password", true, "firstname", "lastname", "dd@dd.de", "+4911", "+49222", true, companyEntity2));
+        UserEntity userEntity5 = userDao.save(new UserEntity(null, "username5", "password", true, "firstname", "lastname", "dd@dd.de", "+4911", "+49222", true, companyEntity2));
+
+        Company company = new Company(companyEntity1.getId(), "name 2", "department 2", "street 2", "73732", "esslingen", "Germany");
+        User user = new User(1L, "username", false, "firstName", "lastName", "lala@lala.de", null, null, "", company);
+        //When
+        List<User> users = companyService.getUsersFromCompany(user, companyEntity2.getId());
+
+        //Then
+        assertEquals(0, users.size());
+    }
 
 }
