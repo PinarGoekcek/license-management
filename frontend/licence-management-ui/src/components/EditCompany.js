@@ -1,7 +1,7 @@
 
 import {useHistory, useParams} from "react-router-dom";
 import ButtonTxt from "./ButtonTxt";
-import company from "./Company";
+
 import {useEffect, useState} from "react";
 import {APP_API_ENDPOINT_URL, routes} from "../config";
 import axios from "axios";
@@ -21,7 +21,37 @@ const EditCompany = (props) => {
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
 
+    const [company, setCompany] = useState([]);
+    const [setCompanies] = useState([]);
 
+    useEffect(() => {
+        let actualuser = JSON.parse(localStorage.getItem('user'));
+        if (actualuser === null) {
+            history.push(routes.login);
+            return;
+        }
+        let jwt = actualuser.jwt || '';
+        axios.get(`${APP_API_ENDPOINT_URL}/companies`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${jwt}`,
+            },
+        })
+            .then((response) => {
+                setCompanies(response.data);
+            });
+        axios.get(`${APP_API_ENDPOINT_URL}/companies/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${jwt}`,
+            },
+        })
+            .then((response) => {
+                setCompany(response.data);
+            });
+    }, []);
 
 
 
