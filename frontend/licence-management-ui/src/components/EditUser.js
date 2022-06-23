@@ -106,8 +106,9 @@ const EditUser = (props) => {
                 <div className="m-8">
                     <h3 className="">Company</h3>
                     <select onChange={e => setListIndex(e.target.value)}>
-                        {companies.map((item, i) => <option selected={companies && item.id === user.company.id}
-                                                            value={item.id} key={item.id}>{item.name}</option>)}
+                        {companies && user && companies.map((item, i) => <option
+                            selected={companies && item.id === user.company.id}
+                            value={item.id} key={item.id}>{item.name}</option>)}
                     </select>
                 </div>
 
