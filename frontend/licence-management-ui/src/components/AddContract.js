@@ -176,6 +176,7 @@ const AddContract = (props) => {
                 <div className="m-3">
                     <h3 className="text-center">Company</h3>
                     <select onChange={e => setCompanyID(e.target.value)}>
+                        <option value={null}></option>
                         {companies.map((item, i) => <option
                             value={item.id} key={item.id}>{item.name}</option>)}
                     </select>
@@ -184,6 +185,7 @@ const AddContract = (props) => {
                 <div className="m-3">
                     <h3 className="text-center">Responsible person 1</h3>
                     <select onChange={e => setUserId1(e.target.value)}>
+                        <option value={null}></option>
                         {users.length && users.map((p1item, i) => <option
                             value={p1item.id} key={p1item.id}>{p1item.username}</option>)}
                     </select>
@@ -191,6 +193,7 @@ const AddContract = (props) => {
                 <div className="m-3">
                     <h3 className="text-center">Responsible person 2</h3>
                     <select onChange={e => setUserId2(e.target.value)}>
+                        <option value={null}></option>
                         {users.length && users.map((p2item, i) => <option
                             value={p2item.id} key={p2item.id}>{p2item.username}</option>)}
                     </select>
