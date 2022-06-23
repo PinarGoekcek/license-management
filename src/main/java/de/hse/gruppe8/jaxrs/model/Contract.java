@@ -30,5 +30,7 @@ public class Contract implements Serializable {
     private Integer feature1;
     private Integer feature2;
     private Integer feature3;
+    private User user1;
+    private User user2;
 
 }

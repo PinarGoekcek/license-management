@@ -3,7 +3,6 @@ package de.hse.gruppe8.jaxrs.services;
 import de.hse.gruppe8.jaxrs.model.Contract;
 import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.orm.dao.ContractDao;
-import de.hse.gruppe8.orm.dao.ContractToUserDao;
 import de.hse.gruppe8.orm.model.ContractEntity;
 import de.hse.gruppe8.util.mapper.ContractMapper;
 import de.hse.gruppe8.util.mapper.UserMapper;
@@ -20,9 +19,6 @@ public class ContractService {
     ContractDao contractDao;
 
     @Inject
-    ContractToUserDao contractToUserDao;
-
-    @Inject
     ContractMapper contractMapper;
 
     @Inject
@@ -36,7 +32,7 @@ public class ContractService {
                 contracts.add(contractMapper.toContract(contractEntity));
             }
         } else {
-            List<ContractEntity> contractEntities = contractToUserDao.getContractsForUser(userMapper.toUserEntity(currentUser));
+            List<ContractEntity> contractEntities = contractDao.getContractsForUser(userMapper.toUserEntity(currentUser));
             for (ContractEntity contractEntity : contractEntities) {
                 contracts.add(contractMapper.toContract(contractEntity));
             }

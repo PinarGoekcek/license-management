@@ -16,28 +16,17 @@ VALUES ('100', 'admin', 'admin', true, 'Admin', 'Administrator', 'ich@admin.de',
 
 -- Contracts
 INSERT INTO Contracts (id, active, date_start, date_stop, version, license_key, feature_1, feature_2, feature_3, ip_1,
-                       ip_2, ip_3, company_id)
+                       ip_2, ip_3, company_id, user1_id, user2_id)
 VALUES ('100', true, DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), '01', '12345', '01',
-        '02', '03', '192.172.1.0', '', '', 100),
+        '02', '03', '192.172.1.0', '', '', 100, 100, null),
        ('101', true, DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), '02', '98765', '01',
-        '02', '03', '192.172.1.0', '', '', 101),
+        '02', '03', '192.172.1.0', '', '', 101, 101, null),
        ('102', true, DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), '03', '98765', '01',
-        '02', '03', '192.172.1.0', '', '', 101),
+        '02', '03', '192.172.1.0', '', '', 101, 100, null),
        ('103', true, DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), '04', '98765', '01',
-        '02', '03', '192.172.1.0', '', '', 101),
+        '02', '03', '192.172.1.0', '', '', 101, 101, null),
        ('104', true, DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), '05', '98765', '01',
-        '02', '03', '192.172.1.0', '', '', 101),
+        '02', '03', '192.172.1.0', '', '', 101, null, null),
        ('105', true, DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), DATE_FORMAT(CURRENT_DATE, '%d.%m.%Y'), '06', '98765', '01',
-        '02', '03', '192.172.1.0', '', '', 101)
-;
-
--- ContractsTOUser
-INSERT INTO ContractsToUsers (id, contract_id, user_id)
-VALUES ('100', 100, 100),
-       ('101', 101, 100),
-       ('102', 102, 100),
-       ('103', 103, 100),
-       ('104', 104, 100),
-       ('105', 104, 101),
-       ('106', 105, 101)
+        '02', '03', '192.172.1.0', '', '', 101, 100, 101)
 ;

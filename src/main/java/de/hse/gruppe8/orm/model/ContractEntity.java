@@ -15,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContractEntity {
-    
+
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -57,4 +57,9 @@ public class ContractEntity {
     @ManyToOne
     private CompanyEntity company;
 
+    @ManyToOne
+    private UserEntity user1;
+
+    @ManyToOne
+    private UserEntity user2;
 }
