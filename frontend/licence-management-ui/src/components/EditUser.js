@@ -52,6 +52,16 @@ const EditUser = (props) => {
             });
     }, []);
 
+    useEffect(() => {
+        setUsername(user.username);
+        setIsAdmin(user.isAdmin);
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
+        setEmail(user.email);
+        setPhone(user.phone);
+        setMobile(user.mobile);
+    }, [user]);
+
 
     const onSave = () => {
         let user = JSON.parse(localStorage.getItem('user'));
@@ -82,11 +92,11 @@ const EditUser = (props) => {
             },
         })
             .then((response) => {
-                console.log('axios put response');
+                history.push(routes.users);
             });
     }
     const onCancel = () => {
-        history.push(routes.users)
+        history.push(routes.users);
     }
 
     return (
@@ -96,7 +106,7 @@ const EditUser = (props) => {
                 <div className="m-8">
                     <h3 className="">Company</h3>
                     <select onChange={e => setListIndex(e.target.value)}>
-                        {companies.map((item, i) => <option selected={user && item.id === user.company.id}
+                        {companies.map((item, i) => <option selected={companies && item.id === user.company.id}
                                                             value={item.id} key={item.id}>{item.name}</option>)}
                     </select>
                 </div>
@@ -104,7 +114,7 @@ const EditUser = (props) => {
                 <div className="m-4">
                     <h3 className="">Username</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' value={user.username} onChange={(e) => setUsername(e.target.value)}/>
+    " type='text' value={username} onChange={(e) => setUsername(e.target.value)}/>
                 </div>
             </div>
             <div className="grid grid-cols-2 p-10">
@@ -112,38 +122,38 @@ const EditUser = (props) => {
                 <div className="m-8">
                     <h3 className="">First Name</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' value={user.firstName} onChange={e => setFirstName(e.target.value)}/>
+    " type='text' value={firstName} onChange={e => setFirstName(e.target.value)}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Last Name</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' value={user.lastName} onChange={e => setLastName(e.target.value)}/>
+    " type='text' value={lastName} onChange={e => setLastName(e.target.value)}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Email</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' value={user.email} onChange={e => setEmail(e.target.value)}/>
+    " type='text' value={email} onChange={e => setEmail(e.target.value)}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Phone</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' value={user.phone} onChange={e => setPhone(e.target.value)}/>
+    " type='text' value={phone} onChange={e => setPhone(e.target.value)}/>
                 </div>
 
                 <div>
                     <h3 className="mt-6">Is Administrator</h3>
                     <input type="checkbox" className="default:ring-2" value={user.isAdmin}
                            onChange={e => setIsAdmin(e.currentTarget.checked)}
-                           checked={user.isAdmin ? 'checked' : ''}/>
+                           checked={isAdmin ? 'checked' : ''}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Mobile</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' value={user.mobile} onChange={e => setMobile(e.target.value)}/>
+    " type='text' value={mobile} onChange={e => setMobile(e.target.value)}/>
                 </div>
             </div>
 
