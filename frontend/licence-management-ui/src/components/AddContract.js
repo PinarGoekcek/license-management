@@ -21,20 +21,16 @@ const AddContract = (props) => {
     const [ip1, setIp1] = useState('');
     const [ip2, setIp2] = useState('');
     const [ip3, setIp3] = useState('');
-    const [feature1, setFeature1] = useState('');
-    const [feature2, setFeature2] = useState('');
-    const [feature3, setFeature3] = useState('');
+    const [feature1, setFeature1] = useState();
+    const [feature2, setFeature2] = useState();
+    const [feature3, setFeature3] = useState();
 
+    const [companyListIndex, setCompanyListIndex] = useState(-1);
     const [companies, setCompanies] = useState([]);
-    const [companyID, setCompanyID] = useState(null);
-    const [company, setCompany] = useState([]);
 
     const [users, setUsers] = useState([]);
-
-    const [user1, setUser1] = useState([]);
-    const [userId1, setUserId1] = useState(null);
-    const [user2, setUser2] = useState([]);
-    const [userId2, setUserId2] = useState(null);
+    const [userListIndex1, setUserListIndex1] = useState(0);
+    const [userListIndex2, setUserListIndex2] = useState(0);
 
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user'));
@@ -56,15 +52,14 @@ const AddContract = (props) => {
     }, []);
 
     useEffect(() => {
-        if (companyID !== null) {
-            console.log(companyID);
+        if (companyListIndex >= 0) {
             let user = JSON.parse(localStorage.getItem('user'));
             if (user === null) {
                 history.push(routes.login);
                 return;
             }
             let jwt = user.jwt || '';
-            axios.get(`${APP_API_ENDPOINT_URL}/companies/${companyID}/users`, {
+            axios.get(`${APP_API_ENDPOINT_URL}/companies/${companies[companyListIndex].id}/users`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
@@ -75,56 +70,7 @@ const AddContract = (props) => {
                     setUsers(response.data);
                 });
         }
-    }, [companyID]);
-
-    useEffect(() => {
-        console.log(users)
-    }, [users]);
-
-    useEffect(() => {
-        if (userId1 !== null) {
-            let actualuser = JSON.parse(localStorage.getItem('user'));
-            if (actualuser === null) {
-                history.push(routes.login);
-                return;
-            }
-            let jwt = actualuser.jwt || '';
-            axios.get(`${APP_API_ENDPOINT_URL}/users/${userId1}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${jwt}`,
-                },
-            })
-                .then((response) => {
-                    setUser1(response.data);
-                })
-            console.log(user1)
-        }
-    }, [userId1]);
-
-    useEffect(() => {
-        if (userId2 !== null) {
-            let actualuser = JSON.parse(localStorage.getItem('user'));
-            if (actualuser === null) {
-                history.push(routes.login);
-                return;
-            }
-            let jwt = actualuser.jwt || '';
-            axios.get(`${APP_API_ENDPOINT_URL}/users/${userId2}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    Authorization: `Bearer ${jwt}`,
-                },
-            })
-                .then((response) => {
-                    setUser2(response.data);
-                })
-            console.log(user2)
-        }
-    }, [userId2]);
-
+    }, [companyListIndex]);
 
     const onSave = () => {
         let user = JSON.parse(localStorage.getItem('user'));
@@ -140,16 +86,18 @@ const AddContract = (props) => {
             dateStop: dateStop,
             version: version,
             licenseKey: licenseKey,
-            company: companies[companyID],
+            company: companies[companyListIndex],
             ip1: ip1,
             ip2: ip2,
             ip3: ip3,
-            feature1: feature1,
-            feature2: feature2,
-            feature3: feature3
+            feature1: Number(feature1),
+            feature2: Number(feature2),
+            feature3: Number(feature3),
+            user1: users[userListIndex1],
+            user2: users[userListIndex2]
         };
 
-        // console.log(newcontract);
+        console.log(newcontract);
 
         axios.post(`${APP_API_ENDPOINT_URL}/contracts`, newcontract, {
             headers: {
@@ -175,26 +123,26 @@ const AddContract = (props) => {
             <div className="grid grid-cols-2 p-10 m-auto text-enter ">
                 <div className="m-3">
                     <h3 className="text-center">Company</h3>
-                    <select onChange={e => setCompanyID(e.target.value)}>
+                    <select onChange={e => setCompanyListIndex(e.target.value)}>
                         <option value={null}></option>
-                        {companies.map((item, i) => <option
-                            value={item.id} key={item.id}>{item.name}</option>)}
+                        {companies && companies.map((item, i) => <option
+                            value={i} key={item.id}>{item.name}</option>)}
                     </select>
                 </div>
 
                 <div className="m-3">
                     <h3 className="text-center">Responsible person 1</h3>
-                    <select onChange={e => setUserId1(e.target.value)}>
+                    <select onChange={e => setUserListIndex1(e.target.value)}>
                         <option value={null}></option>
-                        {users.length && users.map((p1item, i) => <option
+                        {users && users.length && users.map((p1item, i) => <option
                             value={p1item.id} key={p1item.id}>{p1item.username}</option>)}
                     </select>
                 </div>
                 <div className="m-3">
                     <h3 className="text-center">Responsible person 2</h3>
-                    <select onChange={e => setUserId2(e.target.value)}>
+                    <select onChange={e => setUserListIndex2(e.target.value)}>
                         <option value={null}></option>
-                        {users.length && users.map((p2item, i) => <option
+                        {users && users.length && users.map((p2item, i) => <option
                             value={p2item.id} key={p2item.id}>{p2item.username}</option>)}
                     </select>
                 </div>
