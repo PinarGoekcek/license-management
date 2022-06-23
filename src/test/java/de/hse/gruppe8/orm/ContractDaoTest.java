@@ -5,11 +5,11 @@ import de.hse.gruppe8.orm.dao.ContractDao;
 import de.hse.gruppe8.orm.model.CompanyEntity;
 import de.hse.gruppe8.orm.model.ContractEntity;
 import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +25,8 @@ public class ContractDaoTest {
     CompanyDao companyDao;
 
     @BeforeEach
-    void clearAllFromDatabase() {
+    @AfterEach
+    void InitDatabase() {
         contractDao.removeAll();
         companyDao.removeAll();
     }
@@ -43,7 +44,7 @@ public class ContractDaoTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null,true, companyEntity);
+        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity, null, null);
 
         //When
         contractDao.save(contractEntity);
@@ -64,7 +65,7 @@ public class ContractDaoTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3,null, null, null, true, companyEntity);
+        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity, null, null);
         contractDao.save(contractEntity);
 
         ContractEntity contract = contractDao.getContracts().get(0);
@@ -91,7 +92,7 @@ public class ContractDaoTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null, true, companyEntity);
+        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity, null, null);
         contractDao.save(contractEntity);
 
         ContractEntity contract = contractDao.getContracts().get(0);
@@ -115,7 +116,7 @@ public class ContractDaoTest {
         String end = "2021-12-30";
         Date dateEnd = formatter.parse(end);
 
-        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1,2,3, null, null, null, true, companyEntity);
+        ContractEntity contractEntity = new ContractEntity(null, dateBegin, dateEnd, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity, null, null);
         contractDao.save(contractEntity);
 
         //When
