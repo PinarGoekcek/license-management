@@ -12,17 +12,24 @@ const EditUser = (props) => {
 
     const history = useHistory();
     const [user, setUser] = useState([]);
-    const [companyID, setCompanyID] = useState(null);
+    const [listIndex, setListIndex] = useState(0);
     const [companies, setCompanies] = useState([]);
 
+    const [username, setUsername] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [mobile, setMobile] = useState('');
 
     useEffect(() => {
-        let user = JSON.parse(localStorage.getItem('user'));
-        if (user === null) {
+        let actualuser = JSON.parse(localStorage.getItem('user'));
+        if (actualuser === null) {
             history.push(routes.login);
             return;
         }
-        let jwt = user.jwt || '';
+        let jwt = actualuser.jwt || '';
         axios.get(`${APP_API_ENDPOINT_URL}/companies`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -47,7 +54,36 @@ const EditUser = (props) => {
 
 
     const onSave = () => {
-        console.log('save');
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (user === null) {
+            history.push(routes.login);
+            return;
+        }
+        let jwt = user.jwt || '';
+
+        const updatedUser = {
+            id: null,
+            username: username,
+            isAdmin: isAdmin,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phone: phone,
+            mobile: mobile,
+            jwt: null,
+            company: companies[listIndex]
+        };
+
+        axios.put(`${APP_API_ENDPOINT_URL}/users/${id}`, updatedUser, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${jwt}`,
+            },
+        })
+            .then((response) => {
+                console.log('axios put response');
+            });
     }
     const onCancel = () => {
         history.push(routes.users)
@@ -55,50 +91,59 @@ const EditUser = (props) => {
 
     return (
         <>
-            <div className="m-8">
-                <h3 className="">Company</h3>
-                <select onChange={e => setCompanyID(e.target.value)}>
-                    {companies.map((item, i) => <option selected={item.id === user.company.id}
-                                                        value={item.id} key={item.id}>{item.name}</option>)}
-                </select>
-            </div>
+            <div className="grid grid-cols-2 p-2">
 
+                <div className="m-8">
+                    <h3 className="">Company</h3>
+                    <select onChange={e => setListIndex(e.target.value)}>
+                        {companies.map((item, i) => <option selected={user && item.id === user.company.id}
+                                                            value={item.id} key={item.id}>{item.name}</option>)}
+                    </select>
+                </div>
+
+                <div className="m-4">
+                    <h3 className="">Username</h3>
+                    <input className="block border text-sm text-slate-500
+    " type='text' value={user.username} onChange={(e) => setUsername(e.target.value)}/>
+                </div>
+            </div>
             <div className="grid grid-cols-2 p-10">
 
                 <div className="m-8">
                     <h3 className="">First Name</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder='' value={user.firstName}/>
+    " type='text' value={user.firstName} onChange={e => setFirstName(e.target.value)}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Last Name</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder='' value={user.lastName}/>
+    " type='text' value={user.lastName} onChange={e => setLastName(e.target.value)}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Email</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder='' value={user.email}/>
+    " type='text' value={user.email} onChange={e => setEmail(e.target.value)}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Phone</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder='' value={user.phone}/>
+    " type='text' value={user.phone} onChange={e => setPhone(e.target.value)}/>
                 </div>
-
 
                 <div>
                     <h3 className="mt-6">Is Administrator</h3>
-                    <input type="checkbox" className="default:ring-2"/>
+                    <input type="checkbox" className="default:ring-2" value={user.isAdmin}
+                           onChange={e => setIsAdmin(e.currentTarget.checked)}
+                           checked={user.isAdmin ? 'checked' : ''}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Mobile</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder='' value={user.mobile}/>
+    " type='text' value={user.mobile} onChange={e => setMobile(e.target.value)}/>
                 </div>
             </div>
 

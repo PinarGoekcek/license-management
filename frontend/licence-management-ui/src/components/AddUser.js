@@ -54,10 +54,7 @@ const AddUser = (props) => {
         }
         let jwt = user.jwt || '';
 
-        console.log(listIndex);
-        console.log(companies[listIndex]);
-
-        const newuser = {
+        const newUser = {
             id: null,
             username: username,
             isAdmin: isAdmin,
@@ -70,9 +67,7 @@ const AddUser = (props) => {
             company: companies[listIndex]
         };
 
-        console.log(newuser);
-
-        axios.post(`${APP_API_ENDPOINT_URL}/users`, newuser, {
+        axios.post(`${APP_API_ENDPOINT_URL}/users`, newUser, {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
