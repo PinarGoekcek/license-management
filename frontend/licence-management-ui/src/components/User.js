@@ -13,7 +13,7 @@ const User = ({user, reloadCallback}) => {
     }
 
     const onEdit = () => {
-        history.push(routes.edituser);
+        history.push(`${routes.edituser}/${user.id}`);
     };
 
 
