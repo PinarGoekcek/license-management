@@ -2,16 +2,22 @@ package de.hse.gruppe8.jaxrs.services;
 
 
 import de.hse.gruppe8.jaxrs.model.Company;
+import de.hse.gruppe8.jaxrs.model.Contract;
 import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.orm.dao.CompanyDao;
+import de.hse.gruppe8.orm.dao.ContractDao;
 import de.hse.gruppe8.orm.dao.UserDao;
 import de.hse.gruppe8.orm.model.CompanyEntity;
+import de.hse.gruppe8.orm.model.ContractEntity;
 import de.hse.gruppe8.orm.model.UserEntity;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,8 +34,12 @@ public class CompanyServiceTest {
     @Inject
     CompanyDao companyDao;
 
+    @Inject
+    ContractDao contractDao;
+
     @BeforeEach
     void InitDatabase() {
+        contractDao.removeAll();
         userDao.removeAll();
         companyDao.removeAll();
     }
@@ -336,4 +346,95 @@ public class CompanyServiceTest {
         assertEquals(0, users.size());
     }
 
+    @Test
+    void checkGetContractsFromCompanyAsAdmin_1()  throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+        CompanyEntity companyEntity2 = companyDao.save(new CompanyEntity(null, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany", true));
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        ContractEntity userEntity1 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2022-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+        ContractEntity userEntity2 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2022-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+        ContractEntity userEntity3 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+
+        ContractEntity userEntity4 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity2));
+        ContractEntity userEntity5 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity2));
+
+        Company company = new Company(companyEntity1.getId(), "name 2", "department 2", "street 2", "73732", "esslingen", "Germany");
+        User user = new User(1L, "username", true, "firstName", "lastName", "lala@lala.de", null, null, "", company);
+        //When
+        List<Contract> users = companyService.getContractsFromCompany(user, companyEntity1.getId());
+
+        //Then
+        assertEquals(3, users.size());
+    }
+
+
+    @Test
+    void checkGetContractsFromCompanyAsAdmin_2()  throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+        CompanyEntity companyEntity2 = companyDao.save(new CompanyEntity(null, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany", true));
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        ContractEntity userEntity1 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2022-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+        ContractEntity userEntity2 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2022-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+        ContractEntity userEntity3 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+
+        ContractEntity userEntity4 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity2));
+        ContractEntity userEntity5 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity2));
+
+        Company company = new Company(companyEntity1.getId(), "name 2", "department 2", "street 2", "73732", "esslingen", "Germany");
+        User user = new User(1L, "username", true, "firstName", "lastName", "lala@lala.de", null, null, "", company);
+        //When
+        List<Contract> users = companyService.getContractsFromCompany(user, companyEntity2.getId());
+
+        //Then
+        assertEquals(2, users.size());
+    }
+
+    @Test
+    void checkGetContractsFromCompanyAsUser_1()  throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+        CompanyEntity companyEntity2 = companyDao.save(new CompanyEntity(null, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany", true));
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        ContractEntity userEntity1 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2022-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+        ContractEntity userEntity2 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2022-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+        ContractEntity userEntity3 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+
+        ContractEntity userEntity4 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity2));
+        ContractEntity userEntity5 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity2));
+
+        Company company = new Company(companyEntity1.getId(), "name 2", "department 2", "street 2", "73732", "esslingen", "Germany");
+        User user = new User(1L, "username", false, "firstName", "lastName", "lala@lala.de", null, null, "", company);
+        //When
+        List<Contract> users = companyService.getContractsFromCompany(user, companyEntity1.getId());
+
+        //Then
+        assertEquals(3, users.size());
+    }
+    @Test
+    void checkGetContractsFromCompanyAsUser_2()  throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+        CompanyEntity companyEntity2 = companyDao.save(new CompanyEntity(null, "name 2", "department 2", "street 2", "73732", "esslingen", "Germany", true));
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        ContractEntity userEntity1 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2022-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+        ContractEntity userEntity2 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2022-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+        ContractEntity userEntity3 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity1));
+
+        ContractEntity userEntity4 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity2));
+        ContractEntity userEntity5 = contractDao.save(new ContractEntity(null, formatter.parse("2021-10-20") , formatter.parse("2023-10-20"), "1.0.0", "dd-d-dd-d-", 0,0,0, "0.0.0.0", "", "", true, companyEntity2));
+
+        Company company = new Company(companyEntity1.getId(), "name 2", "department 2", "street 2", "73732", "esslingen", "Germany");
+        User user = new User(1L, "username", false, "firstName", "lastName", "lala@lala.de", null, null, "", company);
+        //When
+        List<Contract> users = companyService.getContractsFromCompany(user, companyEntity2.getId());
+
+        //Then
+        assertEquals(0, users.size());
+    }
 }
