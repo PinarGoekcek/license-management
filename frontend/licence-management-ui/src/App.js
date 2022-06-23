@@ -17,7 +17,7 @@ import EditUser from "./components/EditUser";
 import Details from "./components/Details";
 import AddUser from "./components/AddUser";
 import EditCompany from "./components/EditCompany";
-import EditContracts from "./components/EditContracts";
+import EditContract from "./components/EditContract";
 import UsersByCompany from "./components/UsersByCompany";
 import ContractsByCompany from "./components/ContractsByCompany";
 
@@ -89,7 +89,7 @@ function App() {
                 <Route path={`${routes.editcompany}/:id?`} exact
                        component={() => <EditCompany func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={`${routes.editcontract}/:id?`} exact
-                       component={() => <EditContracts func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                       component={() => <EditContract func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={routes.addcontract} exact
                        component={() => <AddContract func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={`${routes.contractsbycompany}/:id?`} exact
