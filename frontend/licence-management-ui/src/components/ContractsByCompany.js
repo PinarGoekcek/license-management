@@ -8,7 +8,7 @@ const ContractsByCompany = (props) => {
     props.func('Contracts by company');
     props.showAdd(false);
 
-    const {id} = useParams()
+    const {id} = useParams();
 
     const history = useHistory();
     const [contracts, setContracts] = useState([]);

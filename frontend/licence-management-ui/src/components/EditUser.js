@@ -1,12 +1,50 @@
-import {routes} from "../config";
-import {useHistory} from "react-router-dom";
+import {APP_API_ENDPOINT_URL, routes} from "../config";
+import {useHistory, useParams} from "react-router-dom";
 import ButtonTxt from "./ButtonTxt";
+import axios from "axios";
+import {useEffect, useState} from "react";
 
 const EditUser = (props) => {
     props.func('Edit User');
     props.showAdd(false);
 
+    const {id} = useParams();
+
     const history = useHistory();
+    const [user, setUser] = useState([]);
+    const [companyID, setCompanyID] = useState(null);
+    const [companies, setCompanies] = useState([]);
+
+
+    useEffect(() => {
+        let user = JSON.parse(localStorage.getItem('user'));
+        if (user === null) {
+            history.push(routes.login);
+            return;
+        }
+        let jwt = user.jwt || '';
+        axios.get(`${APP_API_ENDPOINT_URL}/companies`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${jwt}`,
+            },
+        })
+            .then((response) => {
+                setCompanies(response.data);
+            });
+        axios.get(`${APP_API_ENDPOINT_URL}/users/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${jwt}`,
+            },
+        })
+            .then((response) => {
+                setUser(response.data);
+            });
+    }, []);
+
 
     const onSave = () => {
         console.log('save');
@@ -19,8 +57,10 @@ const EditUser = (props) => {
         <>
             <div className="m-8">
                 <h3 className="">Company</h3>
-                <input className="block border text-sm text-slate-500
-    " type='text' placeholder=''/>
+                <select onChange={e => setCompanyID(e.target.value)}>
+                    {companies.map((item, i) => <option selected={item.id === user.company.id}
+                                                        value={item.id} key={item.id}>{item.name}</option>)}
+                </select>
             </div>
 
             <div className="grid grid-cols-2 p-10">
@@ -28,25 +68,25 @@ const EditUser = (props) => {
                 <div className="m-8">
                     <h3 className="">First Name</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder=''/>
+    " type='text' placeholder='' value={user.firstName}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Last Name</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder=''/>
+    " type='text' placeholder='' value={user.lastName}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Email</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder=''/>
+    " type='text' placeholder='' value={user.email}/>
                 </div>
 
                 <div className="m-8">
                     <h3 className="">Phone</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder=''/>
+    " type='text' placeholder='' value={user.phone}/>
                 </div>
 
 
@@ -58,7 +98,7 @@ const EditUser = (props) => {
                 <div className="m-8">
                     <h3 className="">Mobile</h3>
                     <input className="block border text-sm text-slate-500
-    " type='text' placeholder=''/>
+    " type='text' placeholder='' value={user.mobile}/>
                 </div>
             </div>
 
