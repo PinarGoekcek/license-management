@@ -14,7 +14,7 @@ const AddCompany = (props) => {
         console.log("something went wrong");
     }
     const [name, setName] = useState('');
-    const [department, setDepartment] = useState(false);
+    const [department, setDepartment] = useState('');
     const [street, setStreet] = useState('');
     const [zipCode, setZipCode] = useState('');
     const [city, setCity] = useState('');
