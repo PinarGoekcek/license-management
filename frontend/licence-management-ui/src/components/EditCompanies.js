@@ -1,18 +1,16 @@
-import ButtonTxt from "./ButtonTxt";
 import {routes} from "../config";
 import {useHistory} from "react-router-dom";
+import ButtonTxt from "./ButtonTxt";
 
-const AddCompany = (props) => {
-    props.func('Add Company');
+const EditCompanies = (props) => {
+    props.func('Edit Company');
     props.showAdd(false);
 
     const history = useHistory();
 
-
     const onSave = () => {
         console.log('save');
     }
-
     const onCancel = () => {
         history.push(routes.companies)
     }
@@ -69,4 +67,4 @@ const AddCompany = (props) => {
     );
 };
 
-export default AddCompany;
+export default EditCompanies;

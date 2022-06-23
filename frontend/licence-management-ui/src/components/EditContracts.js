@@ -1,7 +1,20 @@
-const Details = (props) => {
-    props.func('Contract details');
+import {routes} from "../config";
+import {useHistory} from "react-router-dom";
+import ButtonTxt from "./ButtonTxt";
+
+const EditContracts = (props) => {
+    props.func('Edit Contracts');
     props.showAdd(false);
-    
+
+    const history = useHistory();
+
+    const onSave = () => {
+        console.log('save');
+    }
+    const onCancel = () => {
+        history.push(routes.contracts)
+    }
+
     return (
         <>
             <div className="grid grid-cols-2 p-10 m-auto text-enter ">
@@ -53,27 +66,17 @@ const Details = (props) => {
             </div>
 
 
-            <div className="absolute left-20">
-                <button type='button'
-                        className="bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Update key
-                </button>
+            <div className="absolute right-0">
+               <span
+                   className='bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+                <ButtonTxt name={'save'} onClick={onSave}/>
+                           </span>
 
-                <button type='button'
-                        className="bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Mail key
-                </button>
-            </div>
-            <div className="absolute right-20">
-                <button type='button'
-                        className="bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Save
-                </button>
+                <span
+                    className="bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <ButtonTxt name={'Cancel'} onClick={onCancel}/>
+                    </span>
 
-                <button type='button'
-                        className="bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Cancel
-                </button>
             </div>
 
 
@@ -81,4 +84,4 @@ const Details = (props) => {
     );
 };
 
-export default Details;
+export default EditContracts;

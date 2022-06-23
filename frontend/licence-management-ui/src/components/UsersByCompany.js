@@ -2,23 +2,25 @@ import axios from "axios";
 import User from './User';
 import {useState, useEffect} from "react";
 import {APP_API_ENDPOINT_URL, routes} from "../config";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 
-const Users = (props) => {
-    props.func('Users');
-    props.showAdd(true);
+const UsersByCompany = (props) => {
+    props.func('Users in company');
+    props.showAdd(false);
+
+    const {id} = useParams();
 
     const history = useHistory();
     const [users, setUsers] = useState([]);
 
-    const reloadCallback = () => {
+    useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user'));
         if (user === null) {
             history.push(routes.login);
             return;
         }
         let jwt = user.jwt || '';
-        axios.get(`${APP_API_ENDPOINT_URL}/users`, {
+        axios.get(`${APP_API_ENDPOINT_URL}/companies/${id}/users`, {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -28,10 +30,6 @@ const Users = (props) => {
             .then((response) => {
                 setUsers(response.data);
             });
-    }
-
-    useEffect(() => {
-        reloadCallback();
     }, []);
 
 
@@ -51,7 +49,7 @@ const Users = (props) => {
             </div>
             {users ?
                 users.map((user) => (
-                    <User key={user.id} user={user} reloadCallback={reloadCallback}/>
+                    <User key={user.id} user={user}/>
                 ))
                 : console.log("No users in list")
             }
@@ -60,4 +58,4 @@ const Users = (props) => {
     );
 };
 
-export default Users;
+export default UsersByCompany;

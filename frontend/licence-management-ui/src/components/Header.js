@@ -3,7 +3,7 @@ import ButtonIco from './ButtonIco';
 import {useHistory} from 'react-router-dom';
 import {routes} from '../config';
 
-const Header = ({title, onClickAdd}) => {
+const Header = ({title, onClickAdd, showAdd}) => {
     const history = useHistory();
 
     const iconSize = 30;
@@ -22,11 +22,13 @@ const Header = ({title, onClickAdd}) => {
                 <div className='group'>
                     <span className='hItem hText'>{title}</span>
                     <span className='hItem icon onHoverChangeCol'>
-            <ButtonIco
-                name={'Add'}
-                icon={<FiPlusSquare size={iconSize}/>}
-                onClick={onClickAdd}
-            />
+                        {showAdd &&
+                            <ButtonIco
+                                name={'Add'}
+                                icon={<FiPlusSquare size={iconSize}/>}
+                                onClick={onClickAdd}
+                            />
+                        }
           </span>
                 </div>
 

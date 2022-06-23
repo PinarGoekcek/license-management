@@ -24,7 +24,11 @@ public class Contract implements Serializable {
     private String version;
     private String licenseKey;
     private Company company;
-    private List<String> ipAddresses;
-    private List<Integer> features;
+    private String ip1;
+    private String ip2;
+    private String ip3;
+    private Integer feature1;
+    private Integer feature2;
+    private Integer feature3;
 
 }
