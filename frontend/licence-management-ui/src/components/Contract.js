@@ -11,7 +11,7 @@ const Contract = ({contract, reloadCallback}) => {
         console.log("something went wrong");
     }
     const onEdit = () => {
-        history.push(routes.editcontracts);
+        history.push(routes.editcontract);
     };
 
     const onDelete = () => {
