@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import javax.inject.Inject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -433,9 +434,9 @@ public class ContractServiceTest {
         User user = userMapper.toUser(userEntity_1);
         Contract contract = contractMapper.toContract(contractEntity_c1_1);
 
-        contract.setIp1("1.1.1.1");
-        contract.setIp2("1.1.1.1");
-        contract.setIp3("1.1.1.1");
+        contract.setIpaddress1("1.1.1.1");
+        contract.setIpaddress2("1.1.1.1");
+        contract.setIpaddress3("1.1.1.1");
 
 
         //When
@@ -456,11 +457,11 @@ public class ContractServiceTest {
         ContractEntity contractEntity_c1_1 = contractDao.save(new ContractEntity(null, null, null, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity1, null, null));
 
         User user = userMapper.toUser(userEntity_1);
-        Contract contract = contractMapper.toContract(contractEntity_c1_1);
-
-        contract.setIp1("1.1.1.1");
-        contract.setIp2("1.1.1.1");
-        contract.setIp3("1.1.1.1");
+        Contract contract = new Contract();
+        contract.setId(contractEntity_c1_1.getId());
+        contract.setIpaddress1("1.1.1.1");
+        contract.setIpaddress2("1.1.1.1");
+        contract.setIpaddress3("1.1.1.1");
 
 
         //When
@@ -468,9 +469,9 @@ public class ContractServiceTest {
 
 
         //Then
-        assertEquals("1.1.1.1", updateContract.getIp1());
-        assertEquals("1.1.1.1", updateContract.getIp2());
-        assertEquals("1.1.1.1", updateContract.getIp3());
+        assertEquals("1.1.1.1", updateContract.getIpaddress1());
+        assertEquals("1.1.1.1", updateContract.getIpaddress2());
+        assertEquals("1.1.1.1", updateContract.getIpaddress3());
     }
 
     @Test
@@ -485,9 +486,9 @@ public class ContractServiceTest {
         User user = userMapper.toUser(userEntity_1);
         Contract contract = new Contract();
         contract.setId(contractEntity_c1_1.getId());
-        contract.setIp1("1.1.1.1");
-        contract.setIp2("1.1.1.1");
-        contract.setIp3("1.1.1.1");
+        contract.setIpaddress1("1.1.1.1");
+        contract.setIpaddress2("1.1.1.1");
+        contract.setIpaddress3("1.1.1.1");
 
 
         //When
@@ -495,9 +496,38 @@ public class ContractServiceTest {
 
 
         //Then
-        assertEquals("1.1.1.1", updateContract.getIp1());
-        assertEquals("1.1.1.1", updateContract.getIp2());
-        assertEquals("1.1.1.1", updateContract.getIp3());
+        assertEquals("1.1.1.1", updateContract.getIpaddress1());
+        assertEquals("1.1.1.1", updateContract.getIpaddress2());
+        assertEquals("1.1.1.1", updateContract.getIpaddress3());
         assertEquals("01", updateContract.getVersion());
+    }
+
+    @Test
+    void checkUpdateContractAsAdmin_3() throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", true, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+        ContractEntity contractEntity_c1_1 = contractDao.save(new ContractEntity(null, null, null, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity1, null, null));
+
+        Date date = formatter.parse("2021-10-20");
+
+        User user = userMapper.toUser(userEntity_1);
+        Contract contract = new Contract();
+        contract.setId(contractEntity_c1_1.getId());
+        contract.setVersion("02");
+        contract.setDateStart(date);
+        contract.setDateStop(date);
+
+
+        //When
+        Contract updateContract = contractService.updateContract(user, contract);
+
+
+        //Then
+        assertEquals("02", contract.getVersion());
+        assertEquals(date, contract.getDateStart());
+        assertEquals(date, contract.getDateStop());
     }
 }
