@@ -49,7 +49,7 @@ const Login = (props) => {
                     type='text' placeholder='User' value={username} onChange={userInput}/>
                 <input
                     className="place-self-center border shadow-sm border-slate-300 focus:outline-none focus:border-sky-500 focus:ring-sky-500 text-center rounded-md h-14 px-4 py-2 m-2"
-                    type='text' placeholder='Password' value={password} onChange={pwInput}/>
+                    type='password' placeholder='Password' value={password} onChange={pwInput}/>
                 <button type='button' onClick={btnLogin}
                         className="bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

@@ -105,7 +105,6 @@ const AddContract = (props) => {
             newcontract.user2 = null;
         }
 
-
         console.log(newcontract);
 
         axios.post(`${APP_API_ENDPOINT_URL}/contracts`, newcontract, {
@@ -158,45 +157,47 @@ const AddContract = (props) => {
 
                 <div className="m-3">
                     <h3 className="text-center">Date Start</h3>
-                    <input className="block border m-auto text-sm text-slate-500
-    " type='date' placeholder='' value={dateStart} onChange={e => setDateStart(e.target.value)}/>
+                    <input className="block border m-auto text-sm text-slate-500"
+                           type='date' value={dateStart.toISOString().split('T')[0]}
+                           onChange={e => setDateStart(new Date(e.target.value))}/>
                 </div>
                 <div className="m-3">
                     <h3 className="text-center">Date End</h3>
-                    <input className="block border m-auto text-sm text-slate-500
-    " type='date' placeholder='' value={dateStop} onChange={e => setDateStop(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500"
+                           type='date' value={dateStop.toISOString().split('T')[0]}
+                           onChange={e => setDateStop(new Date(e.target.value))}/></div>
                 <div className="m-3">
                     <h3 className="text-center">Version</h3>
-                    <input className="block border m-auto text-sm text-slate-500
-    " type='text' placeholder='' value={version} onChange={e => setVersion(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500"
+                           type='text' placeholder='' value={version} onChange={e => setVersion(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">IP number 1</h3>
-                    <input className="block border m-auto text-sm text-slate-500
-    " type='text' placeholder='' value={ip1} onChange={e => setIp1(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder='' value={ip1}
+                           onChange={e => setIp1(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">Feature A</h3>
-                    <input className="block border m-auto text-sm text-slate-500
-    " type='text' placeholder='' value={feature1} onChange={e => setFeature1(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                           value={feature1} onChange={e => setFeature1(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">IP number 2</h3>
-                    <input className="block border m-auto text-sm text-slate-500
-    " type='text' placeholder='' value={ip2} onChange={e => setIp2(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder='' value={ip2}
+                           onChange={e => setIp2(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">Feature B</h3>
-                    <input className="block border m-auto text-sm text-slate-500
-    " type='text' placeholder='' value={feature2} onChange={e => setFeature2(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                           value={feature2} onChange={e => setFeature2(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">IP number 3</h3>
-                    <input className="block border m-auto text-sm text-slate-500
-    " type='text' placeholder='' value={ip3} onChange={e => setIp3(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder='' value={ip3}
+                           onChange={e => setIp3(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">Feature C</h3>
-                    <input className="block border m-auto text-sm text-slate-500
-    " type='text' placeholder='' value={feature3} onChange={e => setFeature3(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                           value={feature3} onChange={e => setFeature3(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">License key</h3>
-                    <input className="block border m-auto left-30 w-full text-sm text-slate-500
-    " type='text' placeholder='' value={licenseKey} onChange={e => setLicenseKey(e.target.value)}/></div>
+                    <input className="block border m-auto left-30 w-full text-sm text-slate-500" type='text'
+                           placeholder='' value={licenseKey} onChange={e => setLicenseKey(e.target.value)}/></div>
             </div>
 
             <div className="absolute right-0">
