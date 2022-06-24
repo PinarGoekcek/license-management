@@ -305,6 +305,54 @@ public class ContractServiceTest {
     }
 
     @Test
+    void checkCreateContractAsAdmin_3() {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", true, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+
+        User user = userMapper.toUser(userEntity_1);
+
+        Company company = companyMapper.toCompany(companyEntity1);
+
+        Contract newContract = new Contract(null, null, null, "EXAMPLE", "1-1-1-1", company, "", "", "", 0, 0, 0, user, null);
+
+        //When
+        Contract contracts = contractService.createContract(user, newContract);
+
+        //Then
+        assertNotNull(contracts);
+        assertEquals("EXAMPLE", contracts.getVersion());
+        assertNull(contracts.getDateStart());
+    }
+
+    @Test
+    void checkCreateContractAsAdmin_4() {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", true, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+        UserEntity userEntity_2 = userDao.save(new UserEntity(null, "username_02", "password", false, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+
+        User user_1 = userMapper.toUser(userEntity_1);
+        User user_2 = userMapper.toUser(userEntity_1);
+
+        Company company = companyMapper.toCompany(companyEntity1);
+
+        Contract newContract = new Contract(null, null, null, "EXAMPLE", "1-1-1-1", company, "101.102.103.103", "101.102.103.103", "101.102.103.103", 10, 20, 100, user_1, user_2);
+
+        //When
+        Contract contracts = contractService.createContract(user_1, newContract);
+
+        //Then
+        assertNotNull(contracts);
+        assertEquals("EXAMPLE", contracts.getVersion());
+        assertNull(contracts.getDateStart());
+    }
+
+    @Test
     void checkCreateContractAsUser() throws ParseException {
         //Given
         CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
@@ -323,5 +371,49 @@ public class ContractServiceTest {
 
         //Then
         assertNull(contracts);
+    }
+
+    @Test
+    void checkDeleteContractAsUser() throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", false, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+        ContractEntity contractEntity_c1_1 = contractDao.save(new ContractEntity(null, null, null, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity1, null, null));
+
+        User user = userMapper.toUser(userEntity_1);
+
+
+        //When
+        boolean isDeleted = contractService.deleteContract(user, contractEntity_c1_1.getId());
+
+
+        //Then
+        assertFalse(isDeleted);
+        assertEquals(1, contractDao.getContracts().size());
+    }
+
+    @Test
+    void checkDeleteContractAsAdmin() throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", true, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+        ContractEntity contractEntity_c1_1 = contractDao.save(new ContractEntity(null, null, null, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity1, null, null));
+
+        User user = userMapper.toUser(userEntity_1);
+
+
+        //When
+        assertEquals(1, contractDao.getContracts().size());
+
+        boolean isDeleted = contractService.deleteContract(user, contractEntity_c1_1.getId());
+
+
+        //Then
+        assertTrue(isDeleted);
+        assertEquals(0, contractDao.getContracts().size());
     }
 }
