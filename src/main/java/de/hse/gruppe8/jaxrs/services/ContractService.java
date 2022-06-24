@@ -43,14 +43,15 @@ public class ContractService {
 
     public Contract getContract(User currentUser, Long id) {
         Contract contract = null;
-        if (currentUser.getIsAdmin() || id.equals(currentUser.getCompany().getId())) {
+        List<ContractEntity> contractEntities = contractDao.getContractsForUser(userMapper.toUserEntity(currentUser));
+        if (currentUser.getIsAdmin() || contractEntities.contains(id)) {
             contract = contractMapper.toContract(contractDao.getContract(id));
         }
         return contract;
     }
 
 
-        public Contract createContract(User currentUser, Contract contract) {
+    public Contract createContract(User currentUser, Contract contract) {
         if (currentUser.getIsAdmin()) {
             ContractEntity contractEntity = contractDao.save(contractMapper.toContractEntity(contract));
             return contractMapper.toContract(contractEntity);
