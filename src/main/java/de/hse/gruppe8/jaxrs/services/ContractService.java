@@ -44,7 +44,7 @@ public class ContractService {
     public Contract getContract(User currentUser, Long id) {
         Contract contract = null;
         List<ContractEntity> contractEntities = contractDao.getContractsForUser(userMapper.toUserEntity(currentUser));
-        if (currentUser.getIsAdmin() || contractEntities.contains(id)) {
+        if (currentUser.getIsAdmin() || contractEntities.stream().filter(contractEntity -> id.equals(contractEntity.getId())).findAny().orElse(null) != null) {
             contract = contractMapper.toContract(contractDao.getContract(id));
         }
         return contract;
