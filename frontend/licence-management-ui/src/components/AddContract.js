@@ -14,8 +14,8 @@ const AddContract = (props) => {
         console.log("something went wrong");
     }
 
-    const [dateStart, setDateStart] = useState('');
-    const [dateStop, setDateStop] = useState('');
+    const [dateStart, setDateStart] = useState(new Date());
+    const [dateStop, setDateStop] = useState(new Date());
     const [version, setVersion] = useState('');
     const [licenseKey, setLicenseKey] = useState('');
     const [ip1, setIp1] = useState('');
@@ -29,8 +29,8 @@ const AddContract = (props) => {
     const [companies, setCompanies] = useState([]);
 
     const [users, setUsers] = useState([]);
-    const [userListIndex1, setUserListIndex1] = useState(0);
-    const [userListIndex2, setUserListIndex2] = useState(0);
+    const [userListIndex1, setUserListIndex1] = useState(-1);
+    const [userListIndex2, setUserListIndex2] = useState(-1);
 
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user'));
@@ -97,6 +97,15 @@ const AddContract = (props) => {
             user2: users[userListIndex2]
         };
 
+        if (userListIndex1 < 0) {
+            newcontract.user1 = null;
+        }
+
+        if (userListIndex2 < 0) {
+            newcontract.user2 = null;
+        }
+
+
         console.log(newcontract);
 
         axios.post(`${APP_API_ENDPOINT_URL}/contracts`, newcontract, {
@@ -135,7 +144,7 @@ const AddContract = (props) => {
                     <select onChange={e => setUserListIndex1(e.target.value)}>
                         <option value={null}></option>
                         {users && users.length && users.map((p1item, i) => <option
-                            value={p1item.id} key={p1item.id}>{p1item.username}</option>)}
+                            value={i} key={p1item.id}>{p1item.username}</option>)}
                     </select>
                 </div>
                 <div className="m-3">
@@ -143,19 +152,19 @@ const AddContract = (props) => {
                     <select onChange={e => setUserListIndex2(e.target.value)}>
                         <option value={null}></option>
                         {users && users.length && users.map((p2item, i) => <option
-                            value={p2item.id} key={p2item.id}>{p2item.username}</option>)}
+                            value={i} key={p2item.id}>{p2item.username}</option>)}
                     </select>
                 </div>
 
                 <div className="m-3">
                     <h3 className="text-center">Date Start</h3>
                     <input className="block border m-auto text-sm text-slate-500
-    " type='text' placeholder='' value={dateStart} onChange={e => setDateStart(e.target.value)}/>
+    " type='date' placeholder='' value={dateStart} onChange={e => setDateStart(e.target.value)}/>
                 </div>
                 <div className="m-3">
                     <h3 className="text-center">Date End</h3>
                     <input className="block border m-auto text-sm text-slate-500
-    " type='text' placeholder='' value={dateStop} onChange={e => setDateStop(e.target.value)}/></div>
+    " type='date' placeholder='' value={dateStop} onChange={e => setDateStop(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">Version</h3>
                     <input className="block border m-auto text-sm text-slate-500

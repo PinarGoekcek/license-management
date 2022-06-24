@@ -11,7 +11,11 @@ VALUES ('100', true, 'Esslingen 1', 'Germany 1', 'yeew 1', 'name 1', 'zuhause 1'
 -- Users
 INSERT INTO Users (id, username, password, is_admin, first_name, last_name, email, phone, mobile, active, company_id)
 VALUES ('100', 'admin', 'admin', true, 'Admin', 'Administrator', 'ich@admin.de', '', '', true, 100),
-       ('101', 'user', 'user', false, 'Max', 'Mustermann', 'passt@muster.de', '0711-12345', '', true, 102)
+       ('101', 'max', 'user', false, 'Max', 'Mustermann', 'max@muster.de', '0711-12345', '', true, 102),
+       ('102', 'klara', 'user', false, 'Klara', 'Musterfrau', 'klara@musterfrau.de', '0711-12345', '', true, 100),
+       ('103', 'carla', 'user', true, 'Carla', 'Carlatti', 'carlac@muster.de', '0711-12345', '', true, 100),
+       ('104', 'SiggiTheBest', 'user', false, 'Siggi', 'Best', 'siggi@best.de', '0711-12345', '', true, 102),
+       ('105', 'paulinchen', 'user', false, 'Paula', 'Inchen', 'paula@wow.de', '0711-12345', '', true, 103)
 ;
 
 -- Contracts
