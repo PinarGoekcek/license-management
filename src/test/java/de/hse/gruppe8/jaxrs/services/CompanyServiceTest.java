@@ -224,10 +224,33 @@ public class CompanyServiceTest {
 
 
     @Test
-    void checkUpdateCompanyAsAdmin() {
+    void checkUpdateCompanyAsAdmin_1() {
         //Given
         CompanyEntity companyEntity1 = new CompanyEntity(1L, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true);
         companyEntity1 = companyDao.save(companyEntity1);
+
+        Company company = new Company();
+        company.setId(companyEntity1.getId());
+        company.setDepartment("new_Value_1");
+        company.setCity("new_Value_2");
+
+        User user = new User(1L, "username", true, "firstName", "lastName", "lala@lala.de", null, null, "", null);
+        //When
+        Company newCompany = companyService.updateCompany(user, company);
+
+        //Then
+        assertEquals("name 1", newCompany.getName());
+        assertEquals("new_Value_1", newCompany.getDepartment());
+        assertEquals("street 1", newCompany.getStreet());
+        assertEquals("73732", newCompany.getZipCode());
+        assertEquals("new_Value_2", newCompany.getCity());
+        assertEquals("Germany", newCompany.getCountry());
+    }
+
+    @Test
+    void checkUpdateCompanyAsAdmin_2() {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(1L, "name 1", null, "street 1", "73732", null, "Germany", true));
 
         Company company = new Company();
         company.setId(companyEntity1.getId());
