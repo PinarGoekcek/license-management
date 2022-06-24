@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -24,9 +23,9 @@ public class Contract implements Serializable {
     private String version;
     private String licenseKey;
     private Company company;
-    private String ip1;
-    private String ip2;
-    private String ip3;
+    private String ipaddress1;
+    private String ipaddress2;
+    private String ipaddress3;
     private Integer feature1;
     private Integer feature2;
     private Integer feature3;
