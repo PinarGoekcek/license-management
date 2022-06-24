@@ -1,6 +1,7 @@
 package de.hse.gruppe8.jaxrs.services;
 
 
+import de.hse.gruppe8.jaxrs.model.Company;
 import de.hse.gruppe8.jaxrs.model.Contract;
 import de.hse.gruppe8.jaxrs.model.User;
 import de.hse.gruppe8.orm.dao.CompanyDao;
@@ -21,7 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
 public class ContractServiceTest {
@@ -230,7 +231,7 @@ public class ContractServiceTest {
         Contract contracts = contractService.getContract(user, contractEntity_c2_2.getId());
 
         //Then
-        assertEquals(null, contracts);
+        assertNull(contracts);
     }
 
     @Test
@@ -255,6 +256,72 @@ public class ContractServiceTest {
         Contract contracts = contractService.getContract(user, contractEntity_c2_2.getId());
 
         //Then
-        assertEquals(null, contracts);
+        assertNull(contracts);
+    }
+
+    @Test
+    void checkCreateContractAsAdmin_1() throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", true, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+
+        User user = userMapper.toUser(userEntity_1);
+
+        Company company = companyMapper.toCompany(companyEntity1);
+
+        Contract newContract = new Contract(null, formatter.parse("2021-10-20"), formatter.parse("2021-10-20"), "EXAMPLE", "1-1-1-1", company, "", "", "", 0, 0, 0, null, null);
+
+        //When
+        Contract contracts = contractService.createContract(user, newContract);
+
+        //Then
+        assertNotNull(contracts);
+        assertEquals("EXAMPLE", contracts.getVersion());
+    }
+
+    @Test
+    void checkCreateContractAsAdmin_2() throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", true, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+
+        User user = userMapper.toUser(userEntity_1);
+
+        Company company = companyMapper.toCompany(companyEntity1);
+
+        Contract newContract = new Contract(null, null, null, "EXAMPLE", "1-1-1-1", company, "", "", "", 0, 0, 0, null, null);
+
+        //When
+        Contract contracts = contractService.createContract(user, newContract);
+
+        //Then
+        assertNotNull(contracts);
+        assertEquals("EXAMPLE", contracts.getVersion());
+        assertNull(contracts.getDateStart());
+    }
+
+    @Test
+    void checkCreateContractAsUser() throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", false, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+
+        User user = userMapper.toUser(userEntity_1);
+
+        Company company = companyMapper.toCompany(companyEntity1);
+
+        Contract newContract = new Contract(null, formatter.parse("2021-10-20"), formatter.parse("2021-10-20"), "EXAMPLE", "1-1-1-1", company, "", "", "", 0, 0, 0, null, null);
+
+        //When
+        Contract contracts = contractService.createContract(user, newContract);
+
+        //Then
+        assertNull(contracts);
     }
 }
