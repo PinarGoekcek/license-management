@@ -11,6 +11,7 @@ import de.hse.gruppe8.orm.model.CompanyEntity;
 import de.hse.gruppe8.orm.model.ContractEntity;
 import de.hse.gruppe8.orm.model.UserEntity;
 import de.hse.gruppe8.util.mapper.CompanyMapper;
+import de.hse.gruppe8.util.mapper.ContractMapper;
 import de.hse.gruppe8.util.mapper.UserMapper;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.AfterEach;
@@ -46,6 +47,9 @@ public class ContractServiceTest {
 
     @Inject
     UserMapper userMapper;
+
+    @Inject
+    ContractMapper contractMapper;
 
     @BeforeEach
     @AfterEach
@@ -415,5 +419,85 @@ public class ContractServiceTest {
         //Then
         assertTrue(isDeleted);
         assertEquals(0, contractDao.getContracts().size());
+    }
+
+    @Test
+    void checkUpdateContractAsUser() throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", false, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+        ContractEntity contractEntity_c1_1 = contractDao.save(new ContractEntity(null, null, null, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity1, null, null));
+
+        User user = userMapper.toUser(userEntity_1);
+        Contract contract = contractMapper.toContract(contractEntity_c1_1);
+
+        contract.setIp1("1.1.1.1");
+        contract.setIp2("1.1.1.1");
+        contract.setIp3("1.1.1.1");
+
+
+        //When
+        Contract updateContract = contractService.updateContract(user, contract);
+
+
+        //Then
+        assertNull(updateContract);
+    }
+
+    @Test
+    void checkUpdateContractAsAdmin_1() throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", true, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+        ContractEntity contractEntity_c1_1 = contractDao.save(new ContractEntity(null, null, null, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity1, null, null));
+
+        User user = userMapper.toUser(userEntity_1);
+        Contract contract = contractMapper.toContract(contractEntity_c1_1);
+
+        contract.setIp1("1.1.1.1");
+        contract.setIp2("1.1.1.1");
+        contract.setIp3("1.1.1.1");
+
+
+        //When
+        Contract updateContract = contractService.updateContract(user, contract);
+
+
+        //Then
+        assertEquals("1.1.1.1", updateContract.getIp1());
+        assertEquals("1.1.1.1", updateContract.getIp2());
+        assertEquals("1.1.1.1", updateContract.getIp3());
+    }
+
+    @Test
+    void checkUpdateContractAsAdmin_2() throws ParseException {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", true, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+        ContractEntity contractEntity_c1_1 = contractDao.save(new ContractEntity(null, null, null, "01", "123456", 1, 2, 3, null, null, null, true, companyEntity1, null, null));
+
+        User user = userMapper.toUser(userEntity_1);
+        Contract contract = new Contract();
+        contract.setId(contractEntity_c1_1.getId());
+        contract.setIp1("1.1.1.1");
+        contract.setIp2("1.1.1.1");
+        contract.setIp3("1.1.1.1");
+
+
+        //When
+        Contract updateContract = contractService.updateContract(user, contract);
+
+
+        //Then
+        assertEquals("1.1.1.1", updateContract.getIp1());
+        assertEquals("1.1.1.1", updateContract.getIp2());
+        assertEquals("1.1.1.1", updateContract.getIp3());
+        assertEquals("01", updateContract.getVersion());
     }
 }
