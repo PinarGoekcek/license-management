@@ -287,7 +287,7 @@ public class ContractServiceTest {
     }
 
     @Test
-    void checkCreateContractAsAdmin_2() throws ParseException {
+    void checkCreateContractAsAdmin_2() {
         //Given
         CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
 
@@ -379,7 +379,7 @@ public class ContractServiceTest {
     }
 
     @Test
-    void checkDeleteContractAsUser() throws ParseException {
+    void checkDeleteContractAsUser() {
         //Given
         CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
 
@@ -400,7 +400,7 @@ public class ContractServiceTest {
     }
 
     @Test
-    void checkDeleteContractAsAdmin() throws ParseException {
+    void checkDeleteContractAsAdmin() {
         //Given
         CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
 
@@ -423,7 +423,7 @@ public class ContractServiceTest {
     }
 
     @Test
-    void checkUpdateContractAsUser() throws ParseException {
+    void checkUpdateContractAsUser() {
         //Given
         CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
 
@@ -448,7 +448,7 @@ public class ContractServiceTest {
     }
 
     @Test
-    void checkUpdateContractAsAdmin_1() throws ParseException {
+    void checkUpdateContractAsAdmin_1() {
         //Given
         CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
 
@@ -475,7 +475,7 @@ public class ContractServiceTest {
     }
 
     @Test
-    void checkUpdateContractAsAdmin_2() throws ParseException {
+    void checkUpdateContractAsAdmin_2() {
         //Given
         CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
 
@@ -526,8 +526,8 @@ public class ContractServiceTest {
 
 
         //Then
-        assertEquals("02", contract.getVersion());
-        assertEquals(date, contract.getDateStart());
-        assertEquals(date, contract.getDateStop());
+        assertEquals("02", updateContract.getVersion());
+        assertEquals(date, updateContract.getDateStart());
+        assertEquals(date, updateContract.getDateStop());
     }
 }
