@@ -8,7 +8,6 @@ const AddContract = (props) => {
     props.showAdd(false);
 
     const history = useHistory();
-    const companySelector = useRef();
 
     const handleError = () => {
         console.log("something went wrong");
@@ -104,8 +103,6 @@ const AddContract = (props) => {
         if (userListIndex2 < 0) {
             newcontract.user2 = null;
         }
-
-        console.log(newcontract);
 
         axios.post(`${APP_API_ENDPOINT_URL}/contracts`, newcontract, {
             headers: {

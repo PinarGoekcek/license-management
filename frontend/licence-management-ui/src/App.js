@@ -63,9 +63,15 @@ function App() {
         }
     }
 
+    const showUserPrefs = () => {
+        let actUser = JSON.parse(localStorage.getItem('user'));
+        actUser && history.push(`${routes.edituser}/${actUser.id}`);
+    }
+
     return (
         <div className='my-container'>
-            <Header title={headTitle} onClickAdd={onClickAdd} showAdd={showHeadAddBtn}/>
+            <Header title={headTitle} onClickAdd={onClickAdd} showAdd={showHeadAddBtn}
+                    onClickUserPrefs={showUserPrefs}/>
             <Navbar/>
             <Switch>
                 <Route path={routes.companies} exact

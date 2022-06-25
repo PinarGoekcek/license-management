@@ -3,7 +3,7 @@ import ButtonIco from './ButtonIco';
 import {useHistory} from 'react-router-dom';
 import {routes} from '../config';
 
-const Header = ({title, onClickAdd, showAdd}) => {
+const Header = ({title, onClickAdd, showAdd, onClickUserPrefs}) => {
     const history = useHistory();
 
     const iconSize = 30;
@@ -11,9 +11,7 @@ const Header = ({title, onClickAdd, showAdd}) => {
         localStorage.removeItem('user');
         history.push(routes.login);
     };
-    const onClick = () => {
-        console.log('click');
-    };
+
     return (
         <header className='bg-blue-500'>
             <h1 className='px-2 font-bold text-white mb-4'>License Management</h1>
@@ -42,7 +40,7 @@ const Header = ({title, onClickAdd, showAdd}) => {
             <ButtonIco
                 name={'Profile'}
                 icon={<FiUser size={iconSize}/>}
-                onClick={onClick}
+                onClick={onClickUserPrefs}
             />
           </span>
                     <span className='hItem icon onHoverChangeCol'>
