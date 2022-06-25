@@ -1,7 +1,8 @@
-*
-!build/*-runner
-!build/*-runner.jar
-!build/lib/*
-!build/quarkus-app/*
-
 volumes/
+
+documentation/
+
+node_modules
+build
+.dockerignore
+Dockerfile
