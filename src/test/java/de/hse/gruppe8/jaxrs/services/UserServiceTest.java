@@ -108,7 +108,7 @@ public class UserServiceTest {
         User new_users = userService.getUser(user, userEntity_1.getId());
 
         //Then
-        assertEquals(user.getId(), new_users.getId());
+        assertEquals(userEntity_1.getId(), new_users.getId());
     }
 
     @Test
@@ -128,5 +128,24 @@ public class UserServiceTest {
 
         //Then
         assertNull(new_users);
+    }
+
+    @Test
+    void checkGetUserAsAdminOtherUser() {
+        //Given
+        CompanyEntity companyEntity1 = companyDao.save(new CompanyEntity(null, "name 1", "department 1", "street 1", "73732", "esslingen", "Germany", true));
+
+        UserEntity userEntity_1 = userDao.save(new UserEntity(null, "username_01", "password", true, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+        UserEntity userEntity_2 = userDao.save(new UserEntity(null, "username_02", "password", false, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+        UserEntity userEntity_3 = userDao.save(new UserEntity(null, "username_03", "password", false, "Hans", "Peter", "test@dd.de", "+49 123", "+49 123", true, companyEntity1));
+
+
+        User user = userMapper.toUser(userEntity_1);
+
+        //When
+        User new_users = userService.getUser(user, userEntity_2.getId());
+
+        //Then
+        assertEquals(userEntity_2.getId(), new_users.getId());
     }
 }
