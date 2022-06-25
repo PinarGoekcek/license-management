@@ -1,12 +1,12 @@
 import axios from "axios";
 import Contract from './Contract';
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {APP_API_ENDPOINT_URL, routes} from "../config";
 import {useHistory} from "react-router-dom";
 
-const Contracts = (props) => {
-    props.func('Contracts');
-    props.showAdd(true);
+const Contracts = ({func, showAdd, searchText}) => {
+    func('Contracts');
+    showAdd(true);
 
     const history = useHistory();
     const [contracts, setContracts] = useState([]);
@@ -26,7 +26,8 @@ const Contracts = (props) => {
             },
         })
             .then((response) => {
-                setContracts(response.data);
+                let filter_data = response.data.filter(value => Object.values(value).find(item => String(item).toLowerCase().includes(searchText.toLowerCase())) !== undefined)
+                setContracts(filter_data)
             });
     }
 

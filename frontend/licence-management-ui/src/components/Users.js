@@ -1,12 +1,12 @@
 import axios from "axios";
 import User from './User';
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {APP_API_ENDPOINT_URL, routes} from "../config";
 import {useHistory} from "react-router-dom";
 
-const Users = (props) => {
-    props.func('Users');
-    props.showAdd(true);
+const Users = ({func, showAdd, searchText}) => {
+    func('Users');
+    showAdd(true);
 
     const history = useHistory();
     const [users, setUsers] = useState([]);
@@ -26,7 +26,8 @@ const Users = (props) => {
             },
         })
             .then((response) => {
-                setUsers(response.data);
+                let filter_data = response.data.filter(value => Object.values(value).find(item => String(item).toLowerCase().includes(searchText.toLowerCase())) !== undefined)
+                setUsers(filter_data)
             });
     }
 

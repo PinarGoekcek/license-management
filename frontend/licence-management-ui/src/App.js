@@ -79,9 +79,11 @@ function App() {
                        component={() => <Companies func={getHeadTitle} showAdd={showAddInHeader}
                                                    searchText={filterText}/>}/>
                 <Route path={routes.contracts} exact
-                       component={() => <Contracts func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                       component={() => <Contracts func={getHeadTitle} showAdd={showAddInHeader}
+                                                   searchText={filterText}/>}/>
                 <Route path={routes.users} exact
-                       component={() => <Users func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                       component={() => <Users func={getHeadTitle} showAdd={showAddInHeader}
+                                               searchText={filterText}/>}/>
                 <Route path={routes.login} exact
                        component={() => <Login func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={`${routes.edituser}/:id?`} exact
