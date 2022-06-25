@@ -1,12 +1,12 @@
 import axios from 'axios';
 import Company from './Company';
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {APP_API_ENDPOINT_URL, routes} from '../config';
 import {useHistory} from 'react-router-dom';
 
-const Companies = (props, searchText) => {
-    props.func('Companies');
-    props.showAdd(true);
+const Companies = ({func, showAdd, searchText}) => {
+    func('Companies');
+    showAdd(true);
 
 
     const history = useHistory();
@@ -27,13 +27,14 @@ const Companies = (props, searchText) => {
             },
         })
             .then((response) => {
-                setCompanies(response.data);
+                let filter_data = response.data.filter(value => Object.values(value).find(item => String(item).toLowerCase().includes(searchText.toLowerCase())) !== undefined)
+                setCompanies(filter_data)
             });
     }
 
+
     useEffect(() => {
         reloadCallback();
-        console.log(searchText);
     }, []);
 
     return (
