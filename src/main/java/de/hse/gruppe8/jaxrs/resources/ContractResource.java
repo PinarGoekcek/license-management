@@ -44,8 +44,8 @@ public class ContractResource {
             @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     public Response createContract(@Context SecurityContext securityContext, Contract contract) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         contract.setId(null);
         contract = contractService.createContract(currentUser, contract);
         if (contract != null) {
@@ -61,8 +61,8 @@ public class ContractResource {
             @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     public Response getContracts(@Context SecurityContext securityContext) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         return Response.ok().entity(contractService.getContracts(currentUser)).build();
     }
 
@@ -73,8 +73,8 @@ public class ContractResource {
     })
     @Path("/{id}")
     public Response getContractById(@Context SecurityContext securityContext, @PathParam("id") Long id) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         Contract contract = contractService.getContract(currentUser, id);
         if (contract != null) {
             return Response.ok().entity(contract).build();
@@ -90,8 +90,8 @@ public class ContractResource {
     })
     @Path("/{id}")
     public Response updateContract(@Context SecurityContext securityContext, @PathParam("id") Long id, Contract contract) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         contract.setId(id);
         Contract newContract = contractService.updateContract(currentUser, contract);
         if (newContract != null) {
@@ -108,8 +108,7 @@ public class ContractResource {
     })
     @Path("/{id}")
     public Response deleteContract(@Context SecurityContext securityContext, @PathParam("id") Long id) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
 
         boolean isSuccess = contractService.deleteContract(currentUser, id);
 

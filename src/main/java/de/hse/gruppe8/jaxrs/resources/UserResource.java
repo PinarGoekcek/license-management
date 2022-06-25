@@ -39,8 +39,8 @@ public class UserResource {
             @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     public Response createUser(@Context SecurityContext securityContext, User user) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         user.setId(null);
         user = userService.createUser(currentUser, user);
         if (user != null) {
@@ -56,8 +56,8 @@ public class UserResource {
             @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     public Response getUsers(@Context SecurityContext securityContext) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         return Response.ok().entity(userService.getUsers(currentUser)).build();
     }
 
@@ -68,7 +68,9 @@ public class UserResource {
     })
     @Path("/{id}")
     public Response getUserById(@Context SecurityContext securityContext, @PathParam("id") Long id) {
-        User user = userService.getUser(id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
+        User user = userService.getUser(currentUser, id);
         if (user != null) {
             return Response.ok().entity(user).build();
         } else {
@@ -83,8 +85,8 @@ public class UserResource {
     })
     @Path("/{id}")
     public Response updateUser(@Context SecurityContext securityContext, @PathParam("id") Long id, User user) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         user.setId(id);
         User newUser = userService.updateUser(currentUser, user);
         if (newUser != null) {
@@ -101,8 +103,7 @@ public class UserResource {
     })
     @Path("/{id}")
     public Response deleteUser(@Context SecurityContext securityContext, @PathParam("id") Long id) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
 
         boolean isSuccess = userService.deleteUser(currentUser, id);
 

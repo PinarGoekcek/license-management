@@ -7,6 +7,7 @@ import de.hse.gruppe8.util.mapper.UserMapper;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.core.SecurityContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,11 @@ public class UserService {
 
     @Inject
     UserMapper userMapper;
+
+    public User getUserFromContext(SecurityContext securityContext) {
+        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
+        return userMapper.toUser(userDao.getUser(user_id));
+    }
 
     public List<User> getUsers(User currentUser) {
         List<User> users = new ArrayList<>();
@@ -32,9 +38,12 @@ public class UserService {
         return users;
     }
 
-    public User getUser(Long id) {
-        UserEntity userEntity = userDao.getUser(id);
-        return userMapper.toUser(userEntity);
+    public User getUser(User currentUser, Long id) {
+        if (currentUser.getIsAdmin() || id.equals(currentUser.getId())) {
+            UserEntity userEntity = userDao.getUser(id);
+            return userMapper.toUser(userEntity);
+        }
+        return null;
     }
 
     public User createUser(User currentUser, User user) {
