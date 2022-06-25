@@ -1,4 +1,4 @@
-import {FiPlusSquare, FiUser, FiLogOut} from 'react-icons/fi';
+import {FiLogOut, FiPlusSquare, FiUser} from 'react-icons/fi';
 import ButtonIco from './ButtonIco';
 import {useHistory} from 'react-router-dom';
 import {routes} from '../config';
@@ -34,7 +34,11 @@ const Header = ({title, onClickAdd, showAdd, onClickUserPrefs, setFilterText}) =
 
                 <div className='group'>
           <span className='hItem'>
-            <input type='text' placeholder='Filter' onChange={e => setFilterText(e.target.value)}/>
+              {showAdd &&
+                  <input type='text' placeholder='Filter'
+                         onChange={e => setFilterText(e.target.value)}/>
+
+              }
           </span>
                     <span className='hItem icon onHoverChangeCol'>
             <ButtonIco
