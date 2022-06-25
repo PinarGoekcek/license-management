@@ -3,7 +3,7 @@ import ButtonIco from './ButtonIco';
 import {useHistory} from 'react-router-dom';
 import {routes} from '../config';
 
-const Header = ({title, onClickAdd, showAdd, onClickUserPrefs}) => {
+const Header = ({title, onClickAdd, showAdd, onClickUserPrefs, setFilterText}) => {
     const history = useHistory();
 
     const iconSize = 30;
@@ -34,7 +34,7 @@ const Header = ({title, onClickAdd, showAdd, onClickUserPrefs}) => {
 
                 <div className='group'>
           <span className='hItem'>
-            <input type='text' placeholder='Filter'/>
+            <input type='text' placeholder='Filter' onChange={e => setFilterText(e.target.value)}/>
           </span>
                     <span className='hItem icon onHoverChangeCol'>
             <ButtonIco

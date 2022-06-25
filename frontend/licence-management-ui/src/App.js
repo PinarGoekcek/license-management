@@ -25,6 +25,7 @@ function App() {
     const history = useHistory();
     const [headTitle, setHeadTitle] = useState('');
     const [showHeadAddBtn, setShowHeadAddBtn] = useState('');
+    const [filterText, setFilterText] = useState('');
 
     axios.interceptors.response.use(
         (response) => {
@@ -71,11 +72,12 @@ function App() {
     return (
         <div className='my-container'>
             <Header title={headTitle} onClickAdd={onClickAdd} showAdd={showHeadAddBtn}
-                    onClickUserPrefs={showUserPrefs}/>
+                    onClickUserPrefs={showUserPrefs} setFilterText={setFilterText}/>
             <Navbar/>
             <Switch>
                 <Route path={routes.companies} exact
-                       component={() => <Companies func={getHeadTitle} showAdd={showAddInHeader}/>}/>
+                       component={() => <Companies func={getHeadTitle} showAdd={showAddInHeader}
+                                                   searchText={filterText}/>}/>
                 <Route path={routes.contracts} exact
                        component={() => <Contracts func={getHeadTitle} showAdd={showAddInHeader}/>}/>
                 <Route path={routes.users} exact
