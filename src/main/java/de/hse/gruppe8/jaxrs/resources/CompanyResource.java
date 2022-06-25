@@ -49,8 +49,8 @@ public class CompanyResource {
             @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     public Response createCompany(@Context SecurityContext securityContext, Company company) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         company.setId(null);
         company = companyService.createCompany(currentUser, company);
         if (company != null) {
@@ -66,8 +66,7 @@ public class CompanyResource {
             @APIResponse(responseCode = "401", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     public Response getCompanies(@Context SecurityContext securityContext) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
         return Response.ok().entity(companyService.getCompanies(currentUser)).build();
     }
 
@@ -78,8 +77,8 @@ public class CompanyResource {
     })
     @Path("/{id}")
     public Response getCompanyById(@Context SecurityContext securityContext, @PathParam("id") Long id) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         Company company = companyService.getCompany(currentUser, id);
         if (company != null) {
             return Response.ok().entity(company).build();
@@ -95,8 +94,8 @@ public class CompanyResource {
     })
     @Path("/{id}")
     public Response updateCompany(@Context SecurityContext securityContext, @PathParam("id") Long id, Company company) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         company.setId(id);
         Company newCompany = companyService.updateCompany(currentUser, company);
         if (newCompany != null) {
@@ -113,8 +112,7 @@ public class CompanyResource {
     })
     @Path("/{id}")
     public Response deleteCompany(@Context SecurityContext securityContext, @PathParam("id") Long id) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
 
         boolean isSuccess = companyService.deleteCompany(currentUser, id);
 
@@ -131,8 +129,8 @@ public class CompanyResource {
     })
     @Path("/{id}/users")
     public Response getUsersFromCompany(@Context SecurityContext securityContext, @PathParam("id") Long id) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         return Response.ok().entity(companyService.getUsersFromCompany(currentUser, id)).build();
     }
 
@@ -143,8 +141,8 @@ public class CompanyResource {
     })
     @Path("/{id}/contracts")
     public Response getContractsFromCompany(@Context SecurityContext securityContext, @PathParam("id") Long id) {
-        Long user_id = Long.valueOf(securityContext.getUserPrincipal().getName());
-        User currentUser = userService.getUser(user_id);
+        User currentUser = userService.getUserFromContext(securityContext);
+
         return Response.ok().entity(companyService.getContractsFromCompany(currentUser, id)).build();
     }
 
