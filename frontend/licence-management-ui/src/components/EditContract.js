@@ -11,6 +11,8 @@ const EditContract = (props) => {
 
     const {id} = useParams();
     const history = useHistory();
+    const [contract, setContract] = useState(undefined);
+
 
     const [dateStart, setDateStart] = useState(new Date());
     const [dateStop, setDateStop] = useState(new Date());
@@ -24,7 +26,7 @@ const EditContract = (props) => {
     const [feature3, setFeature3] = useState();
 
     const [companyListIndex, setCompanyListIndex] = useState(-1);
-    const [companies] = useState([]);
+    const [companies, setCompanies] = useState(undefined);
 
     const [users, setUsers] = useState([]);
     const [userListIndex1, setUserListIndex1] = useState(-1);
@@ -37,7 +39,7 @@ const EditContract = (props) => {
             return;
         }
         let jwt = actualuser.jwt || '';
-        axios.get(`${APP_API_ENDPOINT_URL}/contracts`, {
+        axios.get(`${APP_API_ENDPOINT_URL}/companies`, {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -45,7 +47,7 @@ const EditContract = (props) => {
             },
         })
             .then((response) => {
-                setUsers(response.data);
+                setCompanies(response.data);
             });
         axios.get(`${APP_API_ENDPOINT_URL}/contracts/${id}`, {
             headers: {
@@ -55,10 +57,27 @@ const EditContract = (props) => {
             },
         })
             .then((response) => {
-                setUsers(response.data);
+                if (response != undefined && response != null) {
+                    setContract(response.data);
+                }
             });
     }, []);
 
+    useEffect(() => {
+        console.log('use effect contract');
+        if (contract != undefined && contract != null) {
+            setDateStart(contract.dateStart);
+            setDateStop(contract.dateStop);
+            setVersion(contract.version);
+            setLicenseKey(contract.licenseKey);
+            setIp1(contract.ipaddress1);
+            setIp2(contract.ipaddress2);
+            setIp3(contract.ipaddress3);
+            setFeature1(contract.feature1);
+            setFeature2(contract.feature2);
+            setFeature3(contract.feature3);
+        }
+    }, [contract]);
 
     const onSave = () => {
         let user = JSON.parse(localStorage.getItem('user'));
@@ -92,7 +111,7 @@ const EditContract = (props) => {
             updatedContract.user2 = null;
         }
 
-        axios.put(`${APP_API_ENDPOINT_URL}/companies/${companies[companyListIndex].id}`, updatedContract, {
+        axios.put(`${APP_API_ENDPOINT_URL}/contracts/${id}`, updatedContract, {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -101,7 +120,8 @@ const EditContract = (props) => {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    history.push(routes.contracts);}
+                    history.push(routes.contracts);
+                }
             });
     }
     const onCancel = () => {
@@ -114,16 +134,16 @@ const EditContract = (props) => {
                 <div className="m-3">
                     <h3 className="text-center">Company</h3>
                     <select onChange={e => setCompanyListIndex(e.target.value)}>
-                        <option value={null}></option>
-                        {companies && companies.map((item, i) => <option
-                            value={i} key={item.id}>{item.name}</option>)}
+                        {companies && contract && companies.map((item, i) => <option
+                            selected={companies && item.id === contract.company.id}
+                            value={item.id} key={item.id}>{item.name}</option>)}
                     </select>
                 </div>
 
                 <div className="m-3">
                     <h3 className="text-center">Responsible person 1</h3>
                     <select onChange={e => setUserListIndex1(e.target.value)}>
-                        <option value={null}></option>
+                        <option value={-1}></option>
                         {users && users.length && users.map((p1item, i) => <option
                             value={i} key={p1item.id}>{p1item.username}</option>)}
                     </select>
@@ -131,7 +151,7 @@ const EditContract = (props) => {
                 <div className="m-3">
                     <h3 className="text-center">Responsible person 2</h3>
                     <select onChange={e => setUserListIndex2(e.target.value)}>
-                        <option value={null}></option>
+                        <option value={-1}></option>
                         {users && users.length && users.map((p2item, i) => <option
                             value={i} key={p2item.id}>{p2item.username}</option>)}
                     </select>
@@ -140,46 +160,46 @@ const EditContract = (props) => {
                 <div className="m-3">
                     <h3 className="text-center">Date Start</h3>
                     <input className="block border m-auto text-sm text-slate-500"
-                           type='date' value={dateStart.toISOString().split('T')[0]}
+                           type='date' value={dateStart}
                            onChange={e => setDateStart(new Date(e.target.value))}/>
                 </div>
                 <div className="m-3">
                     <h3 className="text-center">Date End</h3>
                     <input className="block border m-auto text-sm text-slate-500"
-                           type='date' value={dateStop.toISOString().split('T')[0]}
+                           type='date' value={dateStop}
                            onChange={e => setDateStop(new Date(e.target.value))}/></div>
                 <div className="m-3">
                     <h3 className="text-center">Version</h3>
                     <input className="block border m-auto text-sm text-slate-500"
-                           type='text' placeholder='' value={version} onChange={e => setVersion(e.target.value)}/></div>
+                           type='text' value={version} onChange={e => setVersion(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">IP number 1</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder='' value={ip1}
-                           onChange={e => setIp1(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
+                           value={ip1} onChange={e => setIp1(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">Feature A</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
                            value={feature1} onChange={e => setFeature1(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">IP number 2</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder='' value={ip2}
-                           onChange={e => setIp2(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
+                           value={ip2} onChange={e => setIp2(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">Feature B</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
                            value={feature2} onChange={e => setFeature2(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">IP number 3</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder='' value={ip3}
-                           onChange={e => setIp3(e.target.value)}/></div>
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
+                           value={ip3} onChange={e => setIp3(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">Feature C</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
                            value={feature3} onChange={e => setFeature3(e.target.value)}/></div>
                 <div className="m-3">
                     <h3 className="text-center">License key</h3>
                     <input className="block border m-auto left-30 w-full text-sm text-slate-500" type='text'
-                           placeholder='' value={licenseKey} onChange={e => setLicenseKey(e.target.value)}/></div>
+                           value={licenseKey} onChange={e => setLicenseKey(e.target.value)}/></div>
             </div>
 
 
