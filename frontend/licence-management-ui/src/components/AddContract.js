@@ -68,6 +68,10 @@ const AddContract = (props) => {
                 .then((response) => {
                     setUsers(response.data);
                 });
+        } else {
+            setUserListIndex1(-1);
+            setUserListIndex2(-1);
+            setUsers([]);
         }
     }, [companyListIndex]);
 
@@ -129,7 +133,7 @@ const AddContract = (props) => {
                 <div className="m-3">
                     <h3 className="text-center">Company</h3>
                     <select onChange={e => setCompanyListIndex(e.target.value)}>
-                        <option value={null}></option>
+                        <option value={-1}></option>
                         {companies && companies.map((item, i) => <option
                             value={i} key={item.id}>{item.name}</option>)}
                     </select>
