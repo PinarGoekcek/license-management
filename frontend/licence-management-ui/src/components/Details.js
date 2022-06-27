@@ -50,13 +50,13 @@ const Details = (props) => {
                 <div className="m-3">
                     <h3 className="text-center">Responsible person 1</h3>
                     <input className="block border m-auto text-sm text-slate-500"
-                           type='text' placeholder='' value={contract && contract.user1.username}/></div>
+                           type='text'  value={contract && contract.user1 && contract.user1.username}/></div>
 
 
                 <div className="m-3">
                     <h3 className="text-center">Responsible person 2</h3>
                     <input className="block border m-auto text-sm text-slate-500"
-                           type='text' placeholder='' value={contract && contract.user2.username}/></div>
+                           type='text'  value={contract && contract.user2 && contract.user2.username}/></div>
 
 
                 <div className="m-3">
@@ -73,38 +73,38 @@ const Details = (props) => {
                 <div className="m-3">
                     <h3 className="text-center">Version</h3>
                     <input className="block border m-auto text-sm text-slate-500"
-                           type='text' placeholder='' value={contract && contract.version}/></div>
+                           type='text'  value={contract && contract.version}/></div>
                 <div className="m-3">
                     <h3 className="text-center">IP number 1</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
                            value={contract && contract.ipaddress1}
                     /></div>
                 <div className="m-3">
                     <h3 className="text-center">Feature A</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
                            value={contract && contract.feature1}/></div>
                 <div className="m-3">
                     <h3 className="text-center">IP number 2</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
                            value={contract && contract.ipaddress2}
                     /></div>
                 <div className="m-3">
                     <h3 className="text-center">Feature B</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
                            value={contract && contract.feature2}/></div>
                 <div className="m-3">
                     <h3 className="text-center">IP number 3</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
                            value={contract && contract.ipaddress3}
                     /></div>
                 <div className="m-3">
                     <h3 className="text-center">Feature C</h3>
-                    <input className="block border m-auto text-sm text-slate-500" type='text' placeholder=''
+                    <input className="block border m-auto text-sm text-slate-500" type='text'
                            value={contract && contract.feature3}/></div>
                 <div className="m-3">
                     <h3 className="text-center">License key</h3>
                     <input className="block border m-auto left-30 w-full text-sm text-slate-500" type='text'
-                           placeholder='' value={contract && contract.licenseKey}/></div>
+                            value={contract && contract.licenseKey}/></div>
             </div>
 
 
